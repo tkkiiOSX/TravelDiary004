@@ -23,16 +23,16 @@
 /* Begin PBXFileReference section */
 		EB849F352FEFD45500F88B7F /* TextureSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextureSupport.swift; sourceTree = "<group>"; };
 		EBA4815230022025002509E1 /* TravelDiary004UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravelDiary004UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EBE9498B2FCC004000B9AFBB /* TravelDiary004.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelDiary004.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBE9498B2FCC004000B9AFBB /* 旅行予定日記.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "旅行予定日記.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		EB3D9A9D2FF79AC3002633E6 /* Exceptions for "TravelDiary004" folder in "TravelDiary004" target */ = {
+		EB3D9A9D2FF79AC3002633E6 /* Exceptions for "TravelDiary004" folder in "旅行予定日記" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = EBE9498A2FCC004000B9AFBB /* TravelDiary004 */;
+			target = EBE9498A2FCC004000B9AFBB /* 旅行予定日記 */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -45,7 +45,7 @@
 		EBE9498D2FCC004000B9AFBB /* TravelDiary004 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				EB3D9A9D2FF79AC3002633E6 /* Exceptions for "TravelDiary004" folder in "TravelDiary004" target */,
+				EB3D9A9D2FF79AC3002633E6 /* Exceptions for "TravelDiary004" folder in "旅行予定日記" target */,
 			);
 			path = TravelDiary004;
 			sourceTree = "<group>";
@@ -83,7 +83,7 @@
 		EBE9498C2FCC004000B9AFBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EBE9498B2FCC004000B9AFBB /* TravelDiary004.app */,
+				EBE9498B2FCC004000B9AFBB /* 旅行予定日記.app */,
 				EBA4815230022025002509E1 /* TravelDiary004UITests.xctest */,
 			);
 			name = Products;
@@ -115,9 +115,9 @@
 			productReference = EBA4815230022025002509E1 /* TravelDiary004UITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		EBE9498A2FCC004000B9AFBB /* TravelDiary004 */ = {
+		EBE9498A2FCC004000B9AFBB /* 旅行予定日記 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EBE949962FCC004200B9AFBB /* Build configuration list for PBXNativeTarget "TravelDiary004" */;
+			buildConfigurationList = EBE949962FCC004200B9AFBB /* Build configuration list for PBXNativeTarget "旅行予定日記" */;
 			buildPhases = (
 				EBE949872FCC004000B9AFBB /* Sources */,
 				EBE949882FCC004000B9AFBB /* Frameworks */,
@@ -130,11 +130,11 @@
 			fileSystemSynchronizedGroups = (
 				EBE9498D2FCC004000B9AFBB /* TravelDiary004 */,
 			);
-			name = TravelDiary004;
+			name = "旅行予定日記";
 			packageProductDependencies = (
 			);
 			productName = TravelDiary004;
-			productReference = EBE9498B2FCC004000B9AFBB /* TravelDiary004.app */;
+			productReference = EBE9498B2FCC004000B9AFBB /* 旅行予定日記.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -171,7 +171,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EBE9498A2FCC004000B9AFBB /* TravelDiary004 */,
+				EBE9498A2FCC004000B9AFBB /* 旅行予定日記 */,
 				EBA4815130022025002509E1 /* TravelDiary004UITests */,
 			);
 		};
@@ -215,7 +215,7 @@
 /* Begin PBXTargetDependency section */
 		EBA4815930022025002509E1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = EBE9498A2FCC004000B9AFBB /* TravelDiary004 */;
+			target = EBE9498A2FCC004000B9AFBB /* 旅行予定日記 */;
 			targetProxy = EBA4815830022025002509E1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -394,7 +394,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = EYSYK49KTW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -430,7 +430,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = EYSYK49KTW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -481,7 +481,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EBE949962FCC004200B9AFBB /* Build configuration list for PBXNativeTarget "TravelDiary004" */ = {
+		EBE949962FCC004200B9AFBB /* Build configuration list for PBXNativeTarget "旅行予定日記" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EBE949972FCC004200B9AFBB /* Debug */,

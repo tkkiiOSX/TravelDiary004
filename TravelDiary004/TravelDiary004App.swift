@@ -23,3 +23,4 @@ struct TravelDiary004App: App {
         }
     }
 }
+
