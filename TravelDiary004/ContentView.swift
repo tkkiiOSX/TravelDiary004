@@ -19,3 +19,4 @@ struct ContentView: View {
     ContentView().environmentObject(TravelDataModel())
 }
 
+

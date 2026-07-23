@@ -98,11 +98,15 @@ private struct CardStyleEditorSheet: View {
 
                         if card.showDate {
                             VStack(alignment: .leading, spacing: 2) {
-                                Text(card.date, style: .date)
+                                Text(card.displayDateString)
                                     .font(.subheadline)
                                     .foregroundColor(card.textColor)
                                     .bold()
-                                Text(card.date, style: .time)
+                            }
+                        }
+                        if card.showTime {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(card.displayTimeString)
                                     .font(.caption)
                                     .foregroundColor(card.textColor.opacity(0.8))
                             }
@@ -349,9 +353,16 @@ struct CardEditView: View {
                 TextField("カードタイトルを入力", text: $card.title)
             }
             Section("日時") {
-                Toggle("シートに日時を表示", isOn: $card.showDate)
+                Toggle("日付を表示", isOn: $card.showDate)
                     .toggleStyle(.switch)
-                DatePicker("日付", selection: $card.date, displayedComponents: [.date, .hourAndMinute])
+                Toggle("時刻を表示", isOn: $card.showTime)
+                    .toggleStyle(.switch)
+                if card.showDate {
+                    DatePicker("日付", selection: $card.date, displayedComponents: [.date])
+                }
+                if card.showTime {
+                    DatePicker("時刻", selection: $card.time, displayedComponents: [.hourAndMinute])
+                }
             }
             Section("メモ") {
                 TextEditor(text: $card.memo)
@@ -539,11 +550,15 @@ struct CardEditView: View {
 
                         if card.showDate {
                             VStack(alignment: .leading, spacing: 2) {
-                                Text(card.date, style: .date)
+                                Text(card.displayDateString)
                                     .font(.subheadline)
                                     .foregroundColor(card.textColor)
                                     .bold()
-                                Text(card.date, style: .time)
+                            }
+                        }
+                        if card.showTime {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(card.displayTimeString)
                                     .font(.caption)
                                     .foregroundColor(card.textColor.opacity(0.8))
                             }

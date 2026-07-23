@@ -294,10 +294,15 @@ struct PrintableCardView: View {
 
             if card.showDate {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(card.date, style: .date)
+                    Text(card.displayDateString)
                         .font(.headline)
                         .foregroundColor(card.textColor)
-                    Text(card.date, style: .time)
+                }
+            }
+
+            if card.showTime {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(card.displayTimeString)
                         .font(.subheadline)
                         .foregroundColor(card.textColor.opacity(0.8))
                 }
@@ -305,10 +310,6 @@ struct PrintableCardView: View {
 
             if !card.memo.isEmpty {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text("メモ")
-                        .font(.subheadline)
-                        .foregroundColor(card.textColor.opacity(0.7))
-                        .bold()
                     Text(card.memo)
                         .font(.body)
                         .foregroundColor(card.textColor)
@@ -318,10 +319,6 @@ struct PrintableCardView: View {
 
             if card.hasLocation && card.printLocation {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text("MAP")
-                        .font(.subheadline)
-                        .foregroundColor(card.textColor.opacity(0.7))
-                        .bold()
                     if let snapshot = mapSnapshot {
                         SquareContainer(size: maxWidth - 32) {
                             Image(uiImage: snapshot)
@@ -336,10 +333,6 @@ struct PrintableCardView: View {
 
             if card.hasURL && card.printWebPage {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text("Web表示")
-                        .font(.subheadline)
-                        .foregroundColor(card.textColor.opacity(0.7))
-                        .bold()
                     if let webImage = webSnapshot {
                         SquareContainer(size: maxWidth - 32) {
                             Image(uiImage: webImage)
@@ -354,10 +347,6 @@ struct PrintableCardView: View {
 
             if card.printPhoto, let data = card.imageData, let uiImage = UIImage(data: data) {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("写真")
-                        .font(.headline)
-                        .foregroundColor(card.textColor.opacity(0.7))
-                        .bold()
                     SquareContainer(size: maxWidth - 32) {
                         let isLandscape = uiImage.size.width >= uiImage.size.height
                         Group {

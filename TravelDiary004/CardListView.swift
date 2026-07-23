@@ -106,17 +106,19 @@ struct CardListView: View {
                             // Header section: title editor & color picker
                             Section {
                                 VStack(alignment: .leading, spacing: 12) {
-                                    TextField("シート名を入力", text: Binding(
-                                        get: { sheet.title },
-                                        set: { model.updateSheetTitle(sheetID: sheet.id, newTitle: $0) }
-                                    ))
-                                    .textFieldStyle(.roundedBorder)
-                                    .font(.title2)
-                                    .bold()
-
-                                    ColorPicker("シート背景色", selection: Binding(get: { sheet.backgroundColor }, set: { newColor in
-                                        model.updateSheetColor(sheetID: sheet.id, color: newColor)
-                                    }), supportsOpacity: false)
+                                    if let startDate = sheet.startDate, let endDate = sheet.endDate {
+                                        Text("旅行日程: \(formattedDate(startDate)) 〜 \(formattedDate(endDate))")
+                                            .font(.callout)
+                                            .foregroundColor(sheet.travelDateTextColor)
+                                    } else if let startDate = sheet.startDate {
+                                        Text("旅行開始予定日: \(formattedDate(startDate))")
+                                            .font(.callout)
+                                            .foregroundColor(sheet.travelDateTextColor)
+                                    } else if let endDate = sheet.endDate {
+                                        Text("旅行終了予定日: \(formattedDate(endDate))")
+                                            .font(.callout)
+                                            .foregroundColor(sheet.travelDateTextColor)
+                                    }
                                 }
                                 .listRowBackground(sheet.backgroundColor.opacity(0.08))
                             }
@@ -186,7 +188,7 @@ struct CardListView: View {
                 NavigationStack {
                     CardEditView(
                         card: TravelCard(
-                            backgroundColorHex: TravelCard.defaultCardBackgroundColorHex(for: sheet.backgroundColorHex),
+                            backgroundColorHex: sheet.effectiveDefaultCardBackgroundColorHex,
                             textColorHex: TravelCard.defaultTextColorHex
                         ),
                         sheet: sheet
@@ -247,6 +249,14 @@ struct CardListView: View {
     }
 }
 
+private func formattedDate(_ date: Date?) -> String {
+    guard let date else { return "未設定" }
+    let formatter = DateFormatter()
+    formatter.locale = Locale(identifier: "ja_JP")
+    formatter.dateStyle = .medium
+    return formatter.string(from: date)
+}
+
 private struct CardDisplayView: View {
     let card: TravelCard
     @State private var position: MapCameraPosition = .automatic
@@ -272,10 +282,15 @@ private struct CardDisplayView: View {
 
             if card.showDate {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(card.date, style: .date)
+                    Text(card.displayDateString)
                         .font(.headline)
                         .foregroundColor(card.textColor)
-                    Text(card.date, style: .time)
+                }
+            }
+
+            if card.showTime {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(card.displayTimeString)
                         .font(.subheadline)
                         .foregroundColor(card.textColor.opacity(0.8))
                 }
@@ -283,10 +298,6 @@ private struct CardDisplayView: View {
 
             if !card.memo.isEmpty {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text("メモ")
-                        .font(.subheadline)
-                        .foregroundColor(card.textColor.opacity(0.7))
-                        .bold()
                     Text(card.memo)
                         .font(.body)
                         .foregroundColor(card.textColor)
@@ -296,10 +307,6 @@ private struct CardDisplayView: View {
 
             if card.hasLocation {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text("MAP")
-                        .font(.subheadline)
-                        .foregroundColor(card.textColor.opacity(0.7))
-                        .bold()
                     ZStack {
                         GeometryReader { geo in
                             let side = min(geo.size.width, geo.size.height)
@@ -327,10 +334,6 @@ private struct CardDisplayView: View {
 
             if let url = displayURL {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text("Web表示")
-                        .font(.subheadline)
-                        .foregroundColor(card.textColor.opacity(0.7))
-                        .bold()
                     ZStack {
                         GeometryReader { geo in
                             let side = min(geo.size.width, geo.size.height)

@@ -89,6 +89,10 @@ struct TravelSheet: Identifiable, Hashable, Codable {
     var cardScales: [UUID: Double] = [:]
     var cardAlignmentsRaw: [UUID: String] = [:]
     var backgroundColorHex: String = "#FFFFFF"
+    var travelDateTextColorHex: String = "#666666"
+    var defaultCardBackgroundColorHex: String? = nil
+    var startDate: Date? = nil
+    var endDate: Date? = nil
 
     var cardAlignments: [UUID: CardHorizontalAlignment] {
         get {
@@ -107,6 +111,14 @@ struct TravelSheet: Identifiable, Hashable, Codable {
 
     var backgroundColor: Color {
         Color(hex: backgroundColorHex)
+    }
+
+    var travelDateTextColor: Color {
+        Color(hex: travelDateTextColorHex)
+    }
+
+    var effectiveDefaultCardBackgroundColorHex: String {
+        defaultCardBackgroundColorHex ?? TravelCard.defaultCardBackgroundColorHex(for: backgroundColorHex)
     }
 }
 
@@ -129,6 +141,8 @@ struct TravelCard: Identifiable, Hashable, Codable {
     var url: String = ""
     var category: String = "該当なし"
     var showDate: Bool = false
+    var showTime: Bool = false
+    var time: Date = Date()
     var printLocation: Bool = true
     var printWebPage: Bool = true
     var printPhoto: Bool = true
@@ -182,6 +196,22 @@ struct TravelCard: Identifiable, Hashable, Codable {
 
     var backgroundColor: Color {
         Color(hex: backgroundColorHex)
+    }
+
+    var displayDateString: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ja_JP")
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter.string(from: date)
+    }
+
+    var displayTimeString: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ja_JP")
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        return formatter.string(from: time)
     }
 
     var textColor: Color {
@@ -304,6 +334,8 @@ struct TravelCard: Identifiable, Hashable, Codable {
         case url
         case category
         case showDate
+        case showTime
+        case time
         case printLocation
         case printWebPage
         case printPhoto
@@ -333,6 +365,8 @@ struct TravelCard: Identifiable, Hashable, Codable {
         url: String = "",
         category: String = "該当なし",
         showDate: Bool = false,
+        showTime: Bool = false,
+        time: Date = Date(),
         printLocation: Bool = true,
         printWebPage: Bool = true,
         printPhoto: Bool = true,
@@ -360,6 +394,8 @@ struct TravelCard: Identifiable, Hashable, Codable {
         self.url = url
         self.category = category
         self.showDate = showDate
+        self.showTime = showTime
+        self.time = time
         self.printLocation = printLocation
         self.printWebPage = printWebPage
         self.printPhoto = printPhoto
@@ -390,6 +426,8 @@ struct TravelCard: Identifiable, Hashable, Codable {
         url = try container.decodeIfPresent(String.self, forKey: .url) ?? ""
         category = try container.decodeIfPresent(String.self, forKey: .category) ?? "該当なし"
         showDate = try container.decodeIfPresent(Bool.self, forKey: .showDate) ?? false
+        showTime = try container.decodeIfPresent(Bool.self, forKey: .showTime) ?? false
+        time = try container.decodeIfPresent(Date.self, forKey: .time) ?? date
         printLocation = try container.decodeIfPresent(Bool.self, forKey: .printLocation) ?? true
         printWebPage = try container.decodeIfPresent(Bool.self, forKey: .printWebPage) ?? true
         printPhoto = try container.decodeIfPresent(Bool.self, forKey: .printPhoto) ?? true
@@ -420,6 +458,8 @@ struct TravelCard: Identifiable, Hashable, Codable {
         try container.encode(url, forKey: .url)
         try container.encode(category, forKey: .category)
         try container.encode(showDate, forKey: .showDate)
+        try container.encode(showTime, forKey: .showTime)
+        try container.encode(time, forKey: .time)
         try container.encode(printLocation, forKey: .printLocation)
         try container.encode(printWebPage, forKey: .printWebPage)
         try container.encode(printPhoto, forKey: .printPhoto)
@@ -567,11 +607,13 @@ final class TravelDataModel: ObservableObject {
         importFeedback = nil
     }
 
-    func addSheet(title: String, backgroundColor: Color = .white) {
+    func addSheet(title: String, backgroundColor: Color = .white, startDate: Date? = nil, endDate: Date? = nil, travelDateTextColor: Color = .secondary, defaultCardBackgroundColor: Color? = nil) {
         let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
         let hex = UIColor(backgroundColor).toHexString() ?? "#FFFFFF"
-        sheets.insert(TravelSheet(title: trimmed, backgroundColorHex: hex), at: 0)
+        let textHex = UIColor(travelDateTextColor).toHexString() ?? "#666666"
+        let defaultCardHex = defaultCardBackgroundColor.map { UIColor($0).toHexString() ?? "#FFFFFF" }
+        sheets.insert(TravelSheet(title: trimmed, backgroundColorHex: hex, travelDateTextColorHex: textHex, defaultCardBackgroundColorHex: defaultCardHex, startDate: startDate, endDate: endDate), at: 0)
     }
     
     func deleteSheet(_ sheet: TravelSheet) {
@@ -607,6 +649,24 @@ final class TravelDataModel: ObservableObject {
         guard let idx = sheets.firstIndex(where: { $0.id == sheetID }) else { return }
         let hex = UIColor(color).toHexString() ?? "#FFFFFF"
         sheets[idx].backgroundColorHex = hex
+    }
+
+    func updateSheetTravelDateTextColor(sheetID: UUID, color: Color) {
+        guard let idx = sheets.firstIndex(where: { $0.id == sheetID }) else { return }
+        let hex = UIColor(color).toHexString() ?? "#666666"
+        sheets[idx].travelDateTextColorHex = hex
+    }
+
+    func updateSheetDefaultCardBackgroundColor(sheetID: UUID, color: Color) {
+        guard let idx = sheets.firstIndex(where: { $0.id == sheetID }) else { return }
+        let hex = UIColor(color).toHexString() ?? "#FFFFFF"
+        sheets[idx].defaultCardBackgroundColorHex = hex
+    }
+
+    func updateSheetTravelDates(sheetID: UUID, startDate: Date?, endDate: Date?) {
+        guard let idx = sheets.firstIndex(where: { $0.id == sheetID }) else { return }
+        sheets[idx].startDate = startDate
+        sheets[idx].endDate = endDate
     }
     
     func updateSheetTitle(sheetID: UUID, newTitle: String) {
