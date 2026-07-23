@@ -80,17 +80,16 @@ private struct CardStyleEditorSheet: View {
                         HStack(alignment: .center, spacing: 8) {
                             if let icon = card.iconName(), !icon.isEmpty {
                                 Image(systemName: icon)
-                                    .font(.title)
+                                    .font(.system(size: CGFloat(card.textSize), weight: .bold))
                                     .foregroundColor(card.textColor)
                             }
                             if !card.title.isEmpty {
                                 Text(card.title)
-                                    .font(.subheadline)
+                                    .font(.system(size: CGFloat(card.textSize), weight: .bold))
                                     .foregroundColor(card.textColor)
-                                    .bold()
                             } else {
                                 Text("カードタイトル")
-                                    .font(.subheadline)
+                                    .font(.system(size: CGFloat(card.textSize)))
                                     .foregroundColor(card.textColor.opacity(0.6))
                             }
                             Spacer()
@@ -99,15 +98,14 @@ private struct CardStyleEditorSheet: View {
                         if card.showDate {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(card.displayDateString)
-                                    .font(.subheadline)
+                                    .font(.system(size: CGFloat(max(card.textSize - 2, 8)), weight: .bold))
                                     .foregroundColor(card.textColor)
-                                    .bold()
                             }
                         }
                         if card.showTime {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(card.displayTimeString)
-                                    .font(.caption)
+                                    .font(.system(size: CGFloat(max(card.textSize - 4, 8))))
                                     .foregroundColor(card.textColor.opacity(0.8))
                             }
                         }
@@ -115,17 +113,16 @@ private struct CardStyleEditorSheet: View {
                         if !card.memo.isEmpty {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text("メモ")
-                                    .font(.caption)
+                                    .font(.system(size: CGFloat(max(card.textSize - 4, 8)), weight: .bold))
                                     .foregroundColor(card.textColor.opacity(0.7))
-                                    .bold()
                                 Text(card.memo)
-                                    .font(.caption)
+                                    .font(.system(size: CGFloat(max(card.textSize - 4, 8))))
                                     .foregroundColor(card.textColor)
                                     .lineLimit(2)
                             }
                         } else {
                             Text("メモサンプル")
-                                .font(.caption)
+                                .font(.system(size: CGFloat(max(card.textSize - 4, 8))))
                                 .foregroundColor(card.textColor.opacity(0.5))
                         }
                     }
@@ -140,9 +137,21 @@ private struct CardStyleEditorSheet: View {
                     .modifier(CardBorderModifier(style: card.borderStyle, color: card.borderColor, lineWidth: CGFloat(card.borderWidth), radius: 12))
                 }
 
-                Section("カード色") {
+                Section("カードスタイル") {
                     ColorPicker("背景色", selection: backgroundColorBinding, supportsOpacity: false)
                     ColorPicker("文字色", selection: textColorBinding, supportsOpacity: false)
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("文字サイズ")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        HStack(spacing: 12) {
+                            Slider(value: Binding(get: { card.textSize }, set: { card.textSize = min(max($0, 10.0), 36.0) }), in: 10.0...36.0, step: 1.0)
+                            Text("\(Int(card.textSize.rounded())) pt")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                                .frame(width: 54, alignment: .trailing)
+                        }
+                    }
                     VStack(alignment: .leading, spacing: 8) {
                         Text("背景効果（パターン）")
                             .font(.subheadline)
@@ -522,7 +531,7 @@ struct CardEditView: View {
                     }
                 }
             }
-            Section("カード色") {
+            Section("カードスタイル") {
                 Button {
                     showStyleEditor = true
                 } label: {
@@ -530,17 +539,16 @@ struct CardEditView: View {
                         HStack(alignment: .center, spacing: 8) {
                             if let icon = card.iconName(), !icon.isEmpty {
                                 Image(systemName: icon)
-                                    .font(.title)
+                                    .font(.system(size: CGFloat(card.textSize), weight: .bold))
                                     .foregroundColor(card.textColor)
                             }
                             if !card.title.isEmpty {
                                 Text(card.title)
-                                    .font(.subheadline)
+                                    .font(.system(size: CGFloat(card.textSize), weight: .bold))
                                     .foregroundColor(card.textColor)
-                                    .bold()
                             } else {
                                 Text("カードタイトル")
-                                    .font(.subheadline)
+                                    .font(.system(size: CGFloat(card.textSize)))
                                     .foregroundColor(card.textColor.opacity(0.6))
                             }
                             Spacer()
@@ -551,15 +559,14 @@ struct CardEditView: View {
                         if card.showDate {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(card.displayDateString)
-                                    .font(.subheadline)
+                                    .font(.system(size: CGFloat(max(card.textSize - 2, 8)), weight: .bold))
                                     .foregroundColor(card.textColor)
-                                    .bold()
                             }
                         }
                         if card.showTime {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(card.displayTimeString)
-                                    .font(.caption)
+                                    .font(.system(size: CGFloat(max(card.textSize - 4, 8))))
                                     .foregroundColor(card.textColor.opacity(0.8))
                             }
                         }
@@ -567,17 +574,16 @@ struct CardEditView: View {
                         if !card.memo.isEmpty {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text("メモ")
-                                    .font(.caption)
+                                    .font(.system(size: CGFloat(max(card.textSize - 4, 8)), weight: .bold))
                                     .foregroundColor(card.textColor.opacity(0.7))
-                                    .bold()
                                 Text(card.memo)
-                                    .font(.caption)
+                                    .font(.system(size: CGFloat(max(card.textSize - 4, 8))))
                                     .foregroundColor(card.textColor)
                                     .lineLimit(2)
                             }
                         } else {
                             Text("メモサンプル")
-                                .font(.caption)
+                                .font(.system(size: CGFloat(max(card.textSize - 4, 8))))
                                 .foregroundColor(card.textColor.opacity(0.5))
                         }
                     }
@@ -697,4 +703,3 @@ struct CardEditView: View {
     CardEditView(card: TravelCard(), sheet: TravelSheet(title: "サンプル")) { _ in }
         .environmentObject(TravelDataModel())
 }
-

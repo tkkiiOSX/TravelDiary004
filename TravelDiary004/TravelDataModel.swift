@@ -155,6 +155,8 @@ struct TravelCard: Identifiable, Hashable, Codable {
     var borderStyleRaw: String = CardBorderStyle.none.rawValue
     var patternOpacity: Double = 0.45
 
+    var textSize: Double = 14.0
+
     var backgroundEffectRaw: String = BackgroundEffect.none.rawValue
     var patternEffectRaw: String = PatternEffect.none.rawValue
     var gradientEffectRaw: String = GradientEffect.none.rawValue
@@ -350,6 +352,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         case backgroundEffectRaw
         case patternEffectRaw
         case gradientEffectRaw
+        case textSize
     }
 
     init(
@@ -380,7 +383,8 @@ struct TravelCard: Identifiable, Hashable, Codable {
         patternOpacity: Double = 0.45,
         backgroundEffectRaw: String = BackgroundEffect.none.rawValue,
         patternEffectRaw: String = PatternEffect.none.rawValue,
-        gradientEffectRaw: String = GradientEffect.none.rawValue
+        gradientEffectRaw: String = GradientEffect.none.rawValue,
+        textSize: Double = 14.0
     ) {
         self.id = id
         self.date = date
@@ -410,6 +414,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         self.backgroundEffectRaw = backgroundEffectRaw
         self.patternEffectRaw = patternEffectRaw
         self.gradientEffectRaw = gradientEffectRaw
+        self.textSize = textSize
     }
 
     init(from decoder: Decoder) throws {
@@ -442,6 +447,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         backgroundEffectRaw = try container.decodeIfPresent(String.self, forKey: .backgroundEffectRaw) ?? BackgroundEffect.none.rawValue
         patternEffectRaw = try container.decodeIfPresent(String.self, forKey: .patternEffectRaw) ?? PatternEffect.none.rawValue
         gradientEffectRaw = try container.decodeIfPresent(String.self, forKey: .gradientEffectRaw) ?? GradientEffect.none.rawValue
+        textSize = try container.decodeIfPresent(Double.self, forKey: .textSize) ?? 14.0
     }
 
     func encode(to encoder: Encoder) throws {
@@ -474,6 +480,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         try container.encode(backgroundEffectRaw, forKey: .backgroundEffectRaw)
         try container.encode(patternEffectRaw, forKey: .patternEffectRaw)
         try container.encode(gradientEffectRaw, forKey: .gradientEffectRaw)
+        try container.encode(textSize, forKey: .textSize)
     }
 }
 
@@ -693,3 +700,4 @@ final class TravelDataModel: ObservableObject {
         sheets[idx].cardAlignmentsRaw = [:]
     }
 }
+
