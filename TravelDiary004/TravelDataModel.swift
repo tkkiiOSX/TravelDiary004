@@ -84,6 +84,8 @@ struct ImportFeedback: Identifiable, Equatable {
 struct TravelSheet: Identifiable, Hashable, Codable {
     var id: UUID = UUID()
     var title: String
+    var titleTextColorHex: String = "#000000"
+    var titleBackgroundColorHex: String = "#FFFFFF"
     var cards: [TravelCard] = []
     var manualPageBreaks: Set<UUID> = []
     var cardScales: [UUID: Double] = [:]
@@ -115,6 +117,14 @@ struct TravelSheet: Identifiable, Hashable, Codable {
 
     var travelDateTextColor: Color {
         Color(hex: travelDateTextColorHex)
+    }
+    
+    var titleTextColor: Color {
+        Color(hex: titleTextColorHex)
+    }
+    
+    var titleBackgroundColor: Color {
+        Color(hex: titleBackgroundColorHex)
     }
 
     var effectiveDefaultCardBackgroundColorHex: String {
@@ -614,13 +624,15 @@ final class TravelDataModel: ObservableObject {
         importFeedback = nil
     }
 
-    func addSheet(title: String, backgroundColor: Color = .white, startDate: Date? = nil, endDate: Date? = nil, travelDateTextColor: Color = .secondary, defaultCardBackgroundColor: Color? = nil) {
+    func addSheet(title: String, backgroundColor: Color = .white, startDate: Date? = nil, endDate: Date? = nil, travelDateTextColor: Color = .secondary, defaultCardBackgroundColor: Color? = nil, titleTextColor: Color = .primary, titleBackgroundColor: Color = .white) {
         let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
         let hex = UIColor(backgroundColor).toHexString() ?? "#FFFFFF"
         let textHex = UIColor(travelDateTextColor).toHexString() ?? "#666666"
         let defaultCardHex = defaultCardBackgroundColor.map { UIColor($0).toHexString() ?? "#FFFFFF" }
-        sheets.insert(TravelSheet(title: trimmed, backgroundColorHex: hex, travelDateTextColorHex: textHex, defaultCardBackgroundColorHex: defaultCardHex, startDate: startDate, endDate: endDate), at: 0)
+        let titleTextHex = UIColor(titleTextColor).toHexString() ?? "#000000"
+        let titleBgHex = UIColor(titleBackgroundColor).toHexString() ?? "#FFFFFF"
+        sheets.insert(TravelSheet(title: trimmed, titleTextColorHex: titleTextHex, titleBackgroundColorHex: titleBgHex, backgroundColorHex: hex, travelDateTextColorHex: textHex, defaultCardBackgroundColorHex: defaultCardHex, startDate: startDate, endDate: endDate), at: 0)
     }
     
     func deleteSheet(_ sheet: TravelSheet) {
@@ -698,6 +710,18 @@ final class TravelDataModel: ObservableObject {
         sheets[idx].manualPageBreaks = []
         sheets[idx].cardScales = [:]
         sheets[idx].cardAlignmentsRaw = [:]
+    }
+    
+    func updateSheetTitleTextColor(sheetID: UUID, color: Color) {
+        guard let idx = sheets.firstIndex(where: { $0.id == sheetID }) else { return }
+        let hex = UIColor(color).toHexString() ?? "#000000"
+        sheets[idx].titleTextColorHex = hex
+    }
+
+    func updateSheetTitleBackgroundColor(sheetID: UUID, color: Color) {
+        guard let idx = sheets.firstIndex(where: { $0.id == sheetID }) else { return }
+        let hex = UIColor(color).toHexString() ?? "#FFFFFF"
+        sheets[idx].titleBackgroundColorHex = hex
     }
 }
 

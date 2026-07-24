@@ -62,7 +62,7 @@ struct PrintLayoutView: View {
         Group {
             pagesTabView
         }
-        .navigationTitle("改ページ設定")
+        .navigationTitle(sheet.title.isEmpty ? "改ページ設定" : sheet.title)
         .toolbar { mainToolbar }
         .sheet(isPresented: $showExportSheet) { exportSheetContent }
         .sheet(isPresented: $showPDFPreview) { pdfPreviewSheet }
@@ -192,6 +192,20 @@ struct PrintLayoutView: View {
         let contentWidth = pageSize.width - margins.left - margins.right
         let pageRect = CGRect(origin: .zero, size: pageSize)
 
+        let titleText = sheet.title.isEmpty ? "無題のシート" : sheet.title
+        let titleFont = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        let titleAttributes: [NSAttributedString.Key: Any] = [
+            .font: titleFont,
+            .foregroundColor: UIColor(sheet.titleTextColor)
+        ]
+        let titleRect = NSString(string: titleText).boundingRect(
+            with: CGSize(width: contentWidth - 24, height: .greatestFiniteMagnitude),
+            options: [.usesLineFragmentOrigin, .usesFontLeading],
+            attributes: titleAttributes,
+            context: nil
+        )
+        let titleHeight = titleRect.height + 18
+
         var mapSnapshots: [UUID: UIImage] = [:]
         var pageSnapshots: [UUID: UIImage] = [:]
         for card in sheet.cards {
@@ -233,6 +247,18 @@ struct PrintLayoutView: View {
 
                 currentY = margins.top
                 remainingHeight = contentHeight
+
+                // Draw sheet title header
+                let headerRect = CGRect(x: margins.left, y: currentY, width: contentWidth, height: titleHeight)
+                let roundedPath = UIBezierPath(roundedRect: headerRect, cornerRadius: 10)
+                UIColor(sheet.titleBackgroundColor).setFill()
+                roundedPath.fill()
+
+                let textRect = CGRect(x: margins.left + 12, y: currentY + 9, width: contentWidth - 24, height: titleRect.height)
+                NSString(string: titleText).draw(with: textRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: titleAttributes, context: nil)
+
+                currentY += titleHeight + 12
+                remainingHeight -= titleHeight + 12
             }
 
             // Start first page

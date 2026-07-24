@@ -75,7 +75,7 @@ struct PDFPreviewContainer: View {
             if let url = pdfURL {
                 NavigationStack {
                     PDFPreviewView(url: url)
-                        .navigationTitle("PDFプレビュー")
+                        .navigationTitle(sheet.title.isEmpty ? "PDFプレビュー" : sheet.title)
                         .navigationBarTitleDisplayMode(.inline)
                         .toolbar {
                             ToolbarItem(placement: .navigationBarTrailing) {
@@ -180,6 +180,20 @@ struct PDFPreviewContainer: View {
         let contentHeight = pageSize.height - margins.top - margins.bottom
         let pageRect = CGRect(origin: .zero, size: pageSize)
 
+        let titleText = sheet.title.isEmpty ? "無題のシート" : sheet.title
+        let titleFont = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        let titleAttributes: [NSAttributedString.Key: Any] = [
+            .font: titleFont,
+            .foregroundColor: UIColor(sheet.titleTextColor)
+        ]
+        let titleRect = NSString(string: titleText).boundingRect(
+            with: CGSize(width: contentWidth - 24, height: .greatestFiniteMagnitude),
+            options: [.usesLineFragmentOrigin, .usesFontLeading],
+            attributes: titleAttributes,
+            context: nil
+        )
+        let titleHeight = titleRect.height + 18
+
         var renderedCards: [(cardID: UUID, image: UIImage)] = []
         for card in sheet.cards {
             let view = PrintableCardView(
@@ -204,6 +218,18 @@ struct PDFPreviewContainer: View {
                 context.cgContext.fill(CGRect(origin: .zero, size: pageSize))
                 remainingHeight = contentHeight
                 currentY = margins.top
+
+                // Draw sheet title header
+                let headerRect = CGRect(x: margins.left, y: currentY, width: contentWidth, height: titleHeight)
+                let roundedPath = UIBezierPath(roundedRect: headerRect, cornerRadius: 10)
+                UIColor(sheet.titleBackgroundColor).setFill()
+                roundedPath.fill()
+
+                let textRect = CGRect(x: margins.left + 12, y: currentY + 9, width: contentWidth - 24, height: titleRect.height)
+                NSString(string: titleText).draw(with: textRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: titleAttributes, context: nil)
+
+                currentY += titleHeight + 12
+                remainingHeight -= titleHeight + 12
             }
 
             beginNewPage()

@@ -103,7 +103,22 @@ struct CardListView: View {
                 TabView(selection: $selectedSheetID) {
                     ForEach(model.sheets) { sheet in
                         List {
-                            // Header section: title editor & color picker
+                            Section {
+                                HStack {
+                                    Text(sheet.title.isEmpty ? "無題のシート" : sheet.title)
+                                        .font(.title3.weight(.semibold))
+                                        .foregroundColor(sheet.titleTextColor)
+                                        .padding(.horizontal, 12)
+                                        .padding(.vertical, 8)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                                .fill(sheet.titleBackgroundColor.opacity(0.95))
+                                        )
+                                    Spacer()
+                                }
+                                .listRowBackground(sheet.backgroundColor.opacity(0.08))
+                            }
+
                             Section {
                                 VStack(alignment: .leading, spacing: 12) {
                                     if let startDate = sheet.startDate, let endDate = sheet.endDate {
@@ -157,8 +172,24 @@ struct CardListView: View {
                 .tabViewStyle(.page(indexDisplayMode: .automatic))
             }
         }
-        .navigationTitle(selectedSheet?.title ?? "カード表示")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .principal) {
+                if let sheet = selectedSheet {
+                    Text(sheet.title.isEmpty ? "無題のシート" : sheet.title)
+                        .font(.headline.weight(.semibold))
+                        .foregroundColor(sheet.titleTextColor)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
+                        .background(
+                            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                .fill(sheet.titleBackgroundColor.opacity(0.95))
+                        )
+                } else {
+                    Text("カード表示")
+                }
+            }
+
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button {
                     showingNewCard = true

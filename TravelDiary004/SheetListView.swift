@@ -8,6 +8,8 @@ struct SheetListView: View {
     @State private var newSheetColor: Color = .white
     @State private var newSheetDefaultCardBackgroundColor: Color = .white
     @State private var newSheetTravelDateTextColor: Color = .secondary
+    @State private var newSheetTitleTextColor: Color = .primary
+    @State private var newSheetTitleBackgroundColor: Color = .white
     @State private var newSheetStartDate: Date? = nil
     @State private var newSheetEndDate: Date? = nil
     @State private var selectingDateFor: DateSelectionTarget? = nil
@@ -17,6 +19,8 @@ struct SheetListView: View {
     @State private var editingSheetColor: Color = .white
     @State private var editingSheetDefaultCardBackgroundColor: Color = .white
     @State private var editingSheetTravelDateTextColor: Color = .secondary
+    @State private var editingSheetTitleTextColor: Color = .primary
+    @State private var editingSheetTitleBackgroundColor: Color = .white
     @State private var editingSheetStartDate: Date? = nil
     @State private var editingSheetEndDate: Date? = nil
     @State private var editingSheetDateSelection: DateSelectionTarget? = nil
@@ -82,6 +86,8 @@ struct SheetListView: View {
                         Form {
                             Section("シート名") {
                                 TextField("例: 東京旅行", text: $newSheetTitle)
+                                ColorPicker("シート名の文字色", selection: $newSheetTitleTextColor, supportsOpacity: false)
+                                ColorPicker("シート名の背景色", selection: $newSheetTitleBackgroundColor, supportsOpacity: false)
                             }
                             Section("背景色") {
                                 ColorPicker("シートの背景色", selection: $newSheetColor, supportsOpacity: false)
@@ -188,7 +194,7 @@ struct SheetListView: View {
                             }
                             ToolbarItem(placement: .confirmationAction) {
                                 Button("保存") {
-                                    model.addSheet(title: newSheetTitle, backgroundColor: newSheetColor, startDate: newSheetStartDate, endDate: newSheetEndDate, travelDateTextColor: newSheetTravelDateTextColor, defaultCardBackgroundColor: newSheetDefaultCardBackgroundColor)
+                                    model.addSheet(title: newSheetTitle, backgroundColor: newSheetColor, startDate: newSheetStartDate, endDate: newSheetEndDate, travelDateTextColor: newSheetTravelDateTextColor, defaultCardBackgroundColor: newSheetDefaultCardBackgroundColor, titleTextColor: newSheetTitleTextColor, titleBackgroundColor: newSheetTitleBackgroundColor)
                                     resetAddSheet()
                                 }
                                 .disabled(newSheetTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
@@ -201,6 +207,8 @@ struct SheetListView: View {
                         Form {
                             Section("シート名") {
                                 TextField("例: 東京旅行", text: $editingSheetTitle)
+                                ColorPicker("シート名の文字色", selection: $editingSheetTitleTextColor, supportsOpacity: false)
+                                ColorPicker("シート名の背景色", selection: $editingSheetTitleBackgroundColor, supportsOpacity: false)
                             }
                             Section("背景色") {
                                 ColorPicker("シートの背景色", selection: $editingSheetColor, supportsOpacity: false)
@@ -276,6 +284,8 @@ struct SheetListView: View {
                                     model.updateSheetDefaultCardBackgroundColor(sheetID: sheet.id, color: editingSheetDefaultCardBackgroundColor)
                                     model.updateSheetTravelDateTextColor(sheetID: sheet.id, color: editingSheetTravelDateTextColor)
                                     model.updateSheetTravelDates(sheetID: sheet.id, startDate: editingSheetStartDate, endDate: editingSheetEndDate)
+                                    model.updateSheetTitleTextColor(sheetID: sheet.id, color: editingSheetTitleTextColor)
+                                    model.updateSheetTitleBackgroundColor(sheetID: sheet.id, color: editingSheetTitleBackgroundColor)
                                     editingSheetSettings = nil
                                 }
                                 .disabled(editingSheetTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
@@ -363,6 +373,8 @@ extension SheetListView {
         newSheetColor = .white
         newSheetDefaultCardBackgroundColor = .white
         newSheetTravelDateTextColor = .secondary
+        newSheetTitleTextColor = .primary
+        newSheetTitleBackgroundColor = .white
         newSheetStartDate = nil
         newSheetEndDate = nil
         selectingDateFor = nil
@@ -375,6 +387,8 @@ extension SheetListView {
         editingSheetColor = sheet.backgroundColor
         editingSheetDefaultCardBackgroundColor = Color(hex: sheet.effectiveDefaultCardBackgroundColorHex)
         editingSheetTravelDateTextColor = sheet.travelDateTextColor
+        editingSheetTitleTextColor = sheet.titleTextColor
+        editingSheetTitleBackgroundColor = sheet.titleBackgroundColor
         editingSheetStartDate = sheet.startDate
         editingSheetEndDate = sheet.endDate
         editingSheetDateSelection = nil
@@ -517,6 +531,13 @@ private struct SheetRowView: View {
                                 )
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(sheet.title)
+                                    .foregroundColor(sheet.titleTextColor)
+                                    .padding(.horizontal, 6)
+                                    .padding(.vertical, 2)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 6, style: .continuous)
+                                            .fill(sheet.titleBackgroundColor.opacity(0.9))
+                                    )
                                     .font(.headline)
                                     .onLongPressGesture(minimumDuration: 0.5) {
                                         draftTitle = sheet.title
@@ -560,4 +581,3 @@ private struct SheetRowView: View {
         isTitleFocused = false
     }
 }
-
