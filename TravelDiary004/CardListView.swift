@@ -267,14 +267,17 @@ private struct CardDisplayView: View {
                 HStack(alignment: .center, spacing: 8) {
                     if let icon = card.iconName(), !icon.isEmpty {
                         Image(systemName: icon)
-                            .font(.title)
+                            .font(.system(size: CGFloat(card.textSize), weight: .bold))
                             .foregroundColor(card.textColor)
                     }
                     if !card.title.isEmpty {
                         Text(card.title)
-                            .font(.subheadline)
+                            .font(.system(size: CGFloat(card.textSize), weight: .bold))
                             .foregroundColor(card.textColor)
-                            .bold()
+                    } else {
+                        Text("無題のカード")
+                            .font(.system(size: CGFloat(card.textSize)))
+                            .foregroundColor(card.textColor.opacity(0.6))
                     }
                     Spacer()
                 }
@@ -283,7 +286,7 @@ private struct CardDisplayView: View {
             if card.showDate {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(card.displayDateString)
-                        .font(.headline)
+                        .font(.system(size: CGFloat(max(card.textSize - 2, 8)), weight: .bold))
                         .foregroundColor(card.textColor)
                 }
             }
@@ -291,16 +294,19 @@ private struct CardDisplayView: View {
             if card.showTime {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(card.displayTimeString)
-                        .font(.subheadline)
+                        .font(.system(size: CGFloat(max(card.textSize - 4, 8))))
                         .foregroundColor(card.textColor.opacity(0.8))
                 }
             }
 
             if !card.memo.isEmpty {
                 VStack(alignment: .leading, spacing: 6) {
+                    Text("メモ")
+                        .font(.system(size: CGFloat(max(card.textSize - 4, 8)), weight: .bold))
+                        .foregroundColor(card.textColor.opacity(0.7))
                     Text(card.memo)
-                        .font(.body)
-                        .foregroundColor(card.textColor)
+                        .font(.system(size: CGFloat(max(card.textSize - 4, 8))))
+                        .foregroundColor(card.textColor.opacity(0.5))
                         .fixedSize(horizontal: false, vertical: true)
                 }
             }
@@ -408,3 +414,4 @@ private struct CardListViewPreviewProvider {
 #Preview("カードリスト プレビュー") {
     CardListView(initialSheet: CardListViewPreviewProvider.model.sheets.first!).environmentObject(CardListViewPreviewProvider.model)
 }
+
