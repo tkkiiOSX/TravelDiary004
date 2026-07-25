@@ -69,13 +69,27 @@ struct PDFPreviewContainer: View {
         _cardAlignmentsState = State(initialValue: cardAlignments)
         _cardScalesState = State(initialValue: cardScales)
     }
+    
+    var travelDateString: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+        if let start = sheet.startDate, let end = sheet.endDate {
+            return "旅行日程: \(formatter.string(from: start)) 〜 \(formatter.string(from: end))"
+        } else if let start = sheet.startDate {
+            return "旅行開始予定日: \(formatter.string(from: start))"
+        } else if let end = sheet.endDate {
+            return "旅行終了予定日: \(formatter.string(from: end))"
+        } else {
+            return "旅行日程未設定"
+        }
+    }
 
     var body: some View {
         Group {
             if let url = pdfURL {
                 NavigationStack {
                     PDFPreviewView(url: url)
-                        .navigationTitle(sheet.title.isEmpty ? "PDFプレビュー" : sheet.title)
+                        .navigationTitle("PDFプレビュー")
                         .navigationBarTitleDisplayMode(.inline)
                         .toolbar {
                             ToolbarItem(placement: .navigationBarTrailing) {
@@ -194,6 +208,19 @@ struct PDFPreviewContainer: View {
         )
         let titleHeight = titleRect.height + 18
 
+        let travelDateFont = UIFont.systemFont(ofSize: 15)
+        let travelDateAttributes: [NSAttributedString.Key: Any] = [
+            .font: travelDateFont,
+            .foregroundColor: UIColor(sheet.travelDateTextColor)
+        ]
+        let travelDateRect = NSString(string: travelDateString).boundingRect(
+            with: CGSize(width: contentWidth - 24, height: .greatestFiniteMagnitude),
+            options: [.usesLineFragmentOrigin, .usesFontLeading],
+            attributes: travelDateAttributes,
+            context: nil
+        )
+        let travelDateHeight = travelDateRect.height
+
         var renderedCards: [(cardID: UUID, image: UIImage)] = []
         for card in sheet.cards {
             let view = PrintableCardView(
@@ -225,11 +252,25 @@ struct PDFPreviewContainer: View {
                 UIColor(sheet.titleBackgroundColor).setFill()
                 roundedPath.fill()
 
-                let textRect = CGRect(x: margins.left + 12, y: currentY + 9, width: contentWidth - 24, height: titleRect.height)
-                NSString(string: titleText).draw(with: textRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: titleAttributes, context: nil)
+                // Draw title text if not empty
+                if !sheet.title.isEmpty {
+                    let textRect = CGRect(x: margins.left + 12, y: currentY + 9, width: contentWidth - 24, height: titleRect.height)
+                    NSString(string: titleText).draw(with: textRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: titleAttributes, context: nil)
+                }
 
-                currentY += titleHeight + 12
-                remainingHeight -= titleHeight + 12
+                currentY += titleHeight
+
+                // Draw travel date string below the title block with 8pt top margin,
+                // left aligned with 12pt horizontal insets, on background color
+                let travelDateY = currentY + 8
+                let travelDateX = margins.left + 12
+                let travelDateWidth = contentWidth - 24
+                let travelDateDrawRect = CGRect(x: travelDateX, y: travelDateY, width: travelDateWidth, height: travelDateHeight)
+                NSString(string: travelDateString).draw(with: travelDateDrawRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: travelDateAttributes, context: nil)
+
+                // Update currentY and remainingHeight accordingly
+                currentY = travelDateY + travelDateHeight
+                remainingHeight -= (titleHeight + 8 + travelDateHeight)
             }
 
             beginNewPage()
