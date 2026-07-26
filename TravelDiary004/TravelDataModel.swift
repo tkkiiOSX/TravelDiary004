@@ -599,14 +599,35 @@ final class TravelDataModel: ObservableObject {
     @MainActor
     func importSheet(from url: URL) -> String? {
         do {
-            guard url.startAccessingSecurityScopedResource() else {
-                let message = "ファイルにアクセスできません"
-                importFeedback = ImportFeedback(message: message, isSuccess: false)
-                return message
+            // Try to access security-scoped resource if available, but don't fail immediately if not.
+            let accessed = url.startAccessingSecurityScopedResource()
+            defer {
+                if accessed { url.stopAccessingSecurityScopedResource() }
             }
-            defer { url.stopAccessingSecurityScopedResource() }
 
-            let data = try Data(contentsOf: url)
+            // 1) Try reading directly
+            let data: Data
+            do {
+                data = try Data(contentsOf: url)
+            } catch {
+                // 2) Fallback: copy to a temporary file and read again
+                let tmpExt = url.pathExtension.isEmpty ? "json" : url.pathExtension
+                let tmpURL = FileManager.default.temporaryDirectory
+                    .appendingPathComponent("import_\(UUID().uuidString)")
+                    .appendingPathExtension(tmpExt)
+                do {
+                    if FileManager.default.fileExists(atPath: tmpURL.path) {
+                        try FileManager.default.removeItem(at: tmpURL)
+                    }
+                    try FileManager.default.copyItem(at: url, to: tmpURL)
+                    data = try Data(contentsOf: tmpURL)
+                } catch {
+                    let message = "ファイルの読み込みに失敗しました（コピー/再読み込み）"
+                    importFeedback = ImportFeedback(message: message, isSuccess: false)
+                    return message
+                }
+            }
+
             var imported = try JSONDecoder().decode(TravelSheet.self, from: data)
             let fileName = url.deletingPathExtension().lastPathComponent
             imported.title = fileName
