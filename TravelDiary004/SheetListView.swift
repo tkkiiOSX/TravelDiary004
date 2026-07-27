@@ -104,6 +104,16 @@ struct SheetListView: View {
                                         Spacer()
                                         Text(newSheetStartDate == nil ? "未設定" : formattedDate(newSheetStartDate))
                                             .foregroundColor(.secondary)
+                                        Button {
+                                            // Reload only when a date is already set
+                                            guard let current = newSheetStartDate else { return }
+                                            draftSelectedDate = current
+                                            newSheetStartDate = current
+                                        } label: {
+                                            Image(systemName: "arrow.clockwise")
+                                        }
+                                        .buttonStyle(.borderless)
+                                        .help("開始日を再読み込み")
                                     }
                                 }
 
@@ -116,6 +126,36 @@ struct SheetListView: View {
                                         Spacer()
                                         Text(newSheetEndDate == nil ? "未設定" : formattedDate(newSheetEndDate))
                                             .foregroundColor(.secondary)
+                                        Button {
+                                            // Reload only when a date is already set
+                                            guard let current = newSheetEndDate else { return }
+                                            draftSelectedDate = current
+                                            newSheetEndDate = current
+                                        } label: {
+                                            Image(systemName: "arrow.clockwise")
+                                        }
+                                        .buttonStyle(.borderless)
+                                        .help("終了日を再読み込み")
+                                    }
+                                }
+
+                                Button {
+                                    newSheetStartDate = nil
+                                } label: {
+                                    HStack {
+                                        Image(systemName: "xmark.circle")
+                                        Text("開始日をクリア")
+                                        Spacer()
+                                    }
+                                }
+
+                                Button {
+                                    newSheetEndDate = nil
+                                } label: {
+                                    HStack {
+                                        Image(systemName: "xmark.circle")
+                                        Text("終了日をクリア")
+                                        Spacer()
                                     }
                                 }
                             }
@@ -225,6 +265,16 @@ struct SheetListView: View {
                                         Spacer()
                                         Text(editingSheetStartDate == nil ? "未設定" : formattedDate(editingSheetStartDate))
                                             .foregroundColor(.secondary)
+                                        Button {
+                                            // Reload only when a date is already set
+                                            guard let current = editingSheetStartDate else { return }
+                                            editingSheetDraftSelectedDate = current
+                                            editingSheetStartDate = current
+                                        } label: {
+                                            Image(systemName: "arrow.clockwise")
+                                        }
+                                        .buttonStyle(.borderless)
+                                        .help("開始日を再読み込み")
                                     }
                                 }
                                 Button {
@@ -236,6 +286,36 @@ struct SheetListView: View {
                                         Spacer()
                                         Text(editingSheetEndDate == nil ? "未設定" : formattedDate(editingSheetEndDate))
                                             .foregroundColor(.secondary)
+                                        Button {
+                                            // Reload only when a date is already set
+                                            guard let current = editingSheetEndDate else { return }
+                                            editingSheetDraftSelectedDate = current
+                                            editingSheetEndDate = current
+                                        } label: {
+                                            Image(systemName: "arrow.clockwise")
+                                        }
+                                        .buttonStyle(.borderless)
+                                        .help("終了日を再読み込み")
+                                    }
+                                }
+
+                                Button {
+                                    editingSheetStartDate = nil
+                                } label: {
+                                    HStack {
+                                        Image(systemName: "xmark.circle")
+                                        Text("開始日をクリア")
+                                        Spacer()
+                                    }
+                                }
+
+                                Button {
+                                    editingSheetEndDate = nil
+                                } label: {
+                                    HStack {
+                                        Image(systemName: "xmark.circle")
+                                        Text("終了日をクリア")
+                                        Spacer()
                                     }
                                 }
                             }
@@ -581,3 +661,4 @@ private struct SheetRowView: View {
         isTitleFocused = false
     }
 }
+
