@@ -629,6 +629,29 @@ final class TravelDataModel: ObservableObject {
             }
 
             var imported = try JSONDecoder().decode(TravelSheet.self, from: data)
+            
+            // --- Ensure imported sheet and all cards get new IDs ---
+            let oldToNewCardID = Dictionary(uniqueKeysWithValues: imported.cards.map { ($0.id, UUID()) })
+            imported.id = UUID()
+            imported.cards = imported.cards.map { card in
+                var newCard = card
+                if let newID = oldToNewCardID[card.id] {
+                    newCard.id = newID
+                }
+                return newCard
+            }
+            // manualPageBreaks, cardScales, cardAlignmentsRaw (if present) をID対応で変換
+            imported.manualPageBreaks = Set(imported.manualPageBreaks.compactMap { oldToNewCardID[$0] })
+            imported.cardScales = Dictionary(uniqueKeysWithValues: imported.cardScales.compactMap { (oldID, scale) in
+                guard let newID = oldToNewCardID[oldID] else { return nil }
+                return (newID, scale)
+            })
+            imported.cardAlignmentsRaw = Dictionary(uniqueKeysWithValues: imported.cardAlignmentsRaw.compactMap { (oldID, raw) in
+                guard let newID = oldToNewCardID[oldID] else { return nil }
+                return (newID, raw)
+            })
+            // --- End of ID refresh ---
+            
             let fileName = url.deletingPathExtension().lastPathComponent
             imported.title = fileName
             sheets.insert(imported, at: 0)
