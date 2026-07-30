@@ -96,6 +96,8 @@ struct TravelSheet: Identifiable, Hashable, Codable {
     var startDate: Date? = nil
     var endDate: Date? = nil
 
+    var printTitleOnAllPages: Bool? = true // optional for decoding compatibility
+
     var cardAlignments: [UUID: CardHorizontalAlignment] {
         get {
             var result: [UUID: CardHorizontalAlignment] = [:]
@@ -129,6 +131,91 @@ struct TravelSheet: Identifiable, Hashable, Codable {
 
     var effectiveDefaultCardBackgroundColorHex: String {
         defaultCardBackgroundColorHex ?? TravelCard.defaultCardBackgroundColorHex(for: backgroundColorHex)
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case titleTextColorHex
+        case titleBackgroundColorHex
+        case cards
+        case manualPageBreaks
+        case cardScales
+        case cardAlignmentsRaw
+        case backgroundColorHex
+        case travelDateTextColorHex
+        case defaultCardBackgroundColorHex
+        case startDate
+        case endDate
+        case printTitleOnAllPages
+    }
+
+    init(
+        id: UUID = UUID(),
+        title: String,
+        titleTextColorHex: String = "#000000",
+        titleBackgroundColorHex: String = "#FFFFFF",
+        cards: [TravelCard] = [],
+        manualPageBreaks: Set<UUID> = [],
+        cardScales: [UUID: Double] = [:],
+        cardAlignmentsRaw: [UUID: String] = [:],
+        backgroundColorHex: String = "#FFFFFF",
+        travelDateTextColorHex: String = "#666666",
+        defaultCardBackgroundColorHex: String? = nil,
+        startDate: Date? = nil,
+        endDate: Date? = nil,
+        printTitleOnAllPages: Bool? = true
+    ) {
+        self.id = id
+        self.title = title
+        self.titleTextColorHex = titleTextColorHex
+        self.titleBackgroundColorHex = titleBackgroundColorHex
+        self.cards = cards
+        self.manualPageBreaks = manualPageBreaks
+        self.cardScales = cardScales
+        self.cardAlignmentsRaw = cardAlignmentsRaw
+        self.backgroundColorHex = backgroundColorHex
+        self.travelDateTextColorHex = travelDateTextColorHex
+        self.defaultCardBackgroundColorHex = defaultCardBackgroundColorHex
+        self.startDate = startDate
+        self.endDate = endDate
+        self.printTitleOnAllPages = printTitleOnAllPages
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        title = try container.decode(String.self, forKey: .title)
+        titleTextColorHex = try container.decodeIfPresent(String.self, forKey: .titleTextColorHex) ?? "#000000"
+        titleBackgroundColorHex = try container.decodeIfPresent(String.self, forKey: .titleBackgroundColorHex) ?? "#FFFFFF"
+        cards = try container.decodeIfPresent([TravelCard].self, forKey: .cards) ?? []
+        manualPageBreaks = try container.decodeIfPresent(Set<UUID>.self, forKey: .manualPageBreaks) ?? []
+        cardScales = try container.decodeIfPresent([UUID: Double].self, forKey: .cardScales) ?? [:]
+        cardAlignmentsRaw = try container.decodeIfPresent([UUID: String].self, forKey: .cardAlignmentsRaw) ?? [:]
+        backgroundColorHex = try container.decodeIfPresent(String.self, forKey: .backgroundColorHex) ?? "#FFFFFF"
+        travelDateTextColorHex = try container.decodeIfPresent(String.self, forKey: .travelDateTextColorHex) ?? "#666666"
+        defaultCardBackgroundColorHex = try container.decodeIfPresent(String.self, forKey: .defaultCardBackgroundColorHex)
+        startDate = try container.decodeIfPresent(Date.self, forKey: .startDate)
+        endDate = try container.decodeIfPresent(Date.self, forKey: .endDate)
+        printTitleOnAllPages = try container.decodeIfPresent(Bool.self, forKey: .printTitleOnAllPages) ?? true
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(title, forKey: .title)
+        try container.encode(titleTextColorHex, forKey: .titleTextColorHex)
+        try container.encode(titleBackgroundColorHex, forKey: .titleBackgroundColorHex)
+        try container.encode(cards, forKey: .cards)
+        try container.encode(manualPageBreaks, forKey: .manualPageBreaks)
+        try container.encode(cardScales, forKey: .cardScales)
+        try container.encode(cardAlignmentsRaw, forKey: .cardAlignmentsRaw)
+        try container.encode(backgroundColorHex, forKey: .backgroundColorHex)
+        try container.encode(travelDateTextColorHex, forKey: .travelDateTextColorHex)
+        try container.encodeIfPresent(defaultCardBackgroundColorHex, forKey: .defaultCardBackgroundColorHex)
+        try container.encodeIfPresent(startDate, forKey: .startDate)
+        try container.encodeIfPresent(endDate, forKey: .endDate)
+        try container.encode(printTitleOnAllPages ?? true, forKey: .printTitleOnAllPages)
     }
 }
 
@@ -630,6 +717,11 @@ final class TravelDataModel: ObservableObject {
 
             var imported = try JSONDecoder().decode(TravelSheet.self, from: data)
             
+            // Ensure printTitleOnAllPages is true if nil
+            if imported.printTitleOnAllPages == nil {
+                imported.printTitleOnAllPages = true
+            }
+            
             // --- Ensure imported sheet and all cards get new IDs ---
             let oldToNewCardID = Dictionary(uniqueKeysWithValues: imported.cards.map { ($0.id, UUID()) })
             imported.id = UUID()
@@ -668,7 +760,7 @@ final class TravelDataModel: ObservableObject {
         importFeedback = nil
     }
 
-    func addSheet(title: String, backgroundColor: Color = .white, startDate: Date? = nil, endDate: Date? = nil, travelDateTextColor: Color = .secondary, defaultCardBackgroundColor: Color? = nil, titleTextColor: Color = .primary, titleBackgroundColor: Color = .white) {
+    func addSheet(title: String, backgroundColor: Color = .white, startDate: Date? = nil, endDate: Date? = nil, travelDateTextColor: Color = .secondary, defaultCardBackgroundColor: Color? = nil, titleTextColor: Color = .primary, titleBackgroundColor: Color = .white, printTitleOnAllPages: Bool = true) {
         let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
         let hex = UIColor(backgroundColor).toHexString() ?? "#FFFFFF"
@@ -676,7 +768,7 @@ final class TravelDataModel: ObservableObject {
         let defaultCardHex = defaultCardBackgroundColor.map { UIColor($0).toHexString() ?? "#FFFFFF" }
         let titleTextHex = UIColor(titleTextColor).toHexString() ?? "#000000"
         let titleBgHex = UIColor(titleBackgroundColor).toHexString() ?? "#FFFFFF"
-        sheets.insert(TravelSheet(title: trimmed, titleTextColorHex: titleTextHex, titleBackgroundColorHex: titleBgHex, backgroundColorHex: hex, travelDateTextColorHex: textHex, defaultCardBackgroundColorHex: defaultCardHex, startDate: startDate, endDate: endDate), at: 0)
+        sheets.insert(TravelSheet(title: trimmed, titleTextColorHex: titleTextHex, titleBackgroundColorHex: titleBgHex, backgroundColorHex: hex, travelDateTextColorHex: textHex, defaultCardBackgroundColorHex: defaultCardHex, startDate: startDate, endDate: endDate, printTitleOnAllPages: printTitleOnAllPages), at: 0)
     }
     
     func deleteSheet(_ sheet: TravelSheet) {
@@ -767,5 +859,9 @@ final class TravelDataModel: ObservableObject {
         let hex = UIColor(color).toHexString() ?? "#FFFFFF"
         sheets[idx].titleBackgroundColorHex = hex
     }
+    
+    func updateSheetPrintTitleOnAllPages(sheetID: UUID, value: Bool) {
+        guard let idx = sheets.firstIndex(where: { $0.id == sheetID }) else { return }
+        sheets[idx].printTitleOnAllPages = value
+    }
 }
-

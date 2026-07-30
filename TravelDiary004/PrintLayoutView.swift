@@ -5,6 +5,15 @@ import PDFKit
 import WebKit
 import ObjectiveC.runtime
 
+private enum PrintConstants {
+    static let a4PageSize = CGSize(width: 595.2, height: 841.8)
+    static let pageMargins = UIEdgeInsets(top: 36, left: 36, bottom: 36, right: 36)
+    static let headerCornerRadius: CGFloat = 10
+    static let headerTitleFont = UIFont.systemFont(ofSize: 20, weight: .semibold)
+    static let headerDateFont = UIFont.systemFont(ofSize: 14, weight: .regular)
+    static let minimumBottomSpacing: CGFloat = 24
+}
+
 enum CardHorizontalAlignment: String, Hashable, CaseIterable {
     case leading
     case center
@@ -26,7 +35,7 @@ struct PrintLayoutView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showExportSheet = false
     @State private var showPDFPreview = false
-    @State private var exportURL: URL? = nil
+    @State private var shareURL: URL? = nil
     @State private var pdfPreviewURL: URL? = nil
     @State private var exportError: String? = nil
     @State private var webSnapshots: [UUID: UIImage] = [:]
@@ -44,6 +53,7 @@ struct PrintLayoutView: View {
         }
     }
 
+    // 空状態表示
     @ViewBuilder
     private var emptyStateView: some View {
         Text("印刷用のカードがありません。")
@@ -57,6 +67,7 @@ struct PrintLayoutView: View {
             }
     }
 
+    // メインコンテンツ表示
     @ViewBuilder
     private var mainContentView: some View {
         Group {
@@ -83,13 +94,13 @@ struct PrintLayoutView: View {
         }
     }
 
+    // ページタブ表示
     @ViewBuilder
     private var pagesTabView: some View {
         TabView {
             ForEach(sheet.cards) { card in
-                PrintCardPage(card: card, webSnapshot: webSnapshots[card.id])
+                PrintCardPage(card: card, mapSnapshot: nil, webSnapshot: webSnapshots[card.id])
                     .padding(16)
-                    .tag(card.id)
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .automatic))
@@ -115,7 +126,7 @@ struct PrintLayoutView: View {
             Button(action: { Task { await previewPDF(autoPaginate: false) } }) {
                 Label("PDFプレビュー（手動）", systemImage: "doc.text.magnifyingglass")
             }
-            Button(action: { Task { await previewPDF(autoPaginate: true) } }) {
+            Button(action: { Task { await exportPDF(autoPaginate: true) } }) {
                 Label("印刷＆PDF", systemImage: "square.and.arrow.up")
             }
         }
@@ -124,9 +135,10 @@ struct PrintLayoutView: View {
         }
     }
 
+    // エクスポートシート内容
     @ViewBuilder
     private var exportSheetContent: some View {
-        if let url = exportURL {
+        if let url = shareURL {
             ActivityView(activityItems: [url])
         } else {
             Text(exportError ?? "エクスポートに失敗しました。もう一度エクスポートボタンをタップして下さい。")
@@ -134,6 +146,7 @@ struct PrintLayoutView: View {
         }
     }
 
+    // PDFプレビューシート内容
     @ViewBuilder
     private var pdfPreviewSheet: some View {
         if let url = pdfPreviewURL {
@@ -142,7 +155,7 @@ struct PrintLayoutView: View {
                     .navigationTitle("PDFプレビュー")
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
-                        ToolbarItem(placement: .cancellationAction) {
+                        ToolbarItem(placement: .topBarTrailing) {
                             Button("閉じる") { showPDFPreview = false }
                         }
                     }
@@ -153,8 +166,10 @@ struct PrintLayoutView: View {
         }
     }
 
+    // PDFエクスポート処理
     private func exportPDF(autoPaginate: Bool) async {
-        guard let data = await createPDFData(autoPaginate: autoPaginate && manualPageBreaks.isEmpty, manualBreaks: manualPageBreaks) else {
+        let shouldAuto = autoPaginate && manualPageBreaks.isEmpty
+        guard let data = await createPDFData(autoPaginate: shouldAuto, manualBreaks: manualPageBreaks) else {
             exportError = "PDFの作成に失敗しました。"
             showExportSheet = true
             return
@@ -164,13 +179,15 @@ struct PrintLayoutView: View {
             showExportSheet = true
             return
         }
-        exportURL = url
+        shareURL = url
         exportError = nil
         showExportSheet = true
     }
 
+    // PDFプレビュー処理
     private func previewPDF(autoPaginate: Bool) async {
-        guard let data = await createPDFData(autoPaginate: autoPaginate && manualPageBreaks.isEmpty, manualBreaks: manualPageBreaks) else {
+        let shouldAuto = autoPaginate && manualPageBreaks.isEmpty
+        guard let data = await createPDFData(autoPaginate: shouldAuto, manualBreaks: manualPageBreaks) else {
             exportError = "PDFの作成に失敗しました。"
             showPDFPreview = true
             return
@@ -185,15 +202,33 @@ struct PrintLayoutView: View {
         showPDFPreview = true
     }
 
+    private func makeHeaderStrings() -> (titleText: String, travelDateString: String) {
+        let titleText = sheet.title.isEmpty ? "無題のシート" : sheet.title
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ja_JP")
+        formatter.dateStyle = .medium
+        let travelDateString: String
+        if let start = sheet.startDate, let end = sheet.endDate {
+            travelDateString = "旅行日程: \(formatter.string(from: start)) 〜 \(formatter.string(from: end))"
+        } else if let start = sheet.startDate {
+            travelDateString = "旅行開始予定日: \(formatter.string(from: start))"
+        } else if let end = sheet.endDate {
+            travelDateString = "旅行終了予定日: \(formatter.string(from: end))"
+        } else {
+            travelDateString = "旅行日程未設定"
+        }
+        return (titleText, travelDateString)
+    }
+
+    // PDFデータ生成
     private func createPDFData(autoPaginate: Bool, manualBreaks: Set<UUID>) async -> Data? {
-        // Reuse the robust generator in PDFPreviewContainer by constructing the same inputs and applying pagination settings
-        let pageSize = CGSize(width: 595.2, height: 841.8)
-        let margins = UIEdgeInsets(top: 36, left: 36, bottom: 36, right: 36)
+        let pageSize = PrintConstants.a4PageSize
+        let margins = PrintConstants.pageMargins
         let contentWidth = pageSize.width - margins.left - margins.right
         let pageRect = CGRect(origin: .zero, size: pageSize)
 
-        let titleText = sheet.title.isEmpty ? "無題のシート" : sheet.title
-        let titleFont = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        let (titleText, travelDateString) = makeHeaderStrings()
+        let titleFont = PrintConstants.headerTitleFont
         let titleAttributes: [NSAttributedString.Key: Any] = [
             .font: titleFont,
             .foregroundColor: UIColor(sheet.titleTextColor)
@@ -205,6 +240,21 @@ struct PrintLayoutView: View {
             context: nil
         )
         let titleHeight = titleRect.height + 18
+
+        let travelDateFont = PrintConstants.headerDateFont
+        let travelDateAttributes: [NSAttributedString.Key: Any] = [
+            .font: travelDateFont,
+            .foregroundColor: UIColor(sheet.titleTextColor).withAlphaComponent(0.7)
+        ]
+        let travelDateRect = NSString(string: travelDateString).boundingRect(
+            with: CGSize(width: contentWidth - 24, height: .greatestFiniteMagnitude),
+            options: [.usesLineFragmentOrigin, .usesFontLeading],
+            attributes: travelDateAttributes,
+            context: nil
+        )
+        let travelDateHeight = travelDateRect.height + 4
+
+        let printTitleOnAllPages = sheet.printTitleOnAllPages ?? true
 
         var mapSnapshots: [UUID: UIImage] = [:]
         var pageSnapshots: [UUID: UIImage] = [:]
@@ -237,8 +287,25 @@ struct PrintLayoutView: View {
             let contentHeight = pageSize.height - margins.top - margins.bottom
             var currentY: CGFloat = margins.top
             var remainingHeight: CGFloat = contentHeight
+            var firstPage = true
 
-            func beginNewPage() {
+            func drawHeaderIfNeeded() {
+                // Draw sheet title header
+                let headerRect = CGRect(x: margins.left, y: currentY, width: contentWidth, height: titleHeight + travelDateHeight)
+                let roundedPath = UIBezierPath(roundedRect: headerRect, cornerRadius: PrintConstants.headerCornerRadius)
+                UIColor(sheet.titleBackgroundColor).setFill()
+                roundedPath.fill()
+
+                // Draw the title text
+                let textRect = CGRect(x: margins.left + 12, y: currentY + 9, width: contentWidth - 24, height: titleRect.height)
+                NSString(string: titleText).draw(with: textRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: titleAttributes, context: nil)
+
+                // Draw the travel date text below the title
+                let dateRect = CGRect(x: margins.left + 12, y: currentY + 9 + titleRect.height, width: contentWidth - 24, height: travelDateRect.height)
+                NSString(string: travelDateString).draw(with: dateRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: travelDateAttributes, context: nil)
+            }
+
+            func beginNewPage(printTitle: Bool = true) {
                 context.beginPage()
                 // Fill page background with sheet's background color
                 let bgColor = UIColor(sheet.backgroundColor)
@@ -248,21 +315,16 @@ struct PrintLayoutView: View {
                 currentY = margins.top
                 remainingHeight = contentHeight
 
-                // Draw sheet title header
-                let headerRect = CGRect(x: margins.left, y: currentY, width: contentWidth, height: titleHeight)
-                let roundedPath = UIBezierPath(roundedRect: headerRect, cornerRadius: 10)
-                UIColor(sheet.titleBackgroundColor).setFill()
-                roundedPath.fill()
-
-                let textRect = CGRect(x: margins.left + 12, y: currentY + 9, width: contentWidth - 24, height: titleRect.height)
-                NSString(string: titleText).draw(with: textRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: titleAttributes, context: nil)
-
-                currentY += titleHeight + 12
-                remainingHeight -= titleHeight + 12
+                if printTitle {
+                    drawHeaderIfNeeded()
+                    currentY += titleHeight + travelDateHeight + 12
+                    remainingHeight -= titleHeight + travelDateHeight + 12
+                }
             }
 
-            // Start first page
-            beginNewPage()
+            // Start first page with title
+            beginNewPage(printTitle: true)
+            firstPage = false
 
             for (index, element) in renderedCards.enumerated() {
                 let cardID = element.0
@@ -294,31 +356,46 @@ struct PrintLayoutView: View {
                 if !autoPaginate {
                     // Manual mode: forced page break before this card
                     if manualBreaks.contains(cardID) && currentY != margins.top {
-                        beginNewPage()
+                        let shouldPrintTitle = printTitleOnAllPages ? true : firstPage
+                        beginNewPage(printTitle: shouldPrintTitle)
+                        firstPage = false
                     }
                     // If scaled image still doesn't fit in remaining space, move to new page
                     if drawHeight > remainingHeight {
-                        beginNewPage()
+                        let shouldPrintTitle = printTitleOnAllPages ? true : firstPage
+                        beginNewPage(printTitle: shouldPrintTitle)
+                        firstPage = false
                     }
                     image.draw(in: CGRect(x: drawX, y: currentY, width: drawWidth, height: drawHeight))
                     currentY += drawHeight
                     remainingHeight -= drawHeight
-                    if remainingHeight < 24 && index < renderedCards.count - 1 { beginNewPage() }
+                    if remainingHeight < PrintConstants.minimumBottomSpacing && index < renderedCards.count - 1 {
+                        let shouldPrintTitle = printTitleOnAllPages ? true : firstPage
+                        beginNewPage(printTitle: shouldPrintTitle)
+                        firstPage = false
+                    }
                 } else {
                     // Auto paginate: keep-together; scale down if necessary to fit a single page
                     if drawHeight > remainingHeight {
-                        beginNewPage()
+                        let shouldPrintTitle = printTitleOnAllPages ? true : firstPage
+                        beginNewPage(printTitle: shouldPrintTitle)
+                        firstPage = false
                     }
                     image.draw(in: CGRect(x: drawX, y: currentY, width: drawWidth, height: drawHeight))
                     currentY += drawHeight
                     remainingHeight -= drawHeight
-                    if remainingHeight < 24 && index < renderedCards.count - 1 { beginNewPage() }
+                    if remainingHeight < PrintConstants.minimumBottomSpacing && index < renderedCards.count - 1 {
+                        let shouldPrintTitle = printTitleOnAllPages ? true : firstPage
+                        beginNewPage(printTitle: shouldPrintTitle)
+                        firstPage = false
+                    }
                 }
             }
         }
         return data
     }
 
+    // 地図スナップショット生成
     private func makeMapSnapshot(for card: TravelCard, size: CGSize) async -> UIImage? {
         guard card.hasLocation else { return nil }
 
@@ -362,6 +439,7 @@ struct PrintLayoutView: View {
         }
     }
 
+    // Webページスナップショット生成
     @MainActor
     private func makeWebSnapshot(for card: TravelCard, size: CGSize) async -> UIImage? {
         guard let url = makeURL(from: card.url) else { return nil }
@@ -397,12 +475,15 @@ struct PrintLayoutView: View {
         configuration.afterScreenUpdates = true
 
         return await withCheckedContinuation { continuation in
-            webView.takeSnapshot(with: configuration) { image, error in
-                continuation.resume(returning: image)
+            DispatchQueue.main.async {
+                webView.takeSnapshot(with: configuration) { image, _ in
+                    continuation.resume(returning: image)
+                }
             }
         }
     }
 
+    // URL生成補助
     private func makeURL(from input: String) -> URL? {
         let trimmed = input.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return nil }
@@ -412,6 +493,7 @@ struct PrintLayoutView: View {
         return URL(string: "https://\(trimmed)")
     }
 
+    // スナップショット読み込み
     private func loadSnapshots() async {
         var snapshots: [UUID: UIImage] = [:]
         for card in sheet.cards where card.hasURL && card.printWebPage {
@@ -422,6 +504,7 @@ struct PrintLayoutView: View {
         webSnapshots = snapshots
     }
 
+    // カードページを画像化
     private func renderCardPageAsImage(card: TravelCard, size: CGSize, mapSnapshot: UIImage?, webSnapshot: UIImage?) -> UIImage? {
         let hostingController = UIHostingController(rootView: PrintCardPage(card: card, mapSnapshot: mapSnapshot, webSnapshot: webSnapshot)
             .frame(width: size.width, height: size.height)
@@ -441,6 +524,7 @@ struct PrintLayoutView: View {
         }
     }
 
+    // PDFデータを一時ファイルに保存
     private func savePDFDataToTemporaryFile(data: Data) -> URL? {
         let temporaryDirectory = FileManager.default.temporaryDirectory
         let fileName = "TravelDiary_Print_\(UUID().uuidString).pdf"
@@ -455,26 +539,12 @@ struct PrintLayoutView: View {
     }
 }
 
+// PrintCardPageの表示（mapPosition削除、init簡略化）
+// 印刷用カードページ表示
 struct PrintCardPage: View {
     let card: TravelCard
     let mapSnapshot: UIImage?
     let webSnapshot: UIImage?
-    @State private var mapPosition: MapCameraPosition
-
-    init(card: TravelCard, mapSnapshot: UIImage? = nil, webSnapshot: UIImage? = nil) {
-        self.card = card
-        self.mapSnapshot = mapSnapshot
-        self.webSnapshot = webSnapshot
-        if card.hasLocation {
-            let region = MKCoordinateRegion(
-                center: CLLocationCoordinate2D(latitude: card.latitude, longitude: card.longitude),
-                span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-            )
-            _mapPosition = State(initialValue: .region(region))
-        } else {
-            _mapPosition = State(initialValue: .automatic)
-        }
-    }
 
     var body: some View {
         ZStack {
@@ -519,24 +589,13 @@ struct PrintCardPage: View {
                     .frame(width: proxy.size.width, height: proxy.size.height)
                     .padding(20)
                     .background(Color(UIColor.secondarySystemGroupedBackground))
-                    .onAppear { updateMapPosition() }
-                    .onChange(of: card.latitude) { _, _ in updateMapPosition() }
-                    .onChange(of: card.longitude) { _, _ in updateMapPosition() }
                 }
             }
         }
     }
-
-    private func updateMapPosition() {
-        guard card.hasLocation else { return }
-        let region = MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: card.latitude, longitude: card.longitude),
-            span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-        )
-        mapPosition = .region(region)
-    }
 }
 
+// コンテンツの自然サイズ測定表示
 private struct IntrinsicSizeReader<Content: View, Overlay: View>: View {
     let content: Content
     let overlayBuilder: (CGSize) -> Overlay
@@ -559,7 +618,7 @@ private struct IntrinsicSizeReader<Content: View, Overlay: View>: View {
                             .preference(key: SizePreferenceKey.self, value: geo.size)
                     }
                 )
-                .hidden()
+                .opacity(0.001)
 
             // Visible overlay built with measured size
             overlayBuilder(size)

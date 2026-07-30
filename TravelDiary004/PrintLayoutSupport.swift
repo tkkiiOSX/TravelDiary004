@@ -56,6 +56,7 @@ struct PDFPreviewContainer: View {
     @State private var manualPageBreaksState: Set<UUID> = []
     @State private var cardAlignmentsState: [UUID: CardHorizontalAlignment] = [:]
     @State private var cardScalesState: [UUID: Double] = [:]
+    @State private var printTitleOnAllPages: Bool
 
     init(sheet: TravelSheet, autoPaginate: Bool = true, manualPageBreaks: Set<UUID> = [], cardScales: [UUID: Double] = [:], cardAlignments: [UUID: CardHorizontalAlignment] = [:]) {
         self.sheet = sheet
@@ -68,6 +69,7 @@ struct PDFPreviewContainer: View {
         _manualPageBreaksState = State(initialValue: manualPageBreaks)
         _cardAlignmentsState = State(initialValue: cardAlignments)
         _cardScalesState = State(initialValue: cardScales)
+        _printTitleOnAllPages = State(initialValue: sheet.printTitleOnAllPages ?? true)
     }
     
     var travelDateString: String {
@@ -117,6 +119,14 @@ struct PDFPreviewContainer: View {
                         }
                         .sheet(isPresented: $showSettings) {
                             NavigationStack {
+                                List {
+                                    Section("印刷設定") {
+                                        Toggle("２ページ目以降もシート名と旅行日程を表示", isOn: $printTitleOnAllPages)
+                                            .onChange(of: printTitleOnAllPages) { _, newValue in
+                                                model.updateSheetPrintTitleOnAllPages(sheetID: sheet.id, value: newValue)
+                                            }
+                                    }
+                                }
                                 PrintLayoutManualPageBreaksEditor(
                                     cards: sheet.cards,
                                     manualPageBreaks: $manualPageBreaksState,
@@ -162,6 +172,9 @@ struct PDFPreviewContainer: View {
         }
         .onChange(of: cardScalesState) { _, newValue in
             model.updateManualSettings(for: sheet.id, manualPageBreaks: manualPageBreaksState, cardScales: newValue, cardAlignments: cardAlignmentsState)
+            Task { await generatePDF() }
+        }
+        .onChange(of: printTitleOnAllPages) { _, _ in
             Task { await generatePDF() }
         }
     }
@@ -238,42 +251,36 @@ struct PDFPreviewContainer: View {
         let data = renderer.pdfData { context in
             var remainingHeight = contentHeight
             var currentY: CGFloat = margins.top
+            var pageIndex = 1
 
-            func beginNewPage() {
+            func beginNewPage(printHeader: Bool = true) {
                 context.beginPage()
                 UIColor(sheet.backgroundColor).setFill()
                 context.cgContext.fill(CGRect(origin: .zero, size: pageSize))
                 remainingHeight = contentHeight
                 currentY = margins.top
 
-                // Draw sheet title header
-                let headerRect = CGRect(x: margins.left, y: currentY, width: contentWidth, height: titleHeight)
-                let roundedPath = UIBezierPath(roundedRect: headerRect, cornerRadius: 10)
-                UIColor(sheet.titleBackgroundColor).setFill()
-                roundedPath.fill()
+                if printHeader {
+                    // Draw sheet title and travel date header together inside a single rounded box
+                    let headerTotalHeight = titleHeight + 8 + travelDateHeight + 10
+                    let headerRect = CGRect(x: margins.left, y: currentY, width: contentWidth, height: headerTotalHeight)
+                    let roundedPath = UIBezierPath(roundedRect: headerRect, cornerRadius: 10)
+                    UIColor(sheet.titleBackgroundColor).setFill()
+                    roundedPath.fill()
 
-                // Draw title text if not empty
-                if !sheet.title.isEmpty {
-                    let textRect = CGRect(x: margins.left + 12, y: currentY + 9, width: contentWidth - 24, height: titleRect.height)
-                    NSString(string: titleText).draw(with: textRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: titleAttributes, context: nil)
+                    // Draw the title
+                    let titleTextRect = CGRect(x: margins.left + 12, y: currentY + 9, width: contentWidth - 24, height: titleRect.height)
+                    NSString(string: titleText).draw(with: titleTextRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: titleAttributes, context: nil)
+                    // Draw the travel date below with 8pt spacing under the title
+                    let travelDateTextRect = CGRect(x: margins.left + 12, y: titleTextRect.maxY + 8, width: contentWidth - 24, height: travelDateRect.height)
+                    NSString(string: travelDateString).draw(with: travelDateTextRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: travelDateAttributes, context: nil)
+
+                    currentY += headerTotalHeight
+                    remainingHeight -= headerTotalHeight
                 }
-
-                currentY += titleHeight
-
-                // Draw travel date string below the title block with 8pt top margin,
-                // left aligned with 12pt horizontal insets, on background color
-                let travelDateY = currentY + 8
-                let travelDateX = margins.left + 12
-                let travelDateWidth = contentWidth - 24
-                let travelDateDrawRect = CGRect(x: travelDateX, y: travelDateY, width: travelDateWidth, height: travelDateHeight)
-                NSString(string: travelDateString).draw(with: travelDateDrawRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: travelDateAttributes, context: nil)
-
-                // Update currentY and remainingHeight accordingly
-                currentY = travelDateY + travelDateHeight
-                remainingHeight -= (titleHeight + 8 + travelDateHeight)
             }
 
-            beginNewPage()
+            beginNewPage(printHeader: true)
             let effectiveAutoPaginate = autoPaginateState && manualPageBreaksState.isEmpty
 
             for (index, element) in renderedCards.enumerated() {
@@ -303,26 +310,31 @@ struct PDFPreviewContainer: View {
 
                 if !effectiveAutoPaginate {
                     if manualPageBreaksState.contains(cardID) && currentY != margins.top {
-                        beginNewPage()
+                        pageIndex += 1
+                        beginNewPage(printHeader: pageIndex == 1 ? true : printTitleOnAllPages)
                     }
                     if drawHeight > remainingHeight {
-                        beginNewPage()
+                        pageIndex += 1
+                        beginNewPage(printHeader: pageIndex == 1 ? true : printTitleOnAllPages)
                     }
                     image.draw(in: CGRect(x: drawX, y: currentY, width: drawWidth, height: drawHeight))
                     currentY += drawHeight
                     remainingHeight -= drawHeight
                     if remainingHeight < 24 && index < renderedCards.count - 1 {
-                        beginNewPage()
+                        pageIndex += 1
+                        beginNewPage(printHeader: pageIndex == 1 ? true : printTitleOnAllPages)
                     }
                 } else {
                     if drawHeight > remainingHeight {
-                        beginNewPage()
+                        pageIndex += 1
+                        beginNewPage(printHeader: pageIndex == 1 ? true : printTitleOnAllPages)
                     }
                     image.draw(in: CGRect(x: drawX, y: currentY, width: drawWidth, height: drawHeight))
                     currentY += drawHeight
                     remainingHeight -= drawHeight
                     if remainingHeight < 24 && index < renderedCards.count - 1 {
-                        beginNewPage()
+                        pageIndex += 1
+                        beginNewPage(printHeader: pageIndex == 1 ? true : printTitleOnAllPages)
                     }
                 }
             }

@@ -28,6 +28,10 @@ struct SheetListView: View {
     @State private var sheetPendingDeletion: TravelSheet? = nil
     @State private var showDeleteAlert = false
 
+    // 追加: 2ページ目以降もタイトルを印刷する設定
+    @State private var newSheetPrintTitleOnAllPages: Bool = true
+    @State private var editingSheetPrintTitleOnAllPages: Bool = true
+
     // 共有用
     @State private var shareItem: ShareItem?
     @State private var shareFileURL: URL?
@@ -86,6 +90,9 @@ struct SheetListView: View {
                         Form {
                             Section("シート名") {
                                 TextField("例: 東京旅行", text: $newSheetTitle)
+                                /*Toggle("2ページ目以降もタイトルを印刷する", isOn: $newSheetPrintTitleOnAllPages)
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)*/
                                 ColorPicker("シート名の文字色", selection: $newSheetTitleTextColor, supportsOpacity: false)
                                 ColorPicker("シート名の背景色", selection: $newSheetTitleBackgroundColor, supportsOpacity: false)
                             }
@@ -234,7 +241,17 @@ struct SheetListView: View {
                             }
                             ToolbarItem(placement: .confirmationAction) {
                                 Button("保存") {
-                                    model.addSheet(title: newSheetTitle, backgroundColor: newSheetColor, startDate: newSheetStartDate, endDate: newSheetEndDate, travelDateTextColor: newSheetTravelDateTextColor, defaultCardBackgroundColor: newSheetDefaultCardBackgroundColor, titleTextColor: newSheetTitleTextColor, titleBackgroundColor: newSheetTitleBackgroundColor)
+                                    model.addSheet(
+                                        title: newSheetTitle,
+                                        backgroundColor: newSheetColor,
+                                        startDate: newSheetStartDate,
+                                        endDate: newSheetEndDate,
+                                        travelDateTextColor: newSheetTravelDateTextColor,
+                                        defaultCardBackgroundColor: newSheetDefaultCardBackgroundColor,
+                                        titleTextColor: newSheetTitleTextColor,
+                                        titleBackgroundColor: newSheetTitleBackgroundColor,
+                                        printTitleOnAllPages: newSheetPrintTitleOnAllPages
+                                    )
                                     resetAddSheet()
                                 }
                                 .disabled(newSheetTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
@@ -247,6 +264,9 @@ struct SheetListView: View {
                         Form {
                             Section("シート名") {
                                 TextField("例: 東京旅行", text: $editingSheetTitle)
+                                /*Toggle("2ページ目以降もタイトルを印刷する", isOn: $editingSheetPrintTitleOnAllPages)
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)*/
                                 ColorPicker("シート名の文字色", selection: $editingSheetTitleTextColor, supportsOpacity: false)
                                 ColorPicker("シート名の背景色", selection: $editingSheetTitleBackgroundColor, supportsOpacity: false)
                             }
@@ -366,6 +386,7 @@ struct SheetListView: View {
                                     model.updateSheetTravelDates(sheetID: sheet.id, startDate: editingSheetStartDate, endDate: editingSheetEndDate)
                                     model.updateSheetTitleTextColor(sheetID: sheet.id, color: editingSheetTitleTextColor)
                                     model.updateSheetTitleBackgroundColor(sheetID: sheet.id, color: editingSheetTitleBackgroundColor)
+                                    model.updateSheetPrintTitleOnAllPages(sheetID: sheet.id, value: editingSheetPrintTitleOnAllPages)
                                     editingSheetSettings = nil
                                 }
                                 .disabled(editingSheetTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
@@ -459,6 +480,7 @@ extension SheetListView {
         newSheetEndDate = nil
         selectingDateFor = nil
         importError = nil
+        newSheetPrintTitleOnAllPages = true
     }
 
     private func startEditingSheet(_ sheet: TravelSheet) {
@@ -473,6 +495,7 @@ extension SheetListView {
         editingSheetEndDate = sheet.endDate
         editingSheetDateSelection = nil
         editingSheetDraftSelectedDate = Date()
+        editingSheetPrintTitleOnAllPages = sheet.printTitleOnAllPages ?? true
     }
 
     private func formattedDate(_ date: Date?) -> String {
@@ -661,4 +684,3 @@ private struct SheetRowView: View {
         isTitleFocused = false
     }
 }
-
