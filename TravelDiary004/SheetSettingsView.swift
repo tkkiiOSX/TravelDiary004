@@ -20,33 +20,33 @@ struct SheetSettingsView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("旅程名", text: $editingSheetTitle)
-                    Toggle("全ページに旅程名を印刷", isOn: $editingSheetPrintTitleOnAllPages)
+                    TextField("旅行プラン名", text: $editingSheetTitle)
+                    Toggle("全ページに旅行プラン名を印刷", isOn: $editingSheetPrintTitleOnAllPages)
                 } header: {
-                    Text("旅程名")
+                    Text("旅行プラン名")
                 }
                 Section {
-                    ColorPicker("旅程の色", selection: $editingSheetColor)
+                    ColorPicker("旅行プラン名の色", selection: $editingSheetColor)
                     ColorPicker("カード背景色（デフォルト）", selection: $editingSheetDefaultCardBackgroundColor)
-                    ColorPicker("旅行日付テキスト色", selection: $editingSheetTravelDateTextColor)
-                    ColorPicker("旅程名テキスト色", selection: $editingSheetTitleTextColor)
-                    ColorPicker("旅程名背景色", selection: $editingSheetTitleBackgroundColor)
+                    ColorPicker("旅行期間のテキスト色", selection: $editingSheetTravelDateTextColor)
+                    ColorPicker("旅行プラン名のテキスト色", selection: $editingSheetTitleTextColor)
+                    ColorPicker("旅行プラン名の背景色", selection: $editingSheetTitleBackgroundColor)
                 } header: {
                     Text("色")
                 }
                 Section {
                     HStack {
-                        Text("開始日")
+                        Text("旅行開始日")
                         Spacer()
                         if let start = editingSheetStartDate {
                             Text(formattedDate(start))
                                 .foregroundColor(.secondary)
                         }
                         Button {
-                            editingSheetDateSelection = .start
+                            editingSheetDateSelection = DateSelectionTarget.start
                             editingSheetDraftSelectedDate = editingSheetStartDate ?? Date()
                         } label: {
-                            Label("変更", systemImage: "calendar")
+                            Label("", systemImage: "calendar")
                         }
                         .buttonStyle(.bordered)
                         .help("開始日を変更します")
@@ -54,7 +54,7 @@ struct SheetSettingsView: View {
                             Button {
                                 editingSheetStartDate = nil
                             } label: {
-                                Label("クリア", systemImage: "xmark.circle.fill")
+                                Label("", systemImage: "xmark.circle.fill")
                             }
                             .buttonStyle(.plain)
                             .foregroundColor(.secondary)
@@ -62,17 +62,17 @@ struct SheetSettingsView: View {
                         }
                     }
                     HStack {
-                        Text("終了日")
+                        Text("旅行終了日")
                         Spacer()
                         if let end = editingSheetEndDate {
                             Text(formattedDate(end))
                                 .foregroundColor(.secondary)
                         }
                         Button {
-                            editingSheetDateSelection = .end
+                            editingSheetDateSelection = DateSelectionTarget.end
                             editingSheetDraftSelectedDate = editingSheetEndDate ?? Date()
                         } label: {
-                            Label("変更", systemImage: "calendar")
+                            Label("", systemImage: "calendar")
                         }
                         .buttonStyle(.bordered)
                         .help("終了日を変更します")
@@ -80,7 +80,7 @@ struct SheetSettingsView: View {
                             Button {
                                 editingSheetEndDate = nil
                             } label: {
-                                Label("クリア", systemImage: "xmark.circle.fill")
+                                Label("", systemImage: "xmark.circle.fill")
                             }
                             .buttonStyle(.plain)
                             .foregroundColor(.secondary)
@@ -92,13 +92,13 @@ struct SheetSettingsView: View {
                         if let loadedStart = sheet.startDate { editingSheetStartDate = loadedStart }
                         if let loadedEnd = sheet.endDate { editingSheetEndDate = loadedEnd }
                     } label: {
-                        Label("旅程の開始・終了日を再読込", systemImage: "arrow.clockwise")
+                        Label("旅行の開始・終了日を再読込", systemImage: "arrow.clockwise")
                     }
                 } header: {
                     Text("旅行期間")
                 }
             }
-            .navigationTitle("旅程編集")
+            .navigationTitle("旅行シートの設定")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("キャンセル", role: .cancel, action: onCancel)
@@ -109,10 +109,10 @@ struct SheetSettingsView: View {
                         .keyboardShortcut(.defaultAction)
                 }
             }
-            .sheet(item: $editingSheetDateSelection) { selection in
+            .sheet(item: $editingSheetDateSelection) { (selection: DateSelectionTarget) in
                 DateSelectionView(
                     selectedDate: $editingSheetDraftSelectedDate,
-                    title: selection.title,
+                    title: "日付設定",
                     onCancel: { editingSheetDateSelection = nil },
                     onDone: {
                         switch selection {
@@ -163,52 +163,3 @@ struct DateSelectionView: View {
     }
 }
 
-enum DateSelectionTarget: Identifiable {
-    case start
-    case end
-
-    var id: Int {
-        switch self {
-        case .start: return 0
-        case .end: return 1
-        }
-    }
-
-    var title: String {
-        switch self {
-        case .start: return "開始日選択"
-        case .end: return "終了日選択"
-        }
-    }
-}
-
-#Preview {
-    SheetSettingsView(
-        sheet: TravelSheet(
-            id: UUID(),
-            title: "テスト旅程",
-            color: .blue,
-            defaultCardBackgroundColor: .white,
-            travelDateTextColor: .black,
-            titleTextColor: .black,
-            titleBackgroundColor: .gray,
-            startDate: Date(),
-            endDate: Calendar.current.date(byAdding: .day, value: 5, to: Date()),
-            printTitleOnAllPages: false
-        ),
-        editingSheetTitle: .constant("テスト旅程"),
-        editingSheetColor: .constant(.blue),
-        editingSheetDefaultCardBackgroundColor: .constant(.white),
-        editingSheetTravelDateTextColor: .constant(.black),
-        editingSheetTitleTextColor: .constant(.black),
-        editingSheetTitleBackgroundColor: .constant(.gray),
-        editingSheetStartDate: .constant(Date()),
-        editingSheetEndDate: .constant(Calendar.current.date(byAdding: .day, value: 5, to: Date())),
-        editingSheetDateSelection: .constant(nil),
-        editingSheetDraftSelectedDate: .constant(Date()),
-        editingSheetPrintTitleOnAllPages: .constant(false),
-        onCancel: {},
-        onSave: {}
-    )
-    .environmentObject(TravelDataModel())
-}

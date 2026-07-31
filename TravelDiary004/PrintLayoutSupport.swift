@@ -127,7 +127,7 @@ struct PDFPreviewContainer: View {
                                         cardScales: $cardScalesState
                                     )
                                     VStack {
-                                        Toggle("２ページ目以降\nシート名と旅行日程を表示", isOn: $printTitleOnAllPages)
+                                        Toggle("２ページ目以降\n旅行プラン名と旅行日程を表示", isOn: $printTitleOnAllPages)
                                             .onChange(of: printTitleOnAllPages) { _, newValue in
                                                 model.updateSheetPrintTitleOnAllPages(sheetID: sheet.id, value: newValue)
                                             }

@@ -12,7 +12,7 @@ struct SheetListView: View {
     @State private var newSheetTitleBackgroundColor: Color = .white
     @State private var newSheetStartDate: Date? = nil
     @State private var newSheetEndDate: Date? = nil
-    @State private var selectingDateFor: DateSelectionTarget? = nil
+    @State private var selectingDateFor: DateSelectionTarget? = nil 
     @State private var draftSelectedDate = Date()
     @State private var editingSheetSettings: TravelSheet? = nil
     @State private var editingSheetTitle = ""
@@ -81,90 +81,79 @@ struct SheetListView: View {
                         } label: {
                             Image(systemName: "plus")
                         }
-                        .accessibilityLabel("新しいシートを追加")
+                        .accessibilityLabel("新しい旅行シートを追加")
                     }
                 }
                 .sheet(isPresented: $showingAddSheet) {
                     // シート追加&インポート画面
                     NavigationStack {
                         Form {
-                            Section("シート名") {
+                            Section("旅行プラン名") {
                                 TextField("例: 東京旅行", text: $newSheetTitle)
                                 /*Toggle("2ページ目以降もタイトルを印刷する", isOn: $newSheetPrintTitleOnAllPages)
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)*/
-                                ColorPicker("シート名の文字色", selection: $newSheetTitleTextColor, supportsOpacity: false)
-                                ColorPicker("シート名の背景色", selection: $newSheetTitleBackgroundColor, supportsOpacity: false)
+                                ColorPicker("旅行プラン名の文字色", selection: $newSheetTitleTextColor, supportsOpacity: false)
+                                ColorPicker("旅行プラン名の背景色", selection: $newSheetTitleBackgroundColor, supportsOpacity: false)
                             }
                             Section("背景色") {
-                                ColorPicker("シートの背景色", selection: $newSheetColor, supportsOpacity: false)
+                                ColorPicker("旅行シートの背景色", selection: $newSheetColor, supportsOpacity: false)
                                 ColorPicker("デフォルトのカード色", selection: $newSheetDefaultCardBackgroundColor, supportsOpacity: false)
                             }
                             Section("旅行日程") {
                                 ColorPicker("旅行日程の文字色", selection: $newSheetTravelDateTextColor, supportsOpacity: false)
-                                Button {
-                                    draftSelectedDate = newSheetStartDate ?? Date()
-                                    selectingDateFor = .start
-                                } label: {
-                                    HStack {
-                                        Text("旅行開始予定日")
-                                        Spacer()
-                                        Text(newSheetStartDate == nil ? "未設定" : formattedDate(newSheetStartDate))
-                                            .foregroundColor(.secondary)
-                                        Button {
-                                            // Reload only when a date is already set
-                                            guard let current = newSheetStartDate else { return }
-                                            draftSelectedDate = current
-                                            newSheetStartDate = current
-                                        } label: {
-                                            Image(systemName: "arrow.clockwise")
+                                
+                                VStack {
+                                    Button {
+                                        draftSelectedDate = newSheetStartDate ?? Date()
+                                        selectingDateFor = .start
+                                    } label: {
+                                        HStack {
+                                            Text("旅行開始予定日")
+                                            Spacer()
+                                            Text(newSheetStartDate == nil ? "未設定" : formattedDate(newSheetStartDate))
+                                                .foregroundColor(.secondary)
+                                            
+                                            Label("", systemImage: "calendar")
+                                            
+                                            
+                                            Button {
+                                                newSheetStartDate = nil
+                                            } label: {
+                                                HStack {
+                                                    Image(systemName: "xmark.circle")
+                                                    Text("")
+                                                }
                                         }
-                                        .buttonStyle(.borderless)
-                                        .help("開始日を再読み込み")
                                     }
+                                        
+                                    Button {
+                                        draftSelectedDate = newSheetEndDate ?? newSheetStartDate ?? Date()
+                                        selectingDateFor = .end
+                                    } label: {
+                                        HStack {
+                                            Text("旅行終了予定日")
+                                            Spacer()
+                                            Text(newSheetEndDate == nil ? "未設定" : formattedDate(newSheetEndDate))
+                                                .foregroundColor(.secondary)
+                                            
+                                            Label("", systemImage: "calendar")
+                                        
+                                            Button {
+                                                newSheetEndDate = nil
+                                            } label: {
+                                                HStack {
+                                                    Image(systemName: "xmark.circle")
+                                                    Text("")
+                                                }
+                                            }
                                 }
-
-                                Button {
-                                    draftSelectedDate = newSheetEndDate ?? newSheetStartDate ?? Date()
-                                    selectingDateFor = .end
-                                } label: {
-                                    HStack {
-                                        Text("旅行終了予定日")
-                                        Spacer()
-                                        Text(newSheetEndDate == nil ? "未設定" : formattedDate(newSheetEndDate))
-                                            .foregroundColor(.secondary)
-                                        Button {
-                                            // Reload only when a date is already set
-                                            guard let current = newSheetEndDate else { return }
-                                            draftSelectedDate = current
-                                            newSheetEndDate = current
-                                        } label: {
-                                            Image(systemName: "arrow.clockwise")
+                                
+                                        
                                         }
-                                        .buttonStyle(.borderless)
-                                        .help("終了日を再読み込み")
                                     }
                                 }
 
-                                Button {
-                                    newSheetStartDate = nil
-                                } label: {
-                                    HStack {
-                                        Image(systemName: "xmark.circle")
-                                        Text("開始日をクリア")
-                                        Spacer()
-                                    }
-                                }
-
-                                Button {
-                                    newSheetEndDate = nil
-                                } label: {
-                                    HStack {
-                                        Image(systemName: "xmark.circle")
-                                        Text("終了日をクリア")
-                                        Spacer()
-                                    }
-                                }
                             }
                             Section {
                                 Button {
@@ -202,7 +191,7 @@ struct SheetListView: View {
                                     .foregroundColor(.secondary)
                             }
                         }
-                        .navigationTitle("シートの設定")
+                        .navigationTitle("旅行シートの設定")
                         .sheet(item: $selectingDateFor) { target in
                             NavigationStack {
                                 Form {
@@ -260,139 +249,32 @@ struct SheetListView: View {
                     }
                 }
                 .sheet(item: $editingSheetSettings) { sheet in
-                    NavigationStack {
-                        Form {
-                            Section("シート名") {
-                                TextField("例: 東京旅行", text: $editingSheetTitle)
-                                /*Toggle("2ページ目以降もタイトルを印刷する", isOn: $editingSheetPrintTitleOnAllPages)
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)*/
-                                ColorPicker("シート名の文字色", selection: $editingSheetTitleTextColor, supportsOpacity: false)
-                                ColorPicker("シート名の背景色", selection: $editingSheetTitleBackgroundColor, supportsOpacity: false)
-                            }
-                            Section("背景色") {
-                                ColorPicker("シートの背景色", selection: $editingSheetColor, supportsOpacity: false)
-                                ColorPicker("デフォルトのカード色", selection: $editingSheetDefaultCardBackgroundColor, supportsOpacity: false)
-                            }
-                            Section("旅行日程") {
-                                ColorPicker("旅行日程の文字色", selection: $editingSheetTravelDateTextColor, supportsOpacity: false)
-                                Button {
-                                    editingSheetDraftSelectedDate = editingSheetStartDate ?? Date()
-                                    editingSheetDateSelection = .start
-                                } label: {
-                                    HStack {
-                                        Text("旅行開始予定日")
-                                        Spacer()
-                                        Text(editingSheetStartDate == nil ? "未設定" : formattedDate(editingSheetStartDate))
-                                            .foregroundColor(.secondary)
-                                        Button {
-                                            // Reload only when a date is already set
-                                            guard let current = editingSheetStartDate else { return }
-                                            editingSheetDraftSelectedDate = current
-                                            editingSheetStartDate = current
-                                        } label: {
-                                            Image(systemName: "arrow.clockwise")
-                                        }
-                                        .buttonStyle(.borderless)
-                                        .help("開始日を再読み込み")
-                                    }
-                                }
-                                Button {
-                                    editingSheetDraftSelectedDate = editingSheetEndDate ?? editingSheetStartDate ?? Date()
-                                    editingSheetDateSelection = .end
-                                } label: {
-                                    HStack {
-                                        Text("旅行終了予定日")
-                                        Spacer()
-                                        Text(editingSheetEndDate == nil ? "未設定" : formattedDate(editingSheetEndDate))
-                                            .foregroundColor(.secondary)
-                                        Button {
-                                            // Reload only when a date is already set
-                                            guard let current = editingSheetEndDate else { return }
-                                            editingSheetDraftSelectedDate = current
-                                            editingSheetEndDate = current
-                                        } label: {
-                                            Image(systemName: "arrow.clockwise")
-                                        }
-                                        .buttonStyle(.borderless)
-                                        .help("終了日を再読み込み")
-                                    }
-                                }
-
-                                Button {
-                                    editingSheetStartDate = nil
-                                } label: {
-                                    HStack {
-                                        Image(systemName: "xmark.circle")
-                                        Text("開始日をクリア")
-                                        Spacer()
-                                    }
-                                }
-
-                                Button {
-                                    editingSheetEndDate = nil
-                                } label: {
-                                    HStack {
-                                        Image(systemName: "xmark.circle")
-                                        Text("終了日をクリア")
-                                        Spacer()
-                                    }
-                                }
-                            }
+                    SheetSettingsView(
+                        sheet: sheet,
+                        editingSheetTitle: $editingSheetTitle,
+                        editingSheetColor: $editingSheetColor,
+                        editingSheetDefaultCardBackgroundColor: $editingSheetDefaultCardBackgroundColor,
+                        editingSheetTravelDateTextColor: $editingSheetTravelDateTextColor,
+                        editingSheetTitleTextColor: $editingSheetTitleTextColor,
+                        editingSheetTitleBackgroundColor: $editingSheetTitleBackgroundColor,
+                        editingSheetStartDate: $editingSheetStartDate,
+                        editingSheetEndDate: $editingSheetEndDate,
+                        editingSheetDateSelection: $editingSheetDateSelection,
+                        editingSheetDraftSelectedDate: $editingSheetDraftSelectedDate,
+                        editingSheetPrintTitleOnAllPages: $editingSheetPrintTitleOnAllPages,
+                        onCancel: { editingSheetSettings = nil },
+                        onSave: {
+                            model.updateSheetTitle(sheetID: sheet.id, newTitle: editingSheetTitle)
+                            model.updateSheetColor(sheetID: sheet.id, color: editingSheetColor)
+                            model.updateSheetDefaultCardBackgroundColor(sheetID: sheet.id, color: editingSheetDefaultCardBackgroundColor)
+                            model.updateSheetTravelDateTextColor(sheetID: sheet.id, color: editingSheetTravelDateTextColor)
+                            model.updateSheetTravelDates(sheetID: sheet.id, startDate: editingSheetStartDate, endDate: editingSheetEndDate)
+                            model.updateSheetTitleTextColor(sheetID: sheet.id, color: editingSheetTitleTextColor)
+                            model.updateSheetTitleBackgroundColor(sheetID: sheet.id, color: editingSheetTitleBackgroundColor)
+                            model.updateSheetPrintTitleOnAllPages(sheetID: sheet.id, value: editingSheetPrintTitleOnAllPages)
+                            editingSheetSettings = nil
                         }
-                        .navigationTitle("シートの設定")
-                        .sheet(item: $editingSheetDateSelection) { target in
-                            NavigationStack {
-                                Form {
-                                    Section("日付を選択") {
-                                        DatePicker("日付", selection: Binding(
-                                            get: { editingSheetDraftSelectedDate },
-                                            set: { editingSheetDraftSelectedDate = $0 }
-                                        ), displayedComponents: [.date])
-                                    }
-                                }
-                                .navigationTitle(target == .start ? "開始予定日" : "終了予定日")
-                                .toolbar {
-                                    ToolbarItem(placement: .cancellationAction) {
-                                        Button("キャンセル") {
-                                            editingSheetDateSelection = nil
-                                        }
-                                    }
-                                    ToolbarItem(placement: .confirmationAction) {
-                                        Button("決定") {
-                                            if target == .start {
-                                                editingSheetStartDate = editingSheetDraftSelectedDate
-                                            } else {
-                                                editingSheetEndDate = editingSheetDraftSelectedDate
-                                            }
-                                            editingSheetDateSelection = nil
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        .toolbar {
-                            ToolbarItem(placement: .cancellationAction) {
-                                Button("キャンセル") {
-                                    editingSheetSettings = nil
-                                }
-                            }
-                            ToolbarItem(placement: .confirmationAction) {
-                                Button("保存") {
-                                    model.updateSheetTitle(sheetID: sheet.id, newTitle: editingSheetTitle)
-                                    model.updateSheetColor(sheetID: sheet.id, color: editingSheetColor)
-                                    model.updateSheetDefaultCardBackgroundColor(sheetID: sheet.id, color: editingSheetDefaultCardBackgroundColor)
-                                    model.updateSheetTravelDateTextColor(sheetID: sheet.id, color: editingSheetTravelDateTextColor)
-                                    model.updateSheetTravelDates(sheetID: sheet.id, startDate: editingSheetStartDate, endDate: editingSheetEndDate)
-                                    model.updateSheetTitleTextColor(sheetID: sheet.id, color: editingSheetTitleTextColor)
-                                    model.updateSheetTitleBackgroundColor(sheetID: sheet.id, color: editingSheetTitleBackgroundColor)
-                                    model.updateSheetPrintTitleOnAllPages(sheetID: sheet.id, value: editingSheetPrintTitleOnAllPages)
-                                    editingSheetSettings = nil
-                                }
-                                .disabled(editingSheetTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                            }
-                        }
-                    }
+                    )
                 }
                 .navigationDestination(for: TravelSheet.self) { sheet in
                     CardListView(initialSheet: sheet)
@@ -450,18 +332,6 @@ struct SheetListView: View {
     }
 }
 
-private enum DateSelectionTarget: Identifiable {
-    case start
-    case end
-
-    var id: String {
-        switch self {
-        case .start: return "start"
-        case .end: return "end"
-        }
-    }
-}
-
 private struct ShareItem: Identifiable {
     let id = UUID()
     let url: URL
@@ -483,7 +353,9 @@ extension SheetListView {
         newSheetPrintTitleOnAllPages = true
     }
 
-    private func startEditingSheet(_ sheet: TravelSheet) {
+    /*private func startEditingSheet(_ sheet: TravelSheet) {
+        print("startEditingSheetA=\(editingSheetStartDate)")
+        print("startEditingSheetB=\(sheet.startDate)")
         editingSheetSettings = sheet
         editingSheetTitle = sheet.title
         editingSheetColor = sheet.backgroundColor
@@ -496,7 +368,31 @@ extension SheetListView {
         editingSheetDateSelection = nil
         editingSheetDraftSelectedDate = Date()
         editingSheetPrintTitleOnAllPages = sheet.printTitleOnAllPages ?? true
+        print("startEditingSheetA2=\(editingSheetStartDate)")
+        print("startEditingSheetB2=\(sheet.startDate)")
+    }*/
+    private func startEditingSheet(_ sheet: TravelSheet) {
+        // 先に全ての編集用 State をセット
+        editingSheetTitle = sheet.title
+        editingSheetColor = sheet.backgroundColor
+        editingSheetDefaultCardBackgroundColor = Color(hex: sheet.effectiveDefaultCardBackgroundColorHex)
+        editingSheetTravelDateTextColor = sheet.travelDateTextColor
+        editingSheetTitleTextColor = sheet.titleTextColor
+        editingSheetTitleBackgroundColor = sheet.titleBackgroundColor
+
+        editingSheetStartDate = sheet.startDate
+        editingSheetEndDate = sheet.endDate
+
+        editingSheetDateSelection = nil
+        // ドラフトは開始日に寄せる（nil の場合だけ Date()）
+        editingSheetDraftSelectedDate = sheet.startDate ?? Date()
+
+        editingSheetPrintTitleOnAllPages = sheet.printTitleOnAllPages ?? true
+
+        // 最後に表示トリガー
+        editingSheetSettings = sheet
     }
+
 
     private func formattedDate(_ date: Date?) -> String {
         guard let date else { return "未設定" }
