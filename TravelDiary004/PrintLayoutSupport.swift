@@ -119,21 +119,28 @@ struct PDFPreviewContainer: View {
                         }
                         .sheet(isPresented: $showSettings) {
                             NavigationStack {
-                                List {
-                                    Section("印刷設定") {
-                                        Toggle("２ページ目以降もシート名と旅行日程を表示", isOn: $printTitleOnAllPages)
+                                VStack {
+                                    PrintLayoutManualPageBreaksEditor(
+                                        cards: sheet.cards,
+                                        manualPageBreaks: $manualPageBreaksState,
+                                        cardAlignments: $cardAlignmentsState,
+                                        cardScales: $cardScalesState
+                                    )
+                                    VStack {
+                                        Toggle("２ページ目以降\nシート名と旅行日程を表示", isOn: $printTitleOnAllPages)
                                             .onChange(of: printTitleOnAllPages) { _, newValue in
                                                 model.updateSheetPrintTitleOnAllPages(sheetID: sheet.id, value: newValue)
                                             }
+                                            .padding()
                                     }
+                                    .background(Color.white)
+                                    .cornerRadius(20)
+                                    .padding()
+                                    
                                 }
-                                PrintLayoutManualPageBreaksEditor(
-                                    cards: sheet.cards,
-                                    manualPageBreaks: $manualPageBreaksState,
-                                    cardAlignments: $cardAlignmentsState,
-                                    cardScales: $cardScalesState
-                                )
-                                .navigationTitle("改ページ設定")
+                                .background(Color(white: 0.9))
+                                
+                                .navigationTitle("ページ設定")
                                 .toolbar {
                                     ToolbarItem(placement: .cancellationAction) {
                                         Button("閉じる") {
