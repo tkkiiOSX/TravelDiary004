@@ -21,18 +21,22 @@ struct SheetSettingsView: View {
             Form {
                 Section {
                     TextField("旅行プラン名", text: $editingSheetTitle)
-                    Toggle("全ページに旅行プラン名を印刷", isOn: $editingSheetPrintTitleOnAllPages)
+                    ColorPicker("旅行プラン名の文字色", selection: $editingSheetTitleTextColor)
+                    ColorPicker("旅行プラン名の背景色", selection: $editingSheetTitleBackgroundColor)
+                    /*Toggle("全ページに旅行プラン名を印刷", isOn: $editingSheetPrintTitleOnAllPages)*/
                 } header: {
                     Text("旅行プラン名")
                 }
+                
+                
                 Section {
-                    ColorPicker("旅行プラン名の色", selection: $editingSheetColor)
+                    ColorPicker("旅行プランシートの背景色", selection: $editingSheetColor)
                     ColorPicker("カード背景色（デフォルト）", selection: $editingSheetDefaultCardBackgroundColor)
-                    ColorPicker("旅行期間のテキスト色", selection: $editingSheetTravelDateTextColor)
-                    ColorPicker("旅行プラン名のテキスト色", selection: $editingSheetTitleTextColor)
-                    ColorPicker("旅行プラン名の背景色", selection: $editingSheetTitleBackgroundColor)
+                    
+                    
+                    
                 } header: {
-                    Text("色")
+                    Text("背景色")
                 }
                 Section {
                     HStack {
@@ -48,7 +52,7 @@ struct SheetSettingsView: View {
                         } label: {
                             Label("", systemImage: "calendar")
                         }
-                        .buttonStyle(.bordered)
+                        //.buttonStyle(.bordered)
                         .help("開始日を変更します")
                         if editingSheetStartDate != nil {
                             Button {
@@ -74,7 +78,7 @@ struct SheetSettingsView: View {
                         } label: {
                             Label("", systemImage: "calendar")
                         }
-                        .buttonStyle(.bordered)
+                        //.buttonStyle(.bordered)
                         .help("終了日を変更します")
                         if editingSheetEndDate != nil {
                             Button {
@@ -87,6 +91,7 @@ struct SheetSettingsView: View {
                             .help("終了日をクリアします")
                         }
                     }
+                    ColorPicker("旅行期間の文字色", selection: $editingSheetTravelDateTextColor)
                     Button {
                         // Reload dates from sheet, assuming method exists on TravelSheet
                         if let loadedStart = sheet.startDate { editingSheetStartDate = loadedStart }

@@ -97,63 +97,61 @@ struct SheetListView: View {
                                 ColorPicker("旅行プラン名の背景色", selection: $newSheetTitleBackgroundColor, supportsOpacity: false)
                             }
                             Section("背景色") {
-                                ColorPicker("旅行シートの背景色", selection: $newSheetColor, supportsOpacity: false)
-                                ColorPicker("デフォルトのカード色", selection: $newSheetDefaultCardBackgroundColor, supportsOpacity: false)
+                                ColorPicker("旅行プランシートの背景色", selection: $newSheetColor, supportsOpacity: false)
+                                ColorPicker("カードの背景色（デフォルト）", selection: $newSheetDefaultCardBackgroundColor, supportsOpacity: false)
                             }
-                            Section("旅行日程") {
-                                ColorPicker("旅行日程の文字色", selection: $newSheetTravelDateTextColor, supportsOpacity: false)
-                                
-                                VStack {
+                            Section("旅行期間") {
+                                HStack {
+                                    Text("旅行開始日")
+                                    Spacer()
+                                    if let start = newSheetStartDate {
+                                        Text(formattedDate(start))
+                                            .foregroundColor(.secondary)
+                                    }
                                     Button {
                                         draftSelectedDate = newSheetStartDate ?? Date()
                                         selectingDateFor = .start
                                     } label: {
-                                        HStack {
-                                            Text("旅行開始予定日")
-                                            Spacer()
-                                            Text(newSheetStartDate == nil ? "未設定" : formattedDate(newSheetStartDate))
-                                                .foregroundColor(.secondary)
-                                            
-                                            Label("", systemImage: "calendar")
-                                            
-                                            
-                                            Button {
-                                                newSheetStartDate = nil
-                                            } label: {
-                                                HStack {
-                                                    Image(systemName: "xmark.circle")
-                                                    Text("")
-                                                }
-                                        }
+                                        Label("", systemImage: "calendar")
                                     }
-                                        
+                                    .help("開始日を変更します")
+                                    if newSheetStartDate != nil {
+                                        Button {
+                                            newSheetStartDate = nil
+                                        } label: {
+                                            Label("", systemImage: "xmark.circle.fill")
+                                        }
+                                        .buttonStyle(.plain)
+                                        .foregroundColor(.secondary)
+                                        .help("開始日をクリアします")
+                                    }
+                                }
+                                HStack {
+                                    Text("旅行終了日")
+                                    Spacer()
+                                    if let end = newSheetEndDate {
+                                        Text(formattedDate(end))
+                                            .foregroundColor(.secondary)
+                                    }
                                     Button {
                                         draftSelectedDate = newSheetEndDate ?? newSheetStartDate ?? Date()
                                         selectingDateFor = .end
                                     } label: {
-                                        HStack {
-                                            Text("旅行終了予定日")
-                                            Spacer()
-                                            Text(newSheetEndDate == nil ? "未設定" : formattedDate(newSheetEndDate))
-                                                .foregroundColor(.secondary)
-                                            
-                                            Label("", systemImage: "calendar")
-                                        
-                                            Button {
-                                                newSheetEndDate = nil
-                                            } label: {
-                                                HStack {
-                                                    Image(systemName: "xmark.circle")
-                                                    Text("")
-                                                }
-                                            }
-                                }
-                                
-                                        
+                                        Label("", systemImage: "calendar")
+                                    }
+                                    .help("終了日を変更します")
+                                    if newSheetEndDate != nil {
+                                        Button {
+                                            newSheetEndDate = nil
+                                        } label: {
+                                            Label("", systemImage: "xmark.circle.fill")
                                         }
+                                        .buttonStyle(.plain)
+                                        .foregroundColor(.secondary)
+                                        .help("終了日をクリアします")
                                     }
                                 }
-
+                                ColorPicker("旅行日程の文字色", selection: $newSheetTravelDateTextColor, supportsOpacity: false)
                             }
                             Section {
                                 Button {
@@ -191,7 +189,7 @@ struct SheetListView: View {
                                     .foregroundColor(.secondary)
                             }
                         }
-                        .navigationTitle("旅行シートの設定")
+                        .navigationTitle("新規旅行シートの設定")
                         .sheet(item: $selectingDateFor) { target in
                             NavigationStack {
                                 Form {
@@ -580,3 +578,4 @@ private struct SheetRowView: View {
         isTitleFocused = false
     }
 }
+
