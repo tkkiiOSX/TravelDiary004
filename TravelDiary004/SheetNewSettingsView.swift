@@ -151,7 +151,7 @@ struct SheetNewSettingsView: View {
                             ), displayedComponents: [.date])
                         }
                     }
-                    .navigationTitle(target == .start ? "開始予定日" : "終了予定日")
+                    .navigationTitle(target.navigationTitle)
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
                             Button("キャンセル") {
@@ -160,11 +160,11 @@ struct SheetNewSettingsView: View {
                         }
                         ToolbarItem(placement: .confirmationAction) {
                             Button("決定") {
-                                if target == .start {
-                                    newSheetStartDate = draftSelectedDate
-                                } else {
-                                    newSheetEndDate = draftSelectedDate
-                                }
+                                target.apply(
+                                    to: &newSheetStartDate,
+                                    endDate: &newSheetEndDate,
+                                    selectedDate: draftSelectedDate
+                                )
                                 selectingDateFor = nil
                             }
                         }

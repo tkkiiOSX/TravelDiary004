@@ -400,10 +400,8 @@ struct PrintLayoutView: View {
         guard card.hasLocation else { return nil }
 
         let options = MKMapSnapshotter.Options()
-        let center = CLLocationCoordinate2D(latitude: card.latitude, longitude: card.longitude)
-        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-        let region = MKCoordinateRegion(center: center, span: span)
-        options.region = region
+        let center = card.coordinate
+        options.region = card.mapRegion(latitudeDelta: 0.05, longitudeDelta: 0.05)
         options.size = size
         options.scale = UIScreen.main.scale
         options.mapType = .standard

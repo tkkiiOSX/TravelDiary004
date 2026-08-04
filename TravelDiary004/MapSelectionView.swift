@@ -69,7 +69,7 @@ struct MapSelectionView: View {
                                 Marker("選択地点", coordinate: coord)
                                     .tint(.red)
                             } else {
-                                Marker("選択地点", coordinate: CLLocationCoordinate2D(latitude: card.latitude, longitude: card.longitude))
+                                Marker("選択地点", coordinate: card.coordinate)
                                     .tint(.red)
                             }
                         }
@@ -192,4 +192,3 @@ extension CLPlacemark {
     @Previewable @State var card = TravelCard()
     MapSelectionView(card: $card) { }
 }
-

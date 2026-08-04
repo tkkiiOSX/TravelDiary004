@@ -383,12 +383,12 @@ struct CardEditView: View {
                 TextField("地名・施設名", text: $card.locationName)
                 TextField("住所", text: $card.address)
 
-                if card.hasLocation {
-                    Map(position: $editMapPosition) {
-                        Marker(card.locationName.isEmpty ? "位置" : card.locationName,
-                               coordinate: CLLocationCoordinate2D(latitude: card.latitude, longitude: card.longitude))
+                    if card.hasLocation {
+                        Map(position: $editMapPosition) {
+                            Marker(card.locationName.isEmpty ? "位置" : card.locationName,
+                               coordinate: card.coordinate)
                             .tint(.red)
-                    }
+                        }
                     .frame(height: 180)
                     .cornerRadius(12)
                     .onAppear {
@@ -404,7 +404,7 @@ struct CardEditView: View {
                     HStack {
                         Image(systemName: "mappin.circle.fill")
                             .foregroundColor(.red)
-                        Text(String(format: "%.4f, %.4f", card.latitude, card.longitude))
+                        Text(card.coordinate.formattedString)
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
@@ -667,11 +667,7 @@ struct CardEditView: View {
 
     private func updateEditMapPosition() {
         guard card.hasLocation else { return }
-        let region = MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: card.latitude, longitude: card.longitude),
-            span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-        )
-        editMapPosition = .region(region)
+        editMapPosition = .region(card.mapRegion(latitudeDelta: 0.05, longitudeDelta: 0.05))
     }
 
     private func saveAndDismiss() {

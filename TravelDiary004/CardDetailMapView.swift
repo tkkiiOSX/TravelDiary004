@@ -11,16 +11,12 @@ struct CardDetailMapView: View {
                 if card.hasLocation {
                     Map(position: $position) {
                         Marker(card.locationName.isEmpty ? "位置" : card.locationName,
-                               coordinate: CLLocationCoordinate2D(latitude: card.latitude, longitude: card.longitude))
+                               coordinate: card.coordinate)
                             .tint(.red)
                     }
                     .mapStyle(.standard)
                     .onAppear {
-                        let region = MKCoordinateRegion(
-                            center: CLLocationCoordinate2D(latitude: card.latitude, longitude: card.longitude),
-                            span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-                        )
-                        position = .region(region)
+                        position = .region(card.mapRegion(latitudeDelta: 0.1, longitudeDelta: 0.1))
                     }
                     
                     VStack(alignment: .leading, spacing: 12) {
@@ -46,7 +42,7 @@ struct CardDetailMapView: View {
                         HStack {
                             Image(systemName: "map.circle.fill")
                                 .foregroundColor(.purple)
-                            Text(String(format: "%.4f, %.4f", card.latitude, card.longitude))
+                            Text(card.coordinate.formattedString)
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }

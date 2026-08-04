@@ -120,10 +120,11 @@ struct SheetSettingsView: View {
                     title: "日付設定",
                     onCancel: { editingSheetDateSelection = nil },
                     onDone: {
-                        switch selection {
-                        case .start: editingSheetStartDate = editingSheetDraftSelectedDate
-                        case .end: editingSheetEndDate = editingSheetDraftSelectedDate
-                        }
+                        selection.apply(
+                            to: &editingSheetStartDate,
+                            endDate: &editingSheetEndDate,
+                            selectedDate: editingSheetDraftSelectedDate
+                        )
                         editingSheetDateSelection = nil
                     }
                 )
@@ -167,4 +168,3 @@ struct DateSelectionView: View {
         }
     }
 }
-

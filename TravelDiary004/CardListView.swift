@@ -349,7 +349,7 @@ private struct CardDisplayView: View {
                             let side = min(geo.size.width, geo.size.height)
                             Map(position: $position) {
                                 Marker(card.locationName.isEmpty ? "選択地点" : card.locationName,
-                                       coordinate: CLLocationCoordinate2D(latitude: card.latitude, longitude: card.longitude))
+                                       coordinate: card.coordinate)
                                     .tint(.red)
                             }
                             .mapStyle(.standard)
@@ -357,11 +357,7 @@ private struct CardDisplayView: View {
                             .frame(width: side, height: side)
                             .cornerRadius(14)
                             .onAppear {
-                                let region = MKCoordinateRegion(
-                                    center: CLLocationCoordinate2D(latitude: card.latitude, longitude: card.longitude),
-                                    span: MKCoordinateSpan(latitudeDelta: 0.08, longitudeDelta: 0.08)
-                                )
-                                position = .region(region)
+                                position = .region(card.mapRegion(latitudeDelta: 0.08, longitudeDelta: 0.08))
                             }
                         }
                     }
@@ -445,4 +441,3 @@ private struct CardListViewPreviewProvider {
 #Preview("カードリスト プレビュー") {
     CardListView(initialSheet: CardListViewPreviewProvider.model.sheets.first!).environmentObject(CardListViewPreviewProvider.model)
 }
-
