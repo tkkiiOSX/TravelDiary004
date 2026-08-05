@@ -332,9 +332,9 @@ private struct CardDisplayView: View {
 
             if !card.memo.isEmpty {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text("メモ")
+                    /*Text("めも")
                         .font(.system(size: CGFloat(max(card.textSize - 4, 8)), weight: .bold))
-                        .foregroundColor(card.textColor.opacity(0.7))
+                        .foregroundColor(card.textColor.opacity(0.7))*/
                     Text(card.memo)
                         .font(.system(size: CGFloat(max(card.textSize - 4, 8))))
                         .foregroundColor(card.textColor.opacity(0.5))

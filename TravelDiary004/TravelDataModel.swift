@@ -661,7 +661,17 @@ final class TravelDataModel: ObservableObject {
         return dir.appendingPathComponent("travel_data.json")
     }
 
-    init() {
+    private static func removeStoredData() {
+        let url = dataURL()
+        if FileManager.default.fileExists(atPath: url.path) {
+            try? FileManager.default.removeItem(at: url)
+        }
+    }
+
+    init(resetStoredData: Bool = false) {
+        if resetStoredData {
+            Self.removeStoredData()
+        }
         if let data = try? Data(contentsOf: Self.dataURL()),
            let decoded = try? JSONDecoder().decode([TravelSheet].self, from: data) {
             self.sheets = decoded
@@ -757,6 +767,12 @@ final class TravelDataModel: ObservableObject {
     }
 
     func clearImportFeedback() {
+        importFeedback = nil
+    }
+
+    func resetStoredData() {
+        Self.removeStoredData()
+        sheets = []
         importFeedback = nil
     }
 

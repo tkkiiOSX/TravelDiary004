@@ -8,6 +8,7 @@
 import XCTest
 
 final class TravelDiary004UITestsLaunchTests: XCTestCase {
+    private let timeout: TimeInterval = 10
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
@@ -22,6 +23,7 @@ final class TravelDiary004UITestsLaunchTests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments.append("-uiTestingResetData")
         app.launch()
+        waitForHomeScreen(in: app)
 
         let sampleTitles = [
             "青森旅行",
@@ -38,24 +40,36 @@ final class TravelDiary004UITestsLaunchTests: XCTestCase {
         for title in sampleTitles {
             addSheet(title: title, in: app)
         }
+    }
+
+    @MainActor
+    private func addSheet(title: String, in app: XCUIApplication) {
+        let addButton = app.buttons["plus"].firstMatch
+        XCTAssertTrue(addButton.waitForExistence(timeout: timeout))
+        addButton.tap()
+
+        let titleField = app.textFields["例: 東京旅行"].firstMatch
+        XCTAssertTrue(titleField.waitForExistence(timeout: timeout))
+        titleField.tap()
+        titleField.typeText(title)
+
+        let saveButton = app.buttons["保存"].firstMatch
+        XCTAssertTrue(saveButton.waitForExistence(timeout: timeout))
+        saveButton.tap()
+
+        let savedTitle = app.staticTexts[title].firstMatch
+        XCTAssertTrue(savedTitle.waitForExistence(timeout: timeout))
+        XCTAssertTrue(addButton.waitForExistence(timeout: timeout))
 
         let attachment = XCTAttachment(screenshot: app.screenshot())
-        attachment.name = "Sample Travel Sheets"
+        attachment.name = title
         attachment.lifetime = .keepAlways
         add(attachment)
     }
 
     @MainActor
-    private func addSheet(title: String, in app: XCUIApplication) {
-        app.buttons["plus"].firstMatch.tap()
-
-        let titleField = app.textFields["例: 東京旅行"].firstMatch
-        XCTAssertTrue(titleField.waitForExistence(timeout: 3))
-        titleField.tap()
-        titleField.typeText(title)
-
-        app.buttons["保存"].firstMatch.tap()
-
-        XCTAssertTrue(app.staticTexts[title].firstMatch.waitForExistence(timeout: 3))
+    private func waitForHomeScreen(in app: XCUIApplication) {
+        let addButton = app.buttons["plus"].firstMatch
+        XCTAssertTrue(addButton.waitForExistence(timeout: timeout))
     }
 }

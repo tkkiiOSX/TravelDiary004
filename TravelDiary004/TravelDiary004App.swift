@@ -9,7 +9,12 @@ import SwiftUI
 
 @main
 struct TravelDiary004App: App {
-    @StateObject private var model = TravelDataModel()
+    @StateObject private var model: TravelDataModel
+
+    init() {
+        let resetStoredData = ProcessInfo.processInfo.arguments.contains("-uiTestingResetData")
+        _model = StateObject(wrappedValue: TravelDataModel(resetStoredData: resetStoredData))
+    }
 
     var body: some Scene {
         WindowGroup {
@@ -23,4 +28,3 @@ struct TravelDiary004App: App {
         }
     }
 }
-
