@@ -18,36 +18,44 @@ final class TravelDiary004UITestsLaunchTests: XCTestCase {
     }
 
     @MainActor
-    func testLaunch() throws {
+    func testLaunchWithSampleSheets() throws {
         let app = XCUIApplication()
+        app.launchArguments.append("-uiTestingResetData")
         app.launch()
 
-        
-        app.buttons["plus"].firstMatch.tap()
-        app.textFields["例: 東京旅行"].tap()
-        app.textFields["例: 東京旅行"].typeText("おたる水族館３")
-        app.buttons["保存"].firstMatch.tap()
-        
-        app.buttons["おたる水族館３, カード数: 0"].firstMatch.tap()
-        app.images["plus.circle"].firstMatch.tap()
-        
-        let element = app.textFields["カードタイトルを入力"].firstMatch
-        element.tap()
-        element.tap()
-        
-        let webButton = app.buttons["webViewButton"].firstMatch
-        XCTAssertTrue(webButton.waitForExistence(timeout: 3))
-        webButton.tap()
-        let webView = app.otherElements["otaru-aquarium-webview"]
-        XCTAssertTrue(webView.waitForExistence(timeout: 3))
-        
-        app.buttons["適用"].firstMatch.tap()
-        app.buttons["BackButton"].firstMatch.tap()
-        
-        
+        let sampleTitles = [
+            "青森旅行",
+            "長野旅行",
+            "東京旅行",
+            "名古屋旅行",
+            "京都旅行",
+            "大阪旅行",
+            "神戸旅行",
+            "広島旅行",
+            "福岡旅行"
+        ]
+
+        for title in sampleTitles {
+            addSheet(title: title, in: app)
+        }
+
         let attachment = XCTAttachment(screenshot: app.screenshot())
-        attachment.name = "Launch Screen"
+        attachment.name = "Sample Travel Sheets"
         attachment.lifetime = .keepAlways
         add(attachment)
+    }
+
+    @MainActor
+    private func addSheet(title: String, in app: XCUIApplication) {
+        app.buttons["plus"].firstMatch.tap()
+
+        let titleField = app.textFields["例: 東京旅行"].firstMatch
+        XCTAssertTrue(titleField.waitForExistence(timeout: 3))
+        titleField.tap()
+        titleField.typeText(title)
+
+        app.buttons["保存"].firstMatch.tap()
+
+        XCTAssertTrue(app.staticTexts[title].firstMatch.waitForExistence(timeout: 3))
     }
 }
