@@ -241,6 +241,7 @@ private struct CardStyleEditorSheet: View {
 struct CardEditView: View {
     @EnvironmentObject var model: TravelDataModel
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.openURL) private var openURL
     @State private var card: TravelCard
     let sheet: TravelSheet
     let onSave: (TravelCard) -> Void
@@ -432,6 +433,7 @@ struct CardEditView: View {
                 }
             }
             Section("Webページ") {
+                Toggle("Safariジャンプボタンを表示", isOn: $card.showSafariJumpButton)
                 Toggle("Webページを印刷する", isOn: $card.printWebPage)
                 TextField("URLを入力", text: $card.url)
                     .keyboardType(.URL)
@@ -439,6 +441,11 @@ struct CardEditView: View {
                     .textInputAutocapitalization(.never)
                     .onChange(of: card.url) { _, newValue in
                         previewURL = makeURL(from: newValue)
+                    }
+                    .onSubmit {
+                        if let url = makeURL(from: card.url) {
+                            openURL(url)
+                        }
                     }
 
                 if let url = previewURL {

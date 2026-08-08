@@ -291,6 +291,7 @@ private func formattedDate(_ date: Date?) -> String {
 private struct CardDisplayView: View {
     let card: TravelCard
     @State private var position: MapCameraPosition = .automatic
+    @Environment(\.openURL) private var openURL
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -377,6 +378,20 @@ private struct CardDisplayView: View {
                     }
                     .aspectRatio(1, contentMode: .fit)
                 }
+            }
+
+            if card.showSafariJumpButton, let url = displayURL {
+                Button(action: { openURL(url) }) {
+                    Image(systemName: "safari")
+                        .font(.title2)
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .background(Circle().fill(Color.accentColor))
+                        .shadow(radius: 3)
+                }
+                .buttonStyle(.plain)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading, 8)
             }
 
             if let imageData = card.imageData,

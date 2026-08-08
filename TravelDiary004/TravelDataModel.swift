@@ -258,6 +258,8 @@ struct TravelCard: Identifiable, Hashable, Codable {
     var patternEffectRaw: String = PatternEffect.none.rawValue
     var gradientEffectRaw: String = GradientEffect.none.rawValue
 
+    var showSafariJumpButton: Bool = false
+
     var backgroundEffect: BackgroundEffect {
         get { BackgroundEffect(rawValue: backgroundEffectRaw) ?? .none }
         set { backgroundEffectRaw = newValue.rawValue }
@@ -450,6 +452,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         case patternEffectRaw
         case gradientEffectRaw
         case textSize
+        case showSafariJumpButton
     }
 
     init(
@@ -481,7 +484,8 @@ struct TravelCard: Identifiable, Hashable, Codable {
         backgroundEffectRaw: String = BackgroundEffect.none.rawValue,
         patternEffectRaw: String = PatternEffect.none.rawValue,
         gradientEffectRaw: String = GradientEffect.none.rawValue,
-        textSize: Double = 14.0
+        textSize: Double = 14.0,
+        showSafariJumpButton: Bool = false
     ) {
         self.id = id
         self.date = date
@@ -512,6 +516,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         self.patternEffectRaw = patternEffectRaw
         self.gradientEffectRaw = gradientEffectRaw
         self.textSize = textSize
+        self.showSafariJumpButton = showSafariJumpButton
     }
 
     init(from decoder: Decoder) throws {
@@ -545,6 +550,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         patternEffectRaw = try container.decodeIfPresent(String.self, forKey: .patternEffectRaw) ?? PatternEffect.none.rawValue
         gradientEffectRaw = try container.decodeIfPresent(String.self, forKey: .gradientEffectRaw) ?? GradientEffect.none.rawValue
         textSize = try container.decodeIfPresent(Double.self, forKey: .textSize) ?? 14.0
+        showSafariJumpButton = try container.decodeIfPresent(Bool.self, forKey: .showSafariJumpButton) ?? false
     }
 
     func encode(to encoder: Encoder) throws {
@@ -578,6 +584,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         try container.encode(patternEffectRaw, forKey: .patternEffectRaw)
         try container.encode(gradientEffectRaw, forKey: .gradientEffectRaw)
         try container.encode(textSize, forKey: .textSize)
+        try container.encode(showSafariJumpButton, forKey: .showSafariJumpButton)
     }
 }
 
@@ -881,3 +888,4 @@ final class TravelDataModel: ObservableObject {
         sheets[idx].printTitleOnAllPages = value
     }
 }
+
