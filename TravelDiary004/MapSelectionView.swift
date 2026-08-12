@@ -5,7 +5,7 @@ struct MapSelectionView: View {
     @Binding var card: TravelCard
     let onDismiss: () -> Void
     
-    @State private var position: MapCameraPosition = .automatic
+    @State private var position: MapCameraPosition = .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 35.679928, longitude: 139.763640), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)))
     @State private var searchQuery = ""
     @State private var searchResults: [MKMapItem] = []
     @State private var selectedLocation: CLLocationCoordinate2D?
@@ -155,7 +155,7 @@ struct MapSelectionView: View {
         // 地図をズーム
         let region = MKCoordinateRegion(
             center: coordinate,
-            span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+            span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
         )
         position = .region(region)
     }
