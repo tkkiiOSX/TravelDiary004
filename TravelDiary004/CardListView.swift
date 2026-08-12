@@ -363,6 +363,23 @@ private struct CardDisplayView: View {
                         }
                     }
                     .aspectRatio(1, contentMode: .fit)
+
+                    if card.showMapJumpButton {
+                        let url = URL(string: "maps://?ll=\(card.latitude),\(card.longitude)")
+                        if let url = url {
+                            Button(action: { openURL(url) }) {
+                                Image(systemName: "map")
+                                    .font(.title2)
+                                    .foregroundColor(.white)
+                                    .padding(10)
+                                    .background(Circle().fill(Color.accentColor))
+                                    .shadow(radius: 3)
+                            }
+                            .buttonStyle(.plain)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.leading, 8)
+                        }
+                    }
                 }
             }
 

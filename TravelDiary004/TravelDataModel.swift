@@ -259,6 +259,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
     var gradientEffectRaw: String = GradientEffect.none.rawValue
 
     var showSafariJumpButton: Bool = false
+    var showMapJumpButton: Bool = false
 
     var backgroundEffect: BackgroundEffect {
         get { BackgroundEffect(rawValue: backgroundEffectRaw) ?? .none }
@@ -453,6 +454,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         case gradientEffectRaw
         case textSize
         case showSafariJumpButton
+        case showMapJumpButton
     }
 
     init(
@@ -485,7 +487,8 @@ struct TravelCard: Identifiable, Hashable, Codable {
         patternEffectRaw: String = PatternEffect.none.rawValue,
         gradientEffectRaw: String = GradientEffect.none.rawValue,
         textSize: Double = 14.0,
-        showSafariJumpButton: Bool = false
+        showSafariJumpButton: Bool = false,
+        showMapJumpButton: Bool = false
     ) {
         self.id = id
         self.date = date
@@ -517,6 +520,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         self.gradientEffectRaw = gradientEffectRaw
         self.textSize = textSize
         self.showSafariJumpButton = showSafariJumpButton
+        self.showMapJumpButton = showMapJumpButton
     }
 
     init(from decoder: Decoder) throws {
@@ -551,6 +555,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         gradientEffectRaw = try container.decodeIfPresent(String.self, forKey: .gradientEffectRaw) ?? GradientEffect.none.rawValue
         textSize = try container.decodeIfPresent(Double.self, forKey: .textSize) ?? 14.0
         showSafariJumpButton = try container.decodeIfPresent(Bool.self, forKey: .showSafariJumpButton) ?? false
+        showMapJumpButton = try container.decodeIfPresent(Bool.self, forKey: .showMapJumpButton) ?? false
     }
 
     func encode(to encoder: Encoder) throws {
@@ -585,6 +590,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         try container.encode(gradientEffectRaw, forKey: .gradientEffectRaw)
         try container.encode(textSize, forKey: .textSize)
         try container.encode(showSafariJumpButton, forKey: .showSafariJumpButton)
+        try container.encode(showMapJumpButton, forKey: .showMapJumpButton)
     }
 }
 

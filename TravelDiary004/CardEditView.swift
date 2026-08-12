@@ -379,6 +379,7 @@ struct CardEditView: View {
                     .frame(minHeight: 120)
             }
             Section("Map") {
+                Toggle("Mapジャンプボタンを表示", isOn: $card.showMapJumpButton)
                 Toggle("Mapを印刷する", isOn: $card.printLocation)
                     .toggleStyle(.switch)
                 TextField("地名・施設名", text: $card.locationName)
