@@ -252,6 +252,7 @@ struct CardEditView: View {
     @State private var previewURL: URL? = nil
     @State private var webSearchQuery = ""
     @State private var editMapPosition: MapCameraPosition = .automatic
+    @State private var mapZoomDelta: Double = 0.05
     @State private var showColorAlert = false
     @State private var showPatternColorAlert = false
     @State private var lastHandledImportFeedbackID: UUID? = nil
@@ -391,33 +392,54 @@ struct CardEditView: View {
                                coordinate: card.coordinate)
                             .tint(.red)
                         }
-                    .frame(height: 180)
-                    .cornerRadius(12)
-                    .onAppear {
-                        updateEditMapPosition()
-                    }
-                    .onChange(of: card.latitude) { _, _ in
-                        updateEditMapPosition()
-                    }
-                    .onChange(of: card.longitude) { _, _ in
-                        updateEditMapPosition()
-                    }
+                        .frame(height: 180)
+                        .cornerRadius(12)
+                        .onAppear {
+                            updateEditMapPosition()
+                        }
+                        .onChange(of: card.latitude) { _, _ in
+                            updateEditMapPosition()
+                        }
+                        .onChange(of: card.longitude) { _, _ in
+                            updateEditMapPosition()
+                        }
 
-                    HStack {
-                        Image(systemName: "mappin.circle.fill")
-                            .foregroundColor(.red)
-                        Text(card.coordinate.formattedString)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
-                    Button(action: { showMapSelection = true }) {
-                        Label("地点の選択表示", systemImage: "map")
-                    }
-                    Button(role: .destructive) {
-                        resetLocation()
-                    } label: {
-                        Label("位置情報を削除", systemImage: "trash")
-                    }
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack(spacing: 8) {
+                                Image(systemName: "arrow.up.left.and.arrow.down.right")
+                                    .foregroundColor(.secondary)
+                                Text("マップの縮尺")
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                                Spacer()
+                                Text(String(format: "~ %.2f°", mapZoomDelta))
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                            Slider(value: Binding(
+                                get: { mapZoomDelta },
+                                set: { newValue in
+                                    mapZoomDelta = newValue
+                                    updateEditMapPosition()
+                                }
+                            ), in: 0.005...0.3, step: 0.005)
+                        }
+
+                        HStack {
+                            Image(systemName: "mappin.circle.fill")
+                                .foregroundColor(.red)
+                            Text(card.coordinate.formattedString)
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                        Button(action: { showMapSelection = true }) {
+                            Label("地点の選択表示", systemImage: "map")
+                        }
+                        Button(role: .destructive) {
+                            resetLocation()
+                        } label: {
+                            Label("位置情報を削除", systemImage: "trash")
+                        }
                 } else {
                     VStack(alignment: .leading, spacing: 8) {
                         HStack(spacing: 8) {
@@ -610,6 +632,9 @@ struct CardEditView: View {
         }
         .environment(\.locale, Locale(identifier: "ja_JP"))
         .navigationTitle(sheet.title)
+        .onAppear {
+            mapZoomDelta = max(0.005, min(card.mapZoomDelta, 0.3))
+        }
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button("OK") {
@@ -618,6 +643,7 @@ struct CardEditView: View {
                     } else if card.hasPatternColorConflict && card.patternEffect != .none {
                         showPatternColorAlert = true
                     } else {
+                        card.mapZoomDelta = mapZoomDelta
                         saveAndDismiss()
                     }
                 }
@@ -675,7 +701,7 @@ struct CardEditView: View {
 
     private func updateEditMapPosition() {
         guard card.hasLocation else { return }
-        editMapPosition = .region(card.mapRegion(latitudeDelta: 0.05, longitudeDelta: 0.05))
+        editMapPosition = .region(card.mapRegion(latitudeDelta: mapZoomDelta, longitudeDelta: mapZoomDelta))
     }
 
     private func saveAndDismiss() {

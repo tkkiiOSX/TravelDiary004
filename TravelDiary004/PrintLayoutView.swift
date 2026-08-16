@@ -43,9 +43,40 @@ struct PrintLayoutView: View {
     @State private var cardScales: [UUID: Double] = [:]
     @State private var cardAlignments: [UUID: CardHorizontalAlignment] = [:]
 
+    private var currentSheet: TravelSheet {
+        model.sheets.first(where: { $0.id == sheet.id }) ?? sheet
+    }
+
+    private var snapshotRefreshKey: String {
+        let cardSignature = currentSheet.cards.map { card in
+            [
+                card.id.uuidString,
+                card.locationName,
+                card.address,
+                String(card.latitude),
+                String(card.longitude),
+                String(card.mapZoomDelta),
+                card.printLocation ? "1" : "0",
+                card.printWebPage ? "1" : "0",
+                card.printPhoto ? "1" : "0",
+                card.url
+            ].joined(separator: ":")
+        }.joined(separator: "|")
+
+        return [
+            currentSheet.title,
+            currentSheet.titleTextColorHex,
+            currentSheet.titleBackgroundColorHex,
+            currentSheet.backgroundColorHex,
+            currentSheet.travelDateTextColorHex,
+            currentSheet.printTitleOnAllPages == true ? "1" : "0",
+            cardSignature
+        ].joined(separator: "||")
+    }
+
     var body: some View {
         NavigationStack {
-            if sheet.cards.isEmpty {
+            if currentSheet.cards.isEmpty {
                 emptyStateView
             } else {
                 mainContentView
@@ -73,15 +104,15 @@ struct PrintLayoutView: View {
         Group {
             pagesTabView
         }
-        .navigationTitle(sheet.title.isEmpty ? "改ページ設定" : sheet.title)
+        .navigationTitle(currentSheet.title.isEmpty ? "改ページ設定" : currentSheet.title)
         .toolbar { mainToolbar }
         .sheet(isPresented: $showExportSheet) { exportSheetContent }
         .sheet(isPresented: $showPDFPreview) { pdfPreviewSheet }
-        .task { await loadSnapshots() }
+        .task(id: snapshotRefreshKey) { await loadSnapshots() }
         .onAppear {
-            self.manualPageBreaks = sheet.manualPageBreaks
-            self.cardScales = sheet.cardScales
-            self.cardAlignments = sheet.cardAlignments
+            self.manualPageBreaks = currentSheet.manualPageBreaks
+            self.cardScales = currentSheet.cardScales
+            self.cardAlignments = currentSheet.cardAlignments
         }
         .onChange(of: manualPageBreaks) { _, newValue in
             model.updateManualSettings(for: sheet.id, manualPageBreaks: newValue, cardScales: cardScales, cardAlignments: cardAlignments)
@@ -111,7 +142,7 @@ struct PrintLayoutView: View {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
             Menu {
                 NavigationLink {
-                    PrintLayoutManualPageBreaksEditor(cards: sheet.cards, manualPageBreaks: $manualPageBreaks, cardAlignments: $cardAlignments, cardScales: $cardScales)
+                    PrintLayoutManualPageBreaksEditor(cards: currentSheet.cards, manualPageBreaks: $manualPageBreaks, cardAlignments: $cardAlignments, cardScales: $cardScales)
                         .navigationTitle("改ページ設定")
                 } label: {
                     Label("改ページの指定…", systemImage: "list.bullet")
@@ -203,6 +234,7 @@ struct PrintLayoutView: View {
     }
 
     private func makeHeaderStrings() -> (titleText: String, travelDateString: String) {
+        let sheet = currentSheet
         let titleText = sheet.title.isEmpty ? "無題のシート" : sheet.title
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ja_JP")
@@ -258,7 +290,7 @@ struct PrintLayoutView: View {
 
         var mapSnapshots: [UUID: UIImage] = [:]
         var pageSnapshots: [UUID: UIImage] = [:]
-        for card in sheet.cards {
+        for card in currentSheet.cards {
             if card.hasLocation,
                let snapshot = await makeMapSnapshot(for: card, size: CGSize(width: contentWidth, height: contentWidth)) {
                 mapSnapshots[card.id] = snapshot
@@ -401,7 +433,8 @@ struct PrintLayoutView: View {
 
         let options = MKMapSnapshotter.Options()
         let center = card.coordinate
-        options.region = card.mapRegion(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let zoomDelta = max(card.mapZoomDelta, 0.001)
+        options.region = card.mapRegion(latitudeDelta: zoomDelta, longitudeDelta: zoomDelta)
         options.size = size
         options.scale = UIScreen.main.scale
         options.mapType = .standard
@@ -494,7 +527,7 @@ struct PrintLayoutView: View {
     // スナップショット読み込み
     private func loadSnapshots() async {
         var snapshots: [UUID: UIImage] = [:]
-        for card in sheet.cards where card.hasURL && card.printWebPage {
+        for card in currentSheet.cards where card.hasURL && card.printWebPage {
             if let snapshot = await makeWebSnapshot(for: card, size: CGSize(width: 280, height: 280)) {
                 snapshots[card.id] = snapshot
             }

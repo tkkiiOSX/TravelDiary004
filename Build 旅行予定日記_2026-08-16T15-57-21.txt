@@ -1,0 +1,286 @@
+
+Showing Recent Errors Only
+
+Build target 旅行予定日記 of project TravelDiary004 with configuration Debug
+
+SwiftCompile normal arm64 Compiling\ TravelDataModel.swift,\ TravelDiary004App.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/TravelDiary004App.swift (in target '旅行予定日記' from project 'TravelDiary004')
+
+Failed frontend command:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -frontend -c /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CardDetailMapView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CardEditView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CardListView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CommonTypes.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/ContentView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CommonTypes\ 2.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/MapSelectionView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/PatternOverlay.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/PrintLayoutSupport.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/PrintLayoutView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/SheetListView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/SheetNewSettingsView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift -primary-file /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift -primary-file /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/TravelDiary004App.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/WebPreviewView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TextureSupport.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CommonTypes\ 3.swift /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources/GeneratedAssetSymbols.swift -emit-dependencies-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/TravelDataModel.d -emit-const-values-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/TravelDataModel.swiftconstvalues -emit-reference-dependencies-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/TravelDataModel.swiftdeps -serialize-diagnostics-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/TravelDataModel.dia -emit-dependencies-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/TravelDiary004App.d -emit-const-values-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/TravelDiary004App.swiftconstvalues -emit-reference-dependencies-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/TravelDiary004App.swiftdeps -serialize-diagnostics-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/TravelDiary004App.dia -emit-localized-strings -emit-localized-strings-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64 -target arm64-apple-ios18.6-simulator -module-can-import-version DeveloperToolsSupport 23.40.26 23.40.26 -module-can-import-version SwiftUI 7.5.3 7.5.3 -module-can-import-version UIKit 9126.5.5.2 9126.5.5 -disable-cross-import-overlay-search -swift-module-cross-import MapKit /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/MapKit.framework/Modules/MapKit.swiftcrossimport/SwiftUI.swiftoverlay -swift-module-cross-import PhotosUI /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/PhotosUI.framework/Modules/PhotosUI.swiftcrossimport/SwiftUI.swiftoverlay -swift-module-cross-import PhotosUI /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/PhotosUI.framework/Modules/PhotosUI.swiftcrossimport/WidgetKit.swiftoverlay -swift-module-cross-import PhotosUI /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/System/Library/Frameworks/PhotosUI.framework/Modules/PhotosUI.swiftcrossimport/SwiftUI.swiftoverlay -swift-module-cross-import PhotosUI /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/System/Library/Frameworks/PhotosUI.framework/Modules/PhotosUI.swiftcrossimport/WidgetKit.swiftoverlay -swift-module-cross-import WebKit /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Cryptexes/OS/System/Library/Frameworks/WebKit.framework/Modules/WebKit.swiftcrossimport/SwiftUI.swiftoverlay -swift-module-cross-import WebKit /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/System/Library/Frameworks/WebKit.framework/Modules/WebKit.swiftcrossimport/SwiftUI.swiftoverlay -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libFoundationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#FoundationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libObservationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#ObservationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libPreviewsMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#PreviewsMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libSwiftMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#SwiftMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libSwiftUIMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#SwiftUIMacros -disable-implicit-swift-modules -Xcc -fno-implicit-modules -Xcc -fno-implicit-module-maps -explicit-swift-module-map-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記-dependencies-10.json -debug-module-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記.swiftmodule -Xllvm -aarch64-use-tbi -enable-objc-interop -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -I /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator -F /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator -no-color-diagnostics -Xcc -fno-color-diagnostics -enable-testing -g -debug-info-format\=dwarf -dwarf-version\=5 -module-cache-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -profile-generate -profile-coverage-mapping -swift-version 5 -Onone -D DEBUG -serialize-debugging-options -const-gather-protocols-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記_const_extract_protocols.json -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -default-isolation\=MainActor -empty-abi-descriptor -validate-clang-modules-once -clang-build-session-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -working-directory -Xcc /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004 -enable-anonymous-context-mangled-names -file-compilation-dir /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004 -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -Xcc -ivfsstatcache -Xcc /Users/xcode2021/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache -Xcc -I/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/swift-overrides.hmap -Xcc -iquote -Xcc /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-generated-files.hmap -Xcc -I/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-own-target-headers.hmap -Xcc -I/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-all-target-headers.hmap -Xcc -iquote -Xcc /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-project-headers.hmap -Xcc -I/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources-normal/arm64 -Xcc -I/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources/arm64 -Xcc -I/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources -Xcc -DDEBUG\=1 -no-auto-bridging-header-chaining -module-name 旅行予定日記 -frontend-parseable-output -disable-clang-spi -clang-target arm64-apple-ios26.5-simulator -target-sdk-version 26.5 -target-sdk-name iphonesimulator26.5 -in-process-plugin-server-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/libSwiftInProcPluginServer.dylib -o /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/TravelDataModel.o -o /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/TravelDiary004App.o -index-unit-output-path /TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/TravelDataModel.o -index-unit-output-path /TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/TravelDiary004App.o -index-store-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Index.noindex/DataStore -index-system-modules
+
+SwiftCompile normal arm64 /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:89:17: error: 'TravelCard' is ambiguous for type lookup in this context
+    var cards: [TravelCard] = []
+                ^~~~~~~~~~
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/CommonTypes 2.swift:1:8: note: found this candidate
+struct TravelCard {
+       ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:222:8: note: found this candidate
+struct TravelCard: Identifiable, Hashable, Codable {
+       ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:158:17: error: 'TravelCard' is ambiguous for type lookup in this context
+        cards: [TravelCard] = [],
+                ^~~~~~~~~~
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/CommonTypes 2.swift:1:8: note: found this candidate
+struct TravelCard {
+       ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:222:8: note: found this candidate
+struct TravelCard: Identifiable, Hashable, Codable {
+       ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:84:8: error: type 'TravelSheet' does not conform to protocol 'Hashable'
+struct TravelSheet: Identifiable, Hashable, Codable {
+       ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:89:9: note: stored property type '_' does not conform to protocol 'Hashable', preventing synthesized conformance of 'TravelSheet' to 'Hashable'
+    var cards: [TravelCard] = []
+        ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:84:8: error: type 'TravelSheet' does not conform to protocol 'Equatable'
+struct TravelSheet: Identifiable, Hashable, Codable {
+       ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:89:9: note: stored property type '_' does not conform to protocol 'Equatable', preventing synthesized conformance of 'TravelSheet' to 'Equatable'
+    var cards: [TravelCard] = []
+        ^
+Swift.==:1:24: note: candidate would match if 'TravelSheet' conformed to 'RawRepresentable'
+@inlinable public func == <T>(lhs: T, rhs: T) -> Bool where T : RawRepresentable, T.RawValue : Equatable
+                       ^
+Swift.FloatingPoint.==:2:20: note: candidate would match if 'TravelSheet' conformed to 'FloatingPoint'
+public static func == (lhs: Self, rhs: Self) -> Bool}
+                   ^
+Swift.BinaryInteger.==:2:20: note: candidate would match if 'TravelSheet' conformed to 'BinaryInteger'
+public static func == <Other>(lhs: Self, rhs: Other) -> Bool where Other : BinaryInteger}
+                   ^
+Swift._Pointer.==:2:20: note: candidate would match if 'TravelSheet' conformed to '_Pointer'
+public static func == (lhs: Self, rhs: Self) -> Bool}
+                   ^
+Swift._Pointer.==:2:31: note: candidate would match if 'TravelSheet' conformed to '_Pointer'
+@inlinable public static func == <Other>(lhs: Self, rhs: Other) -> Bool where Other : _Pointer}
+                              ^
+Swift.Strideable.==:2:31: note: candidate would match if 'TravelSheet' conformed to 'Strideable'
+@inlinable public static func == (x: Self, y: Self) -> Bool}
+                              ^
+Swift.StringProtocol.==:2:31: note: candidate would match if 'TravelSheet' conformed to 'StringProtocol'
+@inlinable public static func == <RHS>(lhs: Self, rhs: RHS) -> Bool where RHS : StringProtocol}
+                              ^
+Swift.SIMD.==:2:20: note: candidate would match if 'TravelSheet' conformed to 'SIMD'
+public static func == (a: Self, b: Self) -> Bool}
+                   ^
+Foundation.AttributedStringProtocol.==:2:20: note: candidate would match if 'TravelSheet' conformed to 'AttributedStringProtocol'
+public static func == <RHS>(lhs: Self, rhs: RHS) -> Bool where RHS : AttributedStringProtocol}
+                   ^
+Foundation._BridgedStoredNSError.==:2:20: note: candidate would match if 'TravelSheet' conformed to '_BridgedStoredNSError'
+public static func == (lhs: Self, rhs: Self) -> Bool}
+                   ^
+CoreFoundation._CFObject.==:2:20: note: candidate would match if 'TravelSheet' conformed to '_CFObject'
+public static func == (left: Self, right: Self) -> Bool}
+                   ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:84:8: note: add stubs for conformance
+struct TravelSheet: Identifiable, Hashable, Codable {
+       ^
+Swift.Equatable.==:2:13: note: protocol requires function '==' with type '(TravelSheet, TravelSheet) -> Bool'
+static func == (lhs: Self, rhs: Self) -> Bool}
+            ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:222:8: error: invalid redeclaration of 'TravelCard'
+struct TravelCard: Identifiable, Hashable, Codable {
+       ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/CommonTypes 2.swift:1:8: note: 'TravelCard' previously declared here
+struct TravelCard {
+       ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/CommonTypes 2.swift:1:8: note: 'TravelCard' previously declared here
+struct TravelCard {
+       ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:815:29: error: 'TravelCard' is ambiguous for type lookup in this context
+    func updateCard(_ card: TravelCard, in sheet: TravelSheet) {
+                            ^~~~~~~~~~
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/CommonTypes 2.swift:1:8: note: found this candidate
+struct TravelCard {
+       ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:222:8: note: found this candidate
+struct TravelCard: Identifiable, Hashable, Codable {
+       ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:821:26: error: 'TravelCard' is ambiguous for type lookup in this context
+    func addCard(_ card: TravelCard, to sheet: TravelSheet) {
+                         ^~~~~~~~~~
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/CommonTypes 2.swift:1:8: note: found this candidate
+struct TravelCard {
+       ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:222:8: note: found this candidate
+struct TravelCard: Identifiable, Hashable, Codable {
+       ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:826:29: error: 'TravelCard' is ambiguous for type lookup in this context
+    func deleteCard(_ card: TravelCard, from sheet: TravelSheet) {
+                            ^~~~~~~~~~
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/CommonTypes 2.swift:1:8: note: found this candidate
+struct TravelCard {
+       ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:222:8: note: found this candidate
+struct TravelCard: Identifiable, Hashable, Codable {
+       ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:133:53: error: type 'TravelCard' has no member 'defaultCardBackgroundColorHex'
+        defaultCardBackgroundColorHex ?? TravelCard.defaultCardBackgroundColorHex(for: backgroundColorHex)
+                                         ~~~~~~~~~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:191:31: error: no exact matches in call to instance method 'decodeIfPresent'
+        cards = try container.decodeIfPresent([TravelCard].self, forKey: .cards) ?? []
+                              ^
+Swift.KeyedDecodingContainer.decodeIfPresent:2:13: note: candidate expects value of type 'Bool.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: Bool.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Bool?}
+            ^
+Swift.KeyedDecodingContainer.decodeIfPresent:2:13: note: candidate expects value of type 'String.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: String.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> String?}
+            ^
+Swift.KeyedDecodingContainer.decodeIfPresent:2:13: note: candidate expects value of type 'Double.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: Double.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Double?}
+            ^
+Swift.KeyedDecodingContainer.decodeIfPresent:2:13: note: candidate expects value of type 'Float.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: Float.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Float?}
+            ^
+Swift.KeyedDecodingContainer.decodeIfPresent:2:13: note: candidate expects value of type 'Int.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: Int.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Int?}
+            ^
+Swift.KeyedDecodingContainer.decodeIfPresent:2:13: note: candidate expects value of type 'Int8.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: Int8.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Int8?}
+            ^
+Swift.KeyedDecodingContainer.decodeIfPresent:2:13: note: candidate expects value of type 'Int16.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: Int16.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Int16?}
+            ^
+Swift.KeyedDecodingContainer.decodeIfPresent:2:13: note: candidate expects value of type 'Int32.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: Int32.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Int32?}
+            ^
+Swift.KeyedDecodingContainer.decodeIfPresent:2:13: note: candidate expects value of type 'Int64.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: Int64.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Int64?}
+            ^
+Swift.KeyedDecodingContainer.decodeIfPresent:3:15: note: candidate expects value of type 'Int128.Type' for parameter #1 (got '[TravelCard.Type]')
+  public func decodeIfPresent(_ type: Int128.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Int128?}
+              ^
+Swift.KeyedDecodingContainer.decodeIfPresent:2:13: note: candidate expects value of type 'UInt.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: UInt.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> UInt?}
+            ^
+Swift.KeyedDecodingContainer.decodeIfPresent:2:13: note: candidate expects value of type 'UInt8.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: UInt8.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> UInt8?}
+            ^
+Swift.KeyedDecodingContainer.decodeIfPresent:2:13: note: candidate expects value of type 'UInt16.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: UInt16.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> UInt16?}
+            ^
+Swift.KeyedDecodingContainer.decodeIfPresent:2:13: note: candidate expects value of type 'UInt32.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: UInt32.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> UInt32?}
+            ^
+Swift.KeyedDecodingContainer.decodeIfPresent:2:13: note: candidate expects value of type 'UInt64.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: UInt64.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> UInt64?}
+            ^
+Swift.KeyedDecodingContainer.decodeIfPresent:3:15: note: candidate expects value of type 'UInt128.Type' for parameter #1 (got '[TravelCard.Type]')
+  public func decodeIfPresent(_ type: UInt128.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> UInt128?}
+              ^
+Swift.KeyedDecodingContainerProtocol.decodeIfPresent:2:13: note: candidate expects value of type 'Bool.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: Bool.Type, forKey key: Self.Key) throws -> Bool?}
+            ^
+Swift.KeyedDecodingContainerProtocol.decodeIfPresent:2:13: note: candidate expects value of type 'String.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: String.Type, forKey key: Self.Key) throws -> String?}
+            ^
+Swift.KeyedDecodingContainerProtocol.decodeIfPresent:2:13: note: candidate expects value of type 'Double.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: Double.Type, forKey key: Self.Key) throws -> Double?}
+            ^
+Swift.KeyedDecodingContainerProtocol.decodeIfPresent:2:13: note: candidate expects value of type 'Float.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: Float.Type, forKey key: Self.Key) throws -> Float?}
+            ^
+Swift.KeyedDecodingContainerProtocol.decodeIfPresent:2:13: note: candidate expects value of type 'Int.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: Int.Type, forKey key: Self.Key) throws -> Int?}
+            ^
+Swift.KeyedDecodingContainerProtocol.decodeIfPresent:2:13: note: candidate expects value of type 'Int8.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: Int8.Type, forKey key: Self.Key) throws -> Int8?}
+            ^
+Swift.KeyedDecodingContainerProtocol.decodeIfPresent:2:13: note: candidate expects value of type 'Int16.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: Int16.Type, forKey key: Self.Key) throws -> Int16?}
+            ^
+Swift.KeyedDecodingContainerProtocol.decodeIfPresent:2:13: note: candidate expects value of type 'Int32.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: Int32.Type, forKey key: Self.Key) throws -> Int32?}
+            ^
+Swift.KeyedDecodingContainerProtocol.decodeIfPresent:2:13: note: candidate expects value of type 'Int64.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: Int64.Type, forKey key: Self.Key) throws -> Int64?}
+            ^
+Swift.KeyedDecodingContainerProtocol.decodeIfPresent:3:15: note: candidate expects value of type 'Int128.Type' for parameter #1 (got '[TravelCard.Type]')
+  public func decodeIfPresent(_ type: Int128.Type, forKey key: Self.Key) throws -> Int128?}
+              ^
+Swift.KeyedDecodingContainerProtocol.decodeIfPresent:2:13: note: candidate expects value of type 'UInt.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: UInt.Type, forKey key: Self.Key) throws -> UInt?}
+            ^
+Swift.KeyedDecodingContainerProtocol.decodeIfPresent:2:13: note: candidate expects value of type 'UInt8.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: UInt8.Type, forKey key: Self.Key) throws -> UInt8?}
+            ^
+Swift.KeyedDecodingContainerProtocol.decodeIfPresent:2:13: note: candidate expects value of type 'UInt16.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: UInt16.Type, forKey key: Self.Key) throws -> UInt16?}
+            ^
+Swift.KeyedDecodingContainerProtocol.decodeIfPresent:2:13: note: candidate expects value of type 'UInt32.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: UInt32.Type, forKey key: Self.Key) throws -> UInt32?}
+            ^
+Swift.KeyedDecodingContainerProtocol.decodeIfPresent:2:13: note: candidate expects value of type 'UInt64.Type' for parameter #1 (got '[TravelCard.Type]')
+public func decodeIfPresent(_ type: UInt64.Type, forKey key: Self.Key) throws -> UInt64?}
+            ^
+Swift.KeyedDecodingContainerProtocol.decodeIfPresent:3:15: note: candidate expects value of type 'UInt128.Type' for parameter #1 (got '[TravelCard.Type]')
+  public func decodeIfPresent(_ type: UInt128.Type, forKey key: Self.Key) throws -> UInt128?}
+              ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:191:82: error: binary operator '??' cannot be applied to operands of type 'Bool?' and '[Any]'
+        cards = try container.decodeIfPresent([TravelCard].self, forKey: .cards) ?? []
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^  ~~
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:407:20: error: type 'TravelCard' has no member 'categoryOptions'
+        TravelCard.categoryOptions.first(where: { $0.0 == category })?.2
+        ~~~~~~~~~~ ^~~~~~~~~~~~~~~
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:755:34: error: generic parameter 'Key' could not be inferred
+            let oldToNewCardID = Dictionary(uniqueKeysWithValues: imported.cards.map { ($0.id, UUID()) })
+                                 ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:755:34: error: generic parameter 'Value' could not be inferred
+            let oldToNewCardID = Dictionary(uniqueKeysWithValues: imported.cards.map { ($0.id, UUID()) })
+                                 ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:755:34: note: explicitly specify the generic arguments to fix this issue
+            let oldToNewCardID = Dictionary(uniqueKeysWithValues: imported.cards.map { ($0.id, UUID()) })
+                                 ^
+                                           <<#Key: Hashable#>, Any>
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:806:34: error: extra arguments at positions #1, #2, #3, #4, #5, #6, #7, #8, #9 in call
+        sheets.insert(TravelSheet(title: trimmed, titleTextColorHex: titleTextHex, titleBackgroundColorHex: titleBgHex, backgroundColorHex: hex, travelDateTextColorHex: textHex, defaultCardBackgroundColorHex: defaultCardHex, startDate: startDate, endDate: endDate, printTitleOnAllPages: printTitleOnAllPages), at: 0)
+                                 ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:185:5: note: 'init(from:)' declared here
+    init(from decoder: Decoder) throws {
+    ^
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:806:35: error: missing argument for parameter 'from' in call
+        sheets.insert(TravelSheet(title: trimmed, titleTextColorHex: titleTextHex, titleBackgroundColorHex: titleBgHex, backgroundColorHex: hex, travelDateTextColorHex: textHex, defaultCardBackgroundColorHex: defaultCardHex, startDate: startDate, endDate: endDate, printTitleOnAllPages: printTitleOnAllPages), at: 0)
+                                  ^
+                                  from: <#any Decoder#>, 
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:185:5: note: 'init(from:)' declared here
+    init(from decoder: Decoder) throws {
+    ^
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:89:17: 'TravelCard' is ambiguous for type lookup in this context
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:158:17: 'TravelCard' is ambiguous for type lookup in this context
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:84:8: Type 'TravelSheet' does not conform to protocol 'Hashable'
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:84:8: Type 'TravelSheet' does not conform to protocol 'Equatable'
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:222:8: Invalid redeclaration of 'TravelCard'
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:815:29: 'TravelCard' is ambiguous for type lookup in this context
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:821:26: 'TravelCard' is ambiguous for type lookup in this context
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:826:29: 'TravelCard' is ambiguous for type lookup in this context
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:133:53: Type 'TravelCard' has no member 'defaultCardBackgroundColorHex'
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:191:31: No exact matches in call to instance method 'decodeIfPresent'
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:191:82: Binary operator '??' cannot be applied to operands of type 'Bool?' and '[Any]'
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:407:20: Type 'TravelCard' has no member 'categoryOptions'
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:755:34: Generic parameter 'Key' could not be inferred
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:755:34: Generic parameter 'Value' could not be inferred
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:806:34: Extra arguments at positions #1, #2, #3, #4, #5, #6, #7, #8, #9 in call
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift:806:35: Missing argument for parameter 'from' in call
+
+
+
+Build failed    2026/08/16, 15:57    3.5 seconds

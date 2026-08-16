@@ -106,10 +106,16 @@ struct CardListView: View {
                             Section {
                                 HStack {
                                     Text(sheet.title.isEmpty ? "無題のシート" : sheet.title)
-                                        .font(.title3.weight(.semibold))
+                                        .font(.headline.weight(.semibold))
                                         .foregroundColor(sheet.titleTextColor)
-                                        .padding(.horizontal, 12)
-                                        .padding(.vertical, 8)
+                                        .multilineTextAlignment(.leading)
+                                        .lineLimit(2)
+                                        .minimumScaleFactor(0.6)
+                                        .truncationMode(.middle)
+                                        .allowsTightening(true)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .padding(.horizontal, 10)
+                                        .padding(.vertical, 5)
                                         .background(
                                             RoundedRectangle(cornerRadius: 10, style: .continuous)
                                                 .fill(sheet.titleBackgroundColor.opacity(0.95))
@@ -174,22 +180,6 @@ struct CardListView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .principal) {
-                if let sheet = selectedSheet {
-                    Text(sheet.title.isEmpty ? "無題のシート" : sheet.title)
-                        .font(.headline.weight(.semibold))
-                        .foregroundColor(sheet.titleTextColor)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 5)
-                        .background(
-                            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                .fill(sheet.titleBackgroundColor.opacity(0.95))
-                        )
-                } else {
-                    Text("カード表示")
-                }
-            }
-
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button {
                     showingNewCard = true
@@ -358,7 +348,7 @@ private struct CardDisplayView: View {
                             .frame(width: side, height: side)
                             .cornerRadius(14)
                             .onAppear {
-                                position = .region(card.mapRegion(latitudeDelta: 0.08, longitudeDelta: 0.08))
+                                position = .region(card.mapRegion(latitudeDelta: card.mapZoomDelta, longitudeDelta: card.mapZoomDelta))
                             }
                         }
                     }
@@ -473,3 +463,4 @@ private struct CardListViewPreviewProvider {
 #Preview("カードリスト プレビュー") {
     CardListView(initialSheet: CardListViewPreviewProvider.model.sheets.first!).environmentObject(CardListViewPreviewProvider.model)
 }
+

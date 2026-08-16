@@ -58,6 +58,37 @@ struct PDFPreviewContainer: View {
     @State private var cardScalesState: [UUID: Double] = [:]
     @State private var printTitleOnAllPages: Bool
 
+    private var currentSheet: TravelSheet {
+        model.sheets.first(where: { $0.id == sheet.id }) ?? sheet
+    }
+
+    private var snapshotRefreshKey: String {
+        let cardSignature = currentSheet.cards.map { card in
+            [
+                card.id.uuidString,
+                card.locationName,
+                card.address,
+                String(card.latitude),
+                String(card.longitude),
+                String(card.mapZoomDelta),
+                card.printLocation ? "1" : "0",
+                card.printWebPage ? "1" : "0",
+                card.printPhoto ? "1" : "0",
+                card.url
+            ].joined(separator: ":")
+        }.joined(separator: "|")
+
+        return [
+            currentSheet.title,
+            currentSheet.titleTextColorHex,
+            currentSheet.titleBackgroundColorHex,
+            currentSheet.backgroundColorHex,
+            currentSheet.travelDateTextColorHex,
+            currentSheet.printTitleOnAllPages == true ? "1" : "0",
+            cardSignature
+        ].joined(separator: "||")
+    }
+
     init(sheet: TravelSheet, autoPaginate: Bool = true, manualPageBreaks: Set<UUID> = [], cardScales: [UUID: Double] = [:], cardAlignments: [UUID: CardHorizontalAlignment] = [:]) {
         self.sheet = sheet
         self.autoPaginate = autoPaginate
@@ -75,11 +106,11 @@ struct PDFPreviewContainer: View {
     var travelDateString: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
-        if let start = sheet.startDate, let end = sheet.endDate {
+        if let start = currentSheet.startDate, let end = currentSheet.endDate {
             return "旅行日程: \(formatter.string(from: start)) 〜 \(formatter.string(from: end))"
-        } else if let start = sheet.startDate {
+        } else if let start = currentSheet.startDate {
             return "旅行開始予定日: \(formatter.string(from: start))"
-        } else if let end = sheet.endDate {
+        } else if let end = currentSheet.endDate {
             return "旅行終了予定日: \(formatter.string(from: end))"
         } else {
             return "旅行日程未設定"
@@ -121,7 +152,7 @@ struct PDFPreviewContainer: View {
                             NavigationStack {
                                 VStack {
                                     PrintLayoutManualPageBreaksEditor(
-                                        cards: sheet.cards,
+                                        cards: currentSheet.cards,
                                         manualPageBreaks: $manualPageBreaksState,
                                         cardAlignments: $cardAlignmentsState,
                                         cardScales: $cardScalesState
@@ -163,7 +194,7 @@ struct PDFPreviewContainer: View {
                 }
             } else {
                 ProgressView("PDFを生成中…")
-                    .task {
+                    .task(id: snapshotRefreshKey) {
                         await prepareSnapshots()
                         await generatePDF()
                     }
@@ -194,7 +225,7 @@ struct PDFPreviewContainer: View {
         var webDict: [UUID: UIImage] = [:]
         let mapSize = CGSize(width: 560, height: 560)
         let webSize = CGSize(width: 560, height: 560)
-        for card in sheet.cards {
+        for card in currentSheet.cards {
             if card.hasLocation {
                 if let img = await makeMapSnapshot(for: card, size: mapSize) {
                     mapDict[card.id] = img
@@ -217,6 +248,7 @@ struct PDFPreviewContainer: View {
         let contentHeight = pageSize.height - margins.top - margins.bottom
         let pageRect = CGRect(origin: .zero, size: pageSize)
 
+        let sheet = currentSheet
         let titleText = sheet.title.isEmpty ? "無題のシート" : sheet.title
         let titleFont = UIFont.systemFont(ofSize: 20, weight: .semibold)
         let titleAttributes: [NSAttributedString.Key: Any] = [
@@ -679,7 +711,8 @@ func makeMapSnapshot(for card: TravelCard, size: CGSize) async -> UIImage? {
 
     let options = MKMapSnapshotter.Options()
     let center = CLLocationCoordinate2D(latitude: card.latitude, longitude: card.longitude)
-    let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+    let zoomDelta = max(card.mapZoomDelta, 0.001)
+    let span = MKCoordinateSpan(latitudeDelta: zoomDelta, longitudeDelta: zoomDelta)
     let region = MKCoordinateRegion(center: center, span: span)
     options.region = region
     options.size = size
