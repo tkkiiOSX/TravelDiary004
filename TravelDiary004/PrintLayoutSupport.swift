@@ -325,7 +325,7 @@ struct PDFPreviewContainer: View {
             beginNewPage(printHeader: true)
             let effectiveAutoPaginate = autoPaginateState && manualPageBreaksState.isEmpty
 
-            for (index, element) in renderedCards.enumerated() {
+            for (_, element) in renderedCards.enumerated() {
                 let cardID = element.cardID
                 let image = element.image
 
@@ -336,48 +336,51 @@ struct PDFPreviewContainer: View {
                 let maxScaleY = contentHeight / originalHeight
                 let safeScale = min(userScale, maxScaleX, maxScaleY, 1.0)
 
-                let drawWidth = originalWidth * safeScale
-                let drawHeight = originalHeight * safeScale
-
                 let alignment = cardAlignmentsState[cardID] ?? .center
-                let drawX: CGFloat
-                switch alignment {
-                case .center:
-                    drawX = margins.left + (contentWidth - drawWidth) / 2
-                case .trailing:
-                    drawX = margins.left + (contentWidth - drawWidth)
-                case .leading:
-                    drawX = margins.left
-                }
+                var drawX: CGFloat = margins.left
 
                 if !effectiveAutoPaginate {
                     if manualPageBreaksState.contains(cardID) && currentY != margins.top {
                         pageIndex += 1
                         beginNewPage(printHeader: pageIndex == 1 ? true : printTitleOnAllPages)
                     }
-                    if drawHeight > remainingHeight {
+                    if originalHeight * safeScale > remainingHeight {
                         pageIndex += 1
                         beginNewPage(printHeader: pageIndex == 1 ? true : printTitleOnAllPages)
+                    }
+                    let drawScale = min(safeScale, remainingHeight / originalHeight)
+                    let drawWidth = originalWidth * drawScale
+                    let drawHeight = originalHeight * drawScale
+                    switch alignment {
+                    case .center:
+                        drawX = margins.left + (contentWidth - drawWidth) / 2
+                    case .trailing:
+                        drawX = margins.left + (contentWidth - drawWidth)
+                    case .leading:
+                        drawX = margins.left
                     }
                     image.draw(in: CGRect(x: drawX, y: currentY, width: drawWidth, height: drawHeight))
                     currentY += drawHeight
                     remainingHeight -= drawHeight
-                    if remainingHeight < 24 && index < renderedCards.count - 1 {
-                        pageIndex += 1
-                        beginNewPage(printHeader: pageIndex == 1 ? true : printTitleOnAllPages)
-                    }
                 } else {
-                    if drawHeight > remainingHeight {
+                    if originalHeight * safeScale > remainingHeight {
                         pageIndex += 1
                         beginNewPage(printHeader: pageIndex == 1 ? true : printTitleOnAllPages)
+                    }
+                    let drawScale = min(safeScale, remainingHeight / originalHeight)
+                    let drawWidth = originalWidth * drawScale
+                    let drawHeight = originalHeight * drawScale
+                    switch alignment {
+                    case .center:
+                        drawX = margins.left + (contentWidth - drawWidth) / 2
+                    case .trailing:
+                        drawX = margins.left + (contentWidth - drawWidth)
+                    case .leading:
+                        drawX = margins.left
                     }
                     image.draw(in: CGRect(x: drawX, y: currentY, width: drawWidth, height: drawHeight))
                     currentY += drawHeight
                     remainingHeight -= drawHeight
-                    if remainingHeight < 24 && index < renderedCards.count - 1 {
-                        pageIndex += 1
-                        beginNewPage(printHeader: pageIndex == 1 ? true : printTitleOnAllPages)
-                    }
                 }
             }
         }

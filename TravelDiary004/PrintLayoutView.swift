@@ -358,7 +358,7 @@ struct PrintLayoutView: View {
             beginNewPage(printTitle: true)
             firstPage = false
 
-            for (index, element) in renderedCards.enumerated() {
+            for (_, element) in renderedCards.enumerated() {
                 let cardID = element.0
                 let image = element.1
 
@@ -371,19 +371,8 @@ struct PrintLayoutView: View {
                 let maxScaleY = contentHeight / originalHeight
                 let safeScale = min(userScale, maxScaleX, maxScaleY, 1.0)
 
-                let drawWidth = originalWidth * safeScale
-                let drawHeight = originalHeight * safeScale
-
                 let alignment = cardAlignments[cardID] ?? .center
-                let drawX: CGFloat
-                switch alignment {
-                case .center:
-                    drawX = margins.left + (contentWidth - drawWidth) / 2
-                case .trailing:
-                    drawX = margins.left + (contentWidth - drawWidth)
-                case .leading:
-                    drawX = margins.left
-                }
+                var drawX: CGFloat = margins.left
 
                 if !autoPaginate {
                     // Manual mode: forced page break before this card
@@ -393,34 +382,46 @@ struct PrintLayoutView: View {
                         firstPage = false
                     }
                     // If scaled image still doesn't fit in remaining space, move to new page
-                    if drawHeight > remainingHeight {
+                    if originalHeight * safeScale > remainingHeight {
                         let shouldPrintTitle = printTitleOnAllPages ? true : firstPage
                         beginNewPage(printTitle: shouldPrintTitle)
                         firstPage = false
+                    }
+                    let drawScale = min(safeScale, remainingHeight / originalHeight)
+                    let drawWidth = originalWidth * drawScale
+                    let drawHeight = originalHeight * drawScale
+                    switch alignment {
+                    case .center:
+                        drawX = margins.left + (contentWidth - drawWidth) / 2
+                    case .trailing:
+                        drawX = margins.left + (contentWidth - drawWidth)
+                    case .leading:
+                        drawX = margins.left
                     }
                     image.draw(in: CGRect(x: drawX, y: currentY, width: drawWidth, height: drawHeight))
                     currentY += drawHeight
                     remainingHeight -= drawHeight
-                    if remainingHeight < PrintConstants.minimumBottomSpacing && index < renderedCards.count - 1 {
-                        let shouldPrintTitle = printTitleOnAllPages ? true : firstPage
-                        beginNewPage(printTitle: shouldPrintTitle)
-                        firstPage = false
-                    }
                 } else {
                     // Auto paginate: keep-together; scale down if necessary to fit a single page
-                    if drawHeight > remainingHeight {
+                    if originalHeight * safeScale > remainingHeight {
                         let shouldPrintTitle = printTitleOnAllPages ? true : firstPage
                         beginNewPage(printTitle: shouldPrintTitle)
                         firstPage = false
+                    }
+                    let drawScale = min(safeScale, remainingHeight / originalHeight)
+                    let drawWidth = originalWidth * drawScale
+                    let drawHeight = originalHeight * drawScale
+                    switch alignment {
+                    case .center:
+                        drawX = margins.left + (contentWidth - drawWidth) / 2
+                    case .trailing:
+                        drawX = margins.left + (contentWidth - drawWidth)
+                    case .leading:
+                        drawX = margins.left
                     }
                     image.draw(in: CGRect(x: drawX, y: currentY, width: drawWidth, height: drawHeight))
                     currentY += drawHeight
                     remainingHeight -= drawHeight
-                    if remainingHeight < PrintConstants.minimumBottomSpacing && index < renderedCards.count - 1 {
-                        let shouldPrintTitle = printTitleOnAllPages ? true : firstPage
-                        beginNewPage(printTitle: shouldPrintTitle)
-                        firstPage = false
-                    }
                 }
             }
         }

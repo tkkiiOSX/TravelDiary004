@@ -917,34 +917,62 @@ final class TravelDataModel: ObservableObject {
         let textColorHex = "#263238"
         
         // Cards
-        let day1Card = TravelCard(
+        let day1MapCard = TravelCard(
             date: startDate,
-            title: "1日目 しながわ水族館",
-            memo: "東京駅から電車で移動。イルカやペンギンのショーを楽しもう！",
+            title: "1日目 しながわ水族館（Map）",
+            memo: "東京駅から電車で移動。場所はこちらで確認できます。",
             locationName: "しながわ水族館",
             address: "東京都品川区勝島3-2-1",
             latitude: 35.6024,
             longitude: 139.7383,
-            url: "https://www.aquarium.gr.jp/",
             category: "水族館",
             showDate: true,
+            printWebPage: false,
             backgroundColorHex: sheetBackgroundColorHex,
             textColorHex: textColorHex,
             patternColorHex: patternColorHex,
             patternEffectRaw: patternEffectRaw,
             gradientEffectRaw: gradientEffectRaw
         )
-        let day2Card = TravelCard(
+        let day1WebCard = TravelCard(
+            date: startDate,
+            title: "1日目 しながわ水族館（Web）",
+            memo: "公式サイトで営業時間やイベント情報を確認できます。",
+            url: "https://www.aquarium.gr.jp/",
+            category: "水族館",
+            showDate: true,
+            printLocation: false,
+            backgroundColorHex: sheetBackgroundColorHex,
+            textColorHex: textColorHex,
+            patternColorHex: patternColorHex,
+            patternEffectRaw: patternEffectRaw,
+            gradientEffectRaw: gradientEffectRaw
+        )
+        let day2MapCard = TravelCard(
             date: endDate,
-            title: "2日目 八景島シーパラダイス",
-            memo: "八景島で海の生き物を満喫！水族館やアトラクションも楽しめます。",
+            title: "2日目 八景島シーパラダイス（Map）",
+            memo: "八景島で海の生き物を満喫。場所はこちらです。",
             locationName: "八景島シーパラダイス",
             address: "神奈川県横浜市金沢区八景島",
             latitude: 35.3375,
             longitude: 139.6381,
+            category: "水族館",
+            showDate: true,
+            printWebPage: false,
+            backgroundColorHex: sheetBackgroundColorHex,
+            textColorHex: textColorHex,
+            patternColorHex: patternColorHex,
+            patternEffectRaw: patternEffectRaw,
+            gradientEffectRaw: gradientEffectRaw
+        )
+        let day2WebCard = TravelCard(
+            date: endDate,
+            title: "2日目 八景島シーパラダイス（Web）",
+            memo: "公式サイトで最新情報をチェックできます。",
             url: "https://www.seaparadise.co.jp/",
             category: "水族館",
             showDate: true,
+            printLocation: false,
             backgroundColorHex: sheetBackgroundColorHex,
             textColorHex: textColorHex,
             patternColorHex: patternColorHex,
@@ -972,7 +1000,7 @@ final class TravelDataModel: ObservableObject {
             title: "水族館の旅（サンプル）",
             titleTextColorHex: "#FFFFFF",
             titleBackgroundColorHex: "#039BE5",
-            cards: [meetCard, day1Card, day2Card],
+            cards: [meetCard, day1MapCard, day1WebCard, day2MapCard, day2WebCard],
             backgroundColorHex: sheetBackgroundColorHex,
             defaultCardBackgroundColorHex: "#B3E5FC",
             startDate: startDate,
