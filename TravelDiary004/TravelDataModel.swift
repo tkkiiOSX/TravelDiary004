@@ -691,6 +691,9 @@ final class TravelDataModel: ObservableObject {
         if resetStoredData {
             Self.removeStoredData()
         }
+        if !FileManager.default.fileExists(atPath: Self.dataURL().path) {
+            self.sheets = [Self.makeSampleAquariumTripSheet()]
+        }
         if let data = try? Data(contentsOf: Self.dataURL()),
            let decoded = try? JSONDecoder().decode([TravelSheet].self, from: data) {
             self.sheets = decoded
@@ -899,5 +902,81 @@ final class TravelDataModel: ObservableObject {
         guard let idx = sheets.firstIndex(where: { $0.id == sheetID }) else { return }
         sheets[idx].printTitleOnAllPages = value
     }
-}
 
+    private static func makeSampleAquariumTripSheet() -> TravelSheet {
+        let calendar = Calendar(identifier: .gregorian)
+        let year = calendar.component(.year, from: Date())
+        let startDate = calendar.date(from: DateComponents(year: year, month: 7, day: 15))!
+        let endDate = calendar.date(from: DateComponents(year: year, month: 7, day: 16))!
+
+        // Common colors and effects for vibrant appearance
+        let sheetBackgroundColorHex = "#4FC3F7"
+        let patternColorHex = "#FFD600"
+        let patternEffectRaw = PatternEffect.ichimatsu.rawValue
+        let gradientEffectRaw = GradientEffect.horizontal.rawValue
+        let textColorHex = "#263238"
+        
+        // Cards
+        let day1Card = TravelCard(
+            date: startDate,
+            title: "1日目 しながわ水族館",
+            memo: "東京駅から電車で移動。イルカやペンギンのショーを楽しもう！",
+            locationName: "しながわ水族館",
+            address: "東京都品川区勝島3-2-1",
+            latitude: 35.6024,
+            longitude: 139.7383,
+            url: "https://www.aquarium.gr.jp/",
+            category: "水族館",
+            showDate: true,
+            backgroundColorHex: sheetBackgroundColorHex,
+            textColorHex: textColorHex,
+            patternColorHex: patternColorHex,
+            patternEffectRaw: patternEffectRaw,
+            gradientEffectRaw: gradientEffectRaw
+        )
+        let day2Card = TravelCard(
+            date: endDate,
+            title: "2日目 八景島シーパラダイス",
+            memo: "八景島で海の生き物を満喫！水族館やアトラクションも楽しめます。",
+            locationName: "八景島シーパラダイス",
+            address: "神奈川県横浜市金沢区八景島",
+            latitude: 35.3375,
+            longitude: 139.6381,
+            url: "https://www.seaparadise.co.jp/",
+            category: "水族館",
+            showDate: true,
+            backgroundColorHex: sheetBackgroundColorHex,
+            textColorHex: textColorHex,
+            patternColorHex: patternColorHex,
+            patternEffectRaw: patternEffectRaw,
+            gradientEffectRaw: gradientEffectRaw
+        )
+        let meetCard = TravelCard(
+            date: startDate,
+            title: "集合場所 東京駅",
+            memo: "東京駅に集合しましょう",
+            locationName: "東京駅",
+            address: "東京都千代田区丸の内1丁目",
+            latitude: 35.6812,
+            longitude: 139.7671,
+            category: "電車",
+            showDate: true,
+            backgroundColorHex: sheetBackgroundColorHex,
+            textColorHex: textColorHex,
+            patternColorHex: patternColorHex,
+            patternEffectRaw: patternEffectRaw,
+            gradientEffectRaw: gradientEffectRaw
+        )
+
+        return TravelSheet(
+            title: "水族館の旅（サンプル）",
+            titleTextColorHex: "#FFFFFF",
+            titleBackgroundColorHex: "#039BE5",
+            cards: [meetCard, day1Card, day2Card],
+            backgroundColorHex: sheetBackgroundColorHex,
+            defaultCardBackgroundColorHex: "#B3E5FC",
+            startDate: startDate,
+            endDate: endDate
+        )
+    }
+}
