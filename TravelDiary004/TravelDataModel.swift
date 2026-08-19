@@ -692,7 +692,7 @@ final class TravelDataModel: ObservableObject {
             Self.removeStoredData()
         }
         if !FileManager.default.fileExists(atPath: Self.dataURL().path) {
-            self.sheets = [Self.makeSampleAquariumTripSheet()]
+            self.sheets = [Self.makeSampleAquariumTripSheet(), Self.makeSampleOkinawaRentalCarTripSheet()]
         }
         if let data = try? Data(contentsOf: Self.dataURL()),
            let decoded = try? JSONDecoder().decode([TravelSheet].self, from: data) {
@@ -928,7 +928,31 @@ final class TravelDataModel: ObservableObject {
             category: "水族館",
             showDate: true,
             printWebPage: false,
-            backgroundColorHex: sheetBackgroundColorHex,
+            backgroundColorHex: "#E8F5E9", // 訪問先
+            textColorHex: textColorHex,
+            patternColorHex: patternColorHex,
+            patternEffectRaw: patternEffectRaw,
+            gradientEffectRaw: gradientEffectRaw
+        )
+        let day1KeikyuOmoriKaiganToShinagawa = TravelCard(
+            date: startDate,
+            title: "京浜急行 大森海岸→品川",
+            memo: "京急で移動",
+            category: "電車",
+            showDate: true,
+            backgroundColorHex: "#E3F2FD", // 移動手段
+            textColorHex: textColorHex,
+            patternColorHex: patternColorHex,
+            patternEffectRaw: patternEffectRaw,
+            gradientEffectRaw: gradientEffectRaw
+        )
+        let day1HotelShinagawaStay = TravelCard(
+            date: startDate,
+            title: "品川〇〇ホテル宿泊",
+            memo: "チェックイン・宿泊",
+            category: "宿泊",
+            showDate: true,
+            backgroundColorHex: "#FFF3E0", // 宿泊先
             textColorHex: textColorHex,
             patternColorHex: patternColorHex,
             patternEffectRaw: patternEffectRaw,
@@ -942,7 +966,31 @@ final class TravelDataModel: ObservableObject {
             category: "水族館",
             showDate: true,
             printLocation: false,
-            backgroundColorHex: sheetBackgroundColorHex,
+            backgroundColorHex: "#E8F5E9", // 訪問先
+            textColorHex: textColorHex,
+            patternColorHex: patternColorHex,
+            patternEffectRaw: patternEffectRaw,
+            gradientEffectRaw: gradientEffectRaw
+        )
+        let day2KeikyuShinagawaToKanazawaHakkei = TravelCard(
+            date: endDate,
+            title: "京浜急行 品川→金沢八景",
+            memo: "京急で移動",
+            category: "電車",
+            showDate: true,
+            backgroundColorHex: "#E3F2FD", // 移動手段
+            textColorHex: textColorHex,
+            patternColorHex: patternColorHex,
+            patternEffectRaw: patternEffectRaw,
+            gradientEffectRaw: gradientEffectRaw
+        )
+        let day2SeasideLineKanazawaHakkeiToHakkeijima = TravelCard(
+            date: endDate,
+            title: "シーサイドライン 金沢八景→八景島",
+            memo: "シーサイドラインで移動",
+            category: "電車",
+            showDate: true,
+            backgroundColorHex: "#E3F2FD", // 移動手段
             textColorHex: textColorHex,
             patternColorHex: patternColorHex,
             patternEffectRaw: patternEffectRaw,
@@ -959,7 +1007,7 @@ final class TravelDataModel: ObservableObject {
             category: "水族館",
             showDate: true,
             printWebPage: false,
-            backgroundColorHex: sheetBackgroundColorHex,
+            backgroundColorHex: "#E8F5E9", // 訪問先
             textColorHex: textColorHex,
             patternColorHex: patternColorHex,
             patternEffectRaw: patternEffectRaw,
@@ -973,7 +1021,7 @@ final class TravelDataModel: ObservableObject {
             category: "水族館",
             showDate: true,
             printLocation: false,
-            backgroundColorHex: sheetBackgroundColorHex,
+            backgroundColorHex: "#E8F5E9", // 訪問先
             textColorHex: textColorHex,
             patternColorHex: patternColorHex,
             patternEffectRaw: patternEffectRaw,
@@ -989,7 +1037,43 @@ final class TravelDataModel: ObservableObject {
             longitude: 139.7671,
             category: "電車",
             showDate: true,
-            backgroundColorHex: sheetBackgroundColorHex,
+            backgroundColorHex: "#E3F2FD", // 移動手段
+            textColorHex: textColorHex,
+            patternColorHex: patternColorHex,
+            patternEffectRaw: patternEffectRaw,
+            gradientEffectRaw: gradientEffectRaw
+        )
+        let day1TrainTokyoToShinagawa = TravelCard(
+            date: startDate,
+            title: "山手線 東京駅→品川",
+            memo: "山手線で移動",
+            category: "電車",
+            showDate: true,
+            backgroundColorHex: "#E3F2FD", // 移動手段
+            textColorHex: textColorHex,
+            patternColorHex: patternColorHex,
+            patternEffectRaw: patternEffectRaw,
+            gradientEffectRaw: gradientEffectRaw
+        )
+        let day1KeikyuShinagawaToOmoriKaigan = TravelCard(
+            date: startDate,
+            title: "京浜急行 品川→大森海岸",
+            memo: "京急で移動",
+            category: "電車",
+            showDate: true,
+            backgroundColorHex: "#E3F2FD", // 移動手段
+            textColorHex: textColorHex,
+            patternColorHex: patternColorHex,
+            patternEffectRaw: patternEffectRaw,
+            gradientEffectRaw: gradientEffectRaw
+        )
+        let day1WalkOmoriKaiganToAquarium = TravelCard(
+            date: startDate,
+            title: "徒歩 大森海岸→しながわ水族館",
+            memo: "徒歩で移動",
+            category: "徒歩",
+            showDate: true,
+            backgroundColorHex: "#E3F2FD", // 移動手段
             textColorHex: textColorHex,
             patternColorHex: patternColorHex,
             patternEffectRaw: patternEffectRaw,
@@ -1000,11 +1084,126 @@ final class TravelDataModel: ObservableObject {
             title: "水族館の旅（サンプル）",
             titleTextColorHex: "#FFFFFF",
             titleBackgroundColorHex: "#039BE5",
-            cards: [meetCard, day1MapCard, day1WebCard, day2MapCard, day2WebCard],
+            cards: [
+                meetCard,
+                day1TrainTokyoToShinagawa,
+                day1KeikyuShinagawaToOmoriKaigan,
+                day1WalkOmoriKaiganToAquarium,
+                day1MapCard,
+                day1WebCard,
+                day1KeikyuOmoriKaiganToShinagawa,
+                day1HotelShinagawaStay,
+                day2KeikyuShinagawaToKanazawaHakkei,
+                day2SeasideLineKanazawaHakkeiToHakkeijima,
+                day2MapCard,
+                day2WebCard
+            ],
             backgroundColorHex: sheetBackgroundColorHex,
             defaultCardBackgroundColorHex: "#B3E5FC",
             startDate: startDate,
             endDate: endDate
         )
     }
+
+    private static func makeSampleOkinawaRentalCarTripSheet() -> TravelSheet {
+        let calendar = Calendar(identifier: .gregorian)
+        let year = calendar.component(.year, from: Date())
+        let startDate = calendar.date(from: DateComponents(year: year, month: 11, day: 10))! // 任意の開始日
+        let day2 = calendar.date(byAdding: .day, value: 1, to: startDate)!
+        let day3 = calendar.date(byAdding: .day, value: 2, to: startDate)!
+        let day4 = calendar.date(byAdding: .day, value: 3, to: startDate)!
+
+        let sheetBackgroundColorHex = "#FFF8E1" // 温かみのある淡い色
+        let patternColorHex = "#FFD180"
+        let patternEffectRaw = PatternEffect.ichimatsu.rawValue
+        let gradientEffectRaw = GradientEffect.horizontal.rawValue
+        let textColorHex = "#37474F"
+
+        func makeTime(_ base: Date, hour: Int, minute: Int) -> Date {
+            var comps = calendar.dateComponents([.year, .month, .day], from: base)
+            comps.hour = hour
+            comps.minute = minute
+            return calendar.date(from: comps)!
+        }
+
+        // Day 1: 那覇
+        let d1_1000 = TravelCard(date: startDate, title: "10:00 那覇空港", memo: "到着", locationName: "那覇空港", category: "飛行機", showDate: true, showTime: true, time: makeTime(startDate, hour: 10, minute: 0), backgroundColorHex: "#E3F2FD", // 移動手段
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d1_1100 = TravelCard(date: startDate, title: "11:00 レンタカー受取", memo: "空港近くで手続き", category: "車", showDate: true, showTime: true, time: makeTime(startDate, hour: 11, minute: 0), backgroundColorHex: "#E3F2FD", // 移動手段
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d1_1200 = TravelCard(date: startDate, title: "12:00 沖縄そば", memo: "ランチ", category: "食事", showDate: true, showTime: true, time: makeTime(startDate, hour: 12, minute: 0), backgroundColorHex: "#E8F5E9", // 訪問先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d1_1400 = TravelCard(date: startDate, title: "14:00 首里城周辺", memo: "観光", locationName: "首里城公園", category: "その他施設", showDate: true, showTime: true, time: makeTime(startDate, hour: 14, minute: 0), backgroundColorHex: "#E8F5E9", // 訪問先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d1_1600 = TravelCard(date: startDate, title: "16:00 国際通り", memo: "ショッピング", locationName: "国際通り", category: "その他施設", showDate: true, showTime: true, time: makeTime(startDate, hour: 16, minute: 0), backgroundColorHex: "#E8F5E9", // 訪問先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d1_1800 = TravelCard(date: startDate, title: "18:00 ホテルチェックイン", memo: "那覇市内ホテル", category: "宿泊", showDate: true, showTime: true, time: makeTime(startDate, hour: 18, minute: 0), backgroundColorHex: "#FFF3E0", // 宿泊先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d1_1900 = TravelCard(date: startDate, title: "19:00 夕食", memo: "那覇グルメ", category: "食事", showDate: true, showTime: true, time: makeTime(startDate, hour: 19, minute: 0), backgroundColorHex: "#E8F5E9", // 訪問先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+
+        // Day 2: 北部
+        let d2_0800 = TravelCard(date: day2, title: "08:00 那覇出発", memo: "北部へドライブ", category: "車", showDate: true, showTime: true, time: makeTime(day2, hour: 8, minute: 0), backgroundColorHex: "#E3F2FD", // 移動手段
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d2_1000 = TravelCard(date: day2, title: "10:00 美ら海水族館", memo: "観光", locationName: "沖縄美ら海水族館", category: "水族館", showDate: true, showTime: true, time: makeTime(day2, hour: 10, minute: 0), backgroundColorHex: "#E8F5E9", // 訪問先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d2_1230 = TravelCard(date: day2, title: "12:30 ランチ", memo: "近隣で食事", category: "食事", showDate: true, showTime: true, time: makeTime(day2, hour: 12, minute: 30), backgroundColorHex: "#E8F5E9", // 訪問先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d2_1400 = TravelCard(date: day2, title: "14:00 古宇利島", memo: "ドライブ・観光", locationName: "古宇利島", category: "その他施設", showDate: true, showTime: true, time: makeTime(day2, hour: 14, minute: 0), backgroundColorHex: "#E8F5E9", // 訪問先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d2_1600 = TravelCard(date: day2, title: "16:00 古宇利ビーチ", memo: "海水浴・散策", locationName: "古宇利ビーチ", category: "その他施設", showDate: true, showTime: true, time: makeTime(day2, hour: 16, minute: 0), backgroundColorHex: "#E8F5E9", // 訪問先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d2_1830 = TravelCard(date: day2, title: "18:30 ホテル", memo: "チェックイン", category: "宿泊", showDate: true, showTime: true, time: makeTime(day2, hour: 18, minute: 30), backgroundColorHex: "#FFF3E0", // 宿泊先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d2_1930 = TravelCard(date: day2, title: "19:30 夕食", memo: "北部グルメ", category: "食事", showDate: true, showTime: true, time: makeTime(day2, hour: 19, minute: 30), backgroundColorHex: "#E8F5E9", // 訪問先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+
+        // Day 3: 西海岸
+        let d3_0900 = TravelCard(date: day3, title: "09:00 万座毛", memo: "景勝地", locationName: "万座毛", category: "その他施設", showDate: true, showTime: true, time: makeTime(day3, hour: 9, minute: 0), backgroundColorHex: "#E8F5E9", // 訪問先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d3_1100 = TravelCard(date: day3, title: "11:00 恩納村", memo: "散策", locationName: "恩納村", category: "その他施設", showDate: true, showTime: true, time: makeTime(day3, hour: 11, minute: 0), backgroundColorHex: "#E8F5E9", // 訪問先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d3_1200 = TravelCard(date: day3, title: "12:00 ランチ", memo: "海沿いで食事", category: "食事", showDate: true, showTime: true, time: makeTime(day3, hour: 12, minute: 0), backgroundColorHex: "#E8F5E9", // 訪問先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d3_1400 = TravelCard(date: day3, title: "14:00 アメリカンビレッジ", memo: "ショッピング・散策", locationName: "美浜アメリカンビレッジ", category: "その他施設", showDate: true, showTime: true, time: makeTime(day3, hour: 14, minute: 0), backgroundColorHex: "#E8F5E9", // 訪問先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d3_1700 = TravelCard(date: day3, title: "17:00 サンセット", memo: "サンセットビーチ", locationName: "北谷公園サンセットビーチ", category: "その他施設", showDate: true, showTime: true, time: makeTime(day3, hour: 17, minute: 0), backgroundColorHex: "#E8F5E9", // 訪問先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d3_1900 = TravelCard(date: day3, title: "19:00 夕食", memo: "ステーキなど", category: "食事", showDate: true, showTime: true, time: makeTime(day3, hour: 19, minute: 0), backgroundColorHex: "#E8F5E9", // 訪問先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+
+        // Day 4: 那覇
+        let d4_0900 = TravelCard(date: day4, title: "09:00 ホテル出発", memo: "チェックアウト", category: "宿泊", showDate: true, showTime: true, time: makeTime(day4, hour: 9, minute: 0), backgroundColorHex: "#FFF3E0", // 宿泊先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d4_1000 = TravelCard(date: day4, title: "10:00 お土産購入", memo: "国際通りなど", category: "その他施設", showDate: true, showTime: true, time: makeTime(day4, hour: 10, minute: 0), backgroundColorHex: "#E8F5E9", // 訪問先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d4_1200 = TravelCard(date: day4, title: "12:00 那覇ランチ", memo: "最後の食事", category: "食事", showDate: true, showTime: true, time: makeTime(day4, hour: 12, minute: 0), backgroundColorHex: "#E8F5E9", // 訪問先
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d4_1400 = TravelCard(date: day4, title: "14:00 レンタカー返却", memo: "空港近くで返却", category: "車", showDate: true, showTime: true, time: makeTime(day4, hour: 14, minute: 0), backgroundColorHex: "#E3F2FD", // 移動手段
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+        let d4_1500 = TravelCard(date: day4, title: "15:00 那覇空港", memo: "出発", locationName: "那覇空港", category: "飛行機", showDate: true, showTime: true, time: makeTime(day4, hour: 15, minute: 0), backgroundColorHex: "#E3F2FD", // 移動手段
+                                textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
+
+        return TravelSheet(
+            title: "沖縄レンタカー旅｜3泊4日（サンプル）",
+            titleTextColorHex: "#FFFFFF",
+            titleBackgroundColorHex: "#00BFA5",
+            cards: [
+                // Day1
+                d1_1000, d1_1100, d1_1200, d1_1400, d1_1600, d1_1800, d1_1900,
+                // Day2
+                d2_0800, d2_1000, d2_1230, d2_1400, d2_1600, d2_1830, d2_1930,
+                // Day3
+                d3_0900, d3_1100, d3_1200, d3_1400, d3_1700, d3_1900,
+                // Day4
+                d4_0900, d4_1000, d4_1200, d4_1400, d4_1500
+            ],
+            backgroundColorHex: sheetBackgroundColorHex,
+            defaultCardBackgroundColorHex: "#FFF3E0",
+            startDate: startDate,
+            endDate: day4,
+            printTitleOnAllPages: true
+        )
+    }
 }
+
