@@ -508,6 +508,8 @@ struct PrintLayoutView: View {
             webView.load(request)
         }
 
+        await waitForWebViewToStabilize(webView)
+
         let configuration = WKSnapshotConfiguration()
         configuration.rect = CGRect(origin: .zero, size: size)
         configuration.afterScreenUpdates = true

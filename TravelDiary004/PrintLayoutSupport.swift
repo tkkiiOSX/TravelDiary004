@@ -781,6 +781,8 @@ func makeWebSnapshot(for card: TravelCard, size: CGSize) async -> UIImage? {
         webView.load(request)
     }
 
+    await waitForWebViewToStabilize(webView)
+
     let configuration = WKSnapshotConfiguration()
     configuration.rect = CGRect(origin: .zero, size: size)
     configuration.afterScreenUpdates = true
@@ -788,6 +790,39 @@ func makeWebSnapshot(for card: TravelCard, size: CGSize) async -> UIImage? {
     return await withCheckedContinuation { continuation in
         webView.takeSnapshot(with: configuration) { image, _ in
             continuation.resume(returning: image)
+        }
+    }
+}
+
+@MainActor
+func waitForWebViewToStabilize(_ webView: WKWebView, timeout: TimeInterval = 15, settleDelay: TimeInterval = 0.75) async {
+    let deadline = Date().addingTimeInterval(timeout)
+    var stableSince: Date?
+
+    while Date() < deadline {
+        let readyState = await webViewReadyState(webView)
+        let isSettled = (readyState == "complete" || readyState == "interactive") && !webView.isLoading && webView.estimatedProgress >= 1.0
+
+        if isSettled {
+            if stableSince == nil {
+                stableSince = Date()
+            }
+            if let stableSince, Date().timeIntervalSince(stableSince) >= settleDelay {
+                return
+            }
+        } else {
+            stableSince = nil
+        }
+
+        try? await Task.sleep(nanoseconds: 250_000_000)
+    }
+}
+
+@MainActor
+private func webViewReadyState(_ webView: WKWebView) async -> String? {
+    await withCheckedContinuation { continuation in
+        webView.evaluateJavaScript("document.readyState") { value, _ in
+            continuation.resume(returning: value as? String)
         }
     }
 }
