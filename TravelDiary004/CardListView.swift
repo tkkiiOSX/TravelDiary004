@@ -464,3 +464,4 @@ private struct CardListViewPreviewProvider {
     CardListView(initialSheet: CardListViewPreviewProvider.model.sheets.first!).environmentObject(CardListViewPreviewProvider.model)
 }
 
+

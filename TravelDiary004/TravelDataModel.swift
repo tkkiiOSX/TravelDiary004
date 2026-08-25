@@ -189,9 +189,11 @@ struct TravelSheet: Identifiable, Hashable, Codable {
         titleTextColorHex = try container.decodeIfPresent(String.self, forKey: .titleTextColorHex) ?? "#000000"
         titleBackgroundColorHex = try container.decodeIfPresent(String.self, forKey: .titleBackgroundColorHex) ?? "#FFFFFF"
         cards = try container.decodeIfPresent([TravelCard].self, forKey: .cards) ?? []
-        manualPageBreaks = try container.decodeIfPresent(Set<UUID>.self, forKey: .manualPageBreaks) ?? []
-        cardScales = try container.decodeIfPresent([UUID: Double].self, forKey: .cardScales) ?? [:]
-        cardAlignmentsRaw = try container.decodeIfPresent([UUID: String].self, forKey: .cardAlignmentsRaw) ?? [:]
+        // Older exports may encode these fields as empty arrays instead of keyed dictionaries.
+        // Decode them leniently so legacy files still open and can be re-saved in the current format.
+        manualPageBreaks = (try? container.decode(Set<UUID>.self, forKey: .manualPageBreaks)) ?? []
+        cardScales = (try? container.decode([UUID: Double].self, forKey: .cardScales)) ?? [:]
+        cardAlignmentsRaw = (try? container.decode([UUID: String].self, forKey: .cardAlignmentsRaw)) ?? [:]
         backgroundColorHex = try container.decodeIfPresent(String.self, forKey: .backgroundColorHex) ?? "#FFFFFF"
         travelDateTextColorHex = try container.decodeIfPresent(String.self, forKey: .travelDateTextColorHex) ?? "#666666"
         defaultCardBackgroundColorHex = try container.decodeIfPresent(String.self, forKey: .defaultCardBackgroundColorHex)
@@ -687,12 +689,31 @@ final class TravelDataModel: ObservableObject {
         }
     }
 
+    private static func loadBundledSheet(named resourceName: String) -> TravelSheet? {
+        guard let url = Bundle.main.url(forResource: resourceName, withExtension: "json"),
+              let data = try? Data(contentsOf: url),
+              let sheet = try? JSONDecoder().decode(TravelSheet.self, from: data) else {
+            return nil
+        }
+        return sheet
+    }
+
     init(resetStoredData: Bool = false) {
         if resetStoredData {
             Self.removeStoredData()
         }
         if !FileManager.default.fileExists(atPath: Self.dataURL().path) {
-            self.sheets = [Self.makeSampleAquariumTripSheet(), Self.makeSampleOkinawaRentalCarTripSheet()]
+            var seedSheets = [
+                Self.makeSampleAquariumTripSheet(),
+                Self.makeSampleOkinawaRentalCarTripSheet(),
+            ]
+            if let bundledSheet = Self.loadBundledSheet(named: "サンフランシスコとApple Parkの3泊") {
+                seedSheets.append(bundledSheet)
+            }
+            if let bundledSheet = Self.loadBundledSheet(named: "ブックマーク　気候") {
+                seedSheets.append(bundledSheet)
+            }
+            self.sheets = seedSheets
         }
         if let data = try? Data(contentsOf: Self.dataURL()),
            let decoded = try? JSONDecoder().decode([TravelSheet].self, from: data) {
@@ -1081,7 +1102,7 @@ final class TravelDataModel: ObservableObject {
         )
 
         return TravelSheet(
-            title: "水族館の旅（サンプル）",
+            title: "水族館の旅",
             titleTextColorHex: "#FFFFFF",
             titleBackgroundColorHex: "#039BE5",
             cards: [
@@ -1185,7 +1206,7 @@ final class TravelDataModel: ObservableObject {
                                 textColorHex: textColorHex, patternColorHex: patternColorHex, patternEffectRaw: patternEffectRaw, gradientEffectRaw: gradientEffectRaw)
 
         return TravelSheet(
-            title: "沖縄レンタカー旅｜3泊4日（サンプル）",
+            title: "沖縄レンタカー旅｜3泊4日",
             titleTextColorHex: "#FFFFFF",
             titleBackgroundColorHex: "#00BFA5",
             cards: [
@@ -1206,4 +1227,3 @@ final class TravelDataModel: ObservableObject {
         )
     }
 }
-

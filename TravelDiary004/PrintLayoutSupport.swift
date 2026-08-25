@@ -220,6 +220,7 @@ struct PDFPreviewContainer: View {
         }
     }
 
+    @MainActor
     private func prepareSnapshots() async {
         var mapDict: [UUID: UIImage] = [:]
         var webDict: [UUID: UIImage] = [:]
@@ -241,6 +242,7 @@ struct PDFPreviewContainer: View {
         webSnapshots = webDict
     }
 
+    @MainActor
     private func generatePDF() async {
         let pageSize = CGSize(width: 595.2, height: 841.8)
         let margins = UIEdgeInsets(top: 36, left: 36, bottom: 36, right: 36)
@@ -667,6 +669,7 @@ private struct CardShadowModifier: ViewModifier {
     }
 }
 
+@MainActor
 func renderViewToImage(view: AnyView, width: CGFloat) -> UIImage? {
     let hosting = UIHostingController(rootView: view)
     hosting.view.backgroundColor = .clear
@@ -761,10 +764,16 @@ func makeWebSnapshot(for card: TravelCard, size: CGSize) async -> UIImage? {
         class NavigationDelegate: NSObject, WKNavigationDelegate {
             static var associationKey: UInt8 = 0
             let continuation: CheckedContinuation<Void, Never>
+            private var didResume = false
             init(_ continuation: CheckedContinuation<Void, Never>) { self.continuation = continuation }
-            func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) { continuation.resume(returning: ()) }
-            func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) { continuation.resume(returning: ()) }
-            func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) { continuation.resume(returning: ()) }
+            private func finish() {
+                guard !didResume else { return }
+                didResume = true
+                continuation.resume(returning: ())
+            }
+            func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) { finish() }
+            func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) { finish() }
+            func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) { finish() }
         }
         let delegate = NavigationDelegate(continuation)
         objc_setAssociatedObject(webView, &NavigationDelegate.associationKey, delegate, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)

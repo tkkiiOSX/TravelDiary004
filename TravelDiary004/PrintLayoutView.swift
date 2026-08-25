@@ -482,17 +482,23 @@ struct PrintLayoutView: View {
             class NavigationDelegate: NSObject, WKNavigationDelegate {
                 static var associationKey: UInt8 = 0
                 let continuation: CheckedContinuation<Void, Never>
+                private var didResume = false
                 init(_ continuation: CheckedContinuation<Void, Never>) {
                     self.continuation = continuation
                 }
-                func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+                private func finish() {
+                    guard !didResume else { return }
+                    didResume = true
                     continuation.resume(returning: ())
+                }
+                func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+                    finish()
                 }
                 func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-                    continuation.resume(returning: ())
+                    finish()
                 }
                 func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-                    continuation.resume(returning: ())
+                    finish()
                 }
             }
 
