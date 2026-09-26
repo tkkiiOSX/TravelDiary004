@@ -20,6 +20,12 @@ struct SheetSettingsView: View {
         NavigationStack {
             Form {
                 Section {
+                    ColorPicker("旅行プランシートの背景色", selection: $editingSheetColor)
+                } header: {
+                    Text("背景色")
+                }
+                
+                Section {
                     TextField("旅行プラン名", text: $editingSheetTitle)
                     ColorPicker("旅行プラン名の文字色", selection: $editingSheetTitleTextColor)
                     ColorPicker("旅行プラン名の背景色", selection: $editingSheetTitleBackgroundColor)
@@ -28,16 +34,6 @@ struct SheetSettingsView: View {
                     Text("旅行プラン名")
                 }
                 
-                
-                Section {
-                    ColorPicker("旅行プランシートの背景色", selection: $editingSheetColor)
-                    ColorPicker("カード背景色（デフォルト）", selection: $editingSheetDefaultCardBackgroundColor)
-                    
-                    
-                    
-                } header: {
-                    Text("背景色")
-                }
                 Section {
                     HStack {
                         Text("旅行開始日")
@@ -101,6 +97,12 @@ struct SheetSettingsView: View {
                     }
                 } header: {
                     Text("旅行期間")
+                }
+                
+                Section {
+                    ColorPicker("デフォルトのカード背景色", selection: $editingSheetDefaultCardBackgroundColor)
+                } header: {
+                    Text("カードのデフォルト設定")
                 }
             }
             .navigationTitle("旅行シートの設定")

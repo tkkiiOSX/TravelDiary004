@@ -104,45 +104,48 @@ struct CardListView: View {
                     ForEach(model.sheets) { sheet in
                         List {
                             Section {
-                                HStack {
-                                    Text(sheet.title.isEmpty ? "無題のシート" : sheet.title)
-                                        .font(.headline.weight(.semibold))
-                                        .foregroundColor(sheet.titleTextColor)
-                                        .multilineTextAlignment(.leading)
-                                        .lineLimit(2)
-                                        .minimumScaleFactor(0.6)
-                                        .truncationMode(.middle)
-                                        .allowsTightening(true)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .padding(.horizontal, 10)
-                                        .padding(.vertical, 5)
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                                .fill(sheet.titleBackgroundColor.opacity(0.95))
-                                        )
-                                    Spacer()
-                                }
-                                .listRowBackground(sheet.backgroundColor.opacity(0.08))
-                            }
-
-                            Section {
-                                VStack(alignment: .leading, spacing: 12) {
-                                    if let startDate = sheet.startDate, let endDate = sheet.endDate {
-                                        Text("旅行日程: \(formattedDate(startDate)) 〜 \(formattedDate(endDate))")
-                                            .font(.callout)
-                                            .foregroundColor(sheet.travelDateTextColor)
-                                    } else if let startDate = sheet.startDate {
-                                        Text("旅行開始予定日: \(formattedDate(startDate))")
-                                            .font(.callout)
-                                            .foregroundColor(sheet.travelDateTextColor)
-                                    } else if let endDate = sheet.endDate {
-                                        Text("旅行終了予定日: \(formattedDate(endDate))")
-                                            .font(.callout)
-                                            .foregroundColor(sheet.travelDateTextColor)
+                                VStack(alignment: .leading, spacing: 6) {
+                                    // Title row
+                                    HStack {
+                                        Text(sheet.title.isEmpty ? "無題のシート" : sheet.title)
+                                            .font(.title2.weight(.semibold))
+                                            .foregroundColor(sheet.titleTextColor)
+                                            .multilineTextAlignment(.leading)
+                                            .lineLimit(2)
+                                            .minimumScaleFactor(0.6)
+                                            .truncationMode(.middle)
+                                            .allowsTightening(true)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .padding(.horizontal, 6)
+                                            .padding(.top, 2)
+                                        Spacer()
                                     }
+                                    // Period row (travel dates)
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        if let startDate = sheet.startDate, let endDate = sheet.endDate {
+                                            Text("旅行日程: \(formattedDate(startDate)) 〜 \(formattedDate(endDate))")
+                                                .font(.callout)
+                                                .foregroundColor(sheet.travelDateTextColor)
+                                        } else if let startDate = sheet.startDate {
+                                            Text("旅行開始予定日: \(formattedDate(startDate))")
+                                                .font(.callout)
+                                                .foregroundColor(sheet.travelDateTextColor)
+                                        } else if let endDate = sheet.endDate {
+                                            Text("旅行終了予定日: \(formattedDate(endDate))")
+                                                .font(.callout)
+                                                .foregroundColor(sheet.travelDateTextColor)
+                                        }
+                                    }
+                                    .padding(.bottom, 4)
                                 }
-                                .listRowBackground(sheet.backgroundColor.opacity(0.08))
+                                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                                .padding(.bottom, 4)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                        .fill(sheet.titleBackgroundColor.opacity(0.95))
+                                )
                             }
+                            .listRowBackground(sheet.backgroundColor.opacity(0.08))
 
                             // Cards section with reordering support
                             Section {
@@ -153,7 +156,8 @@ struct CardListView: View {
                                     ForEach(sheet.cards) { card in
                                         NavigationLink(value: card) {
                                             CardDisplayView(card: card)
-                                                .padding(.vertical, 8)
+                                                .padding(.vertical, 0) // keep as 0
+                                                .listRowInsets(EdgeInsets(top: 0, leading: 1, bottom: 0, trailing: 1)) // changed leading/trailing from 2 to 1
                                         }
                                         .listRowBackground(sheet.backgroundColor)
                                     }
@@ -187,13 +191,6 @@ struct CardListView: View {
                     Image(systemName: "plus.circle")
                     Text("カード")
                 }
-
-                /*Button {
-                    showManualEditor = true
-                } label: {
-                    Image(systemName: "list.bullet.rectangle")
-                    Text("印刷＆PDF（手動)")
-                }*/
 
                 Button {
                     showPDFPreview = true
@@ -284,7 +281,7 @@ private struct CardDisplayView: View {
     @Environment(\.openURL) private var openURL
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 8) {
             VStack(alignment: .leading, spacing: 4) {
                 HStack(alignment: .center, spacing: 8) {
                     if let icon = card.iconName(), !icon.isEmpty {
@@ -418,7 +415,8 @@ private struct CardDisplayView: View {
             }
 
         }
-        .padding()
+        // 内側の余白（PDFプレビューに合わせる）
+        .padding(12)
         .background(
             ZStack {
                 card.backgroundColor
@@ -429,6 +427,9 @@ private struct CardDisplayView: View {
         .cornerRadius(18)
         .modifier(CardBorderModifier(style: card.borderStyle, color: card.borderColor, lineWidth: CGFloat(card.borderWidth), radius: 18))
         .modifier(CardShadowModifier(enabled: card.showShadow))
+        // 外側の余白（セル間の間隔調整）
+        .padding(.vertical, 4)
+        .padding(.horizontal, 6)
     }
 
     private var displayURL: URL? {
@@ -463,5 +464,4 @@ private struct CardListViewPreviewProvider {
 #Preview("カードリスト プレビュー") {
     CardListView(initialSheet: CardListViewPreviewProvider.model.sheets.first!).environmentObject(CardListViewPreviewProvider.model)
 }
-
 
