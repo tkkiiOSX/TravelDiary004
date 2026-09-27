@@ -430,9 +430,9 @@ struct PrintableCardView: View {
                 }
             }
 
-            if card.showTime {
+            if card.showStartTime || card.showEndTime {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(card.displayTimeString)
+                    Text(card.displayTimeRangeString)
                         .font(.system(size: CGFloat(max(card.textSize - 4, 8))))
                         .foregroundColor(card.textColor.opacity(0.8))
                 }
@@ -835,3 +835,4 @@ func makeURL(from input: String) -> URL? {
     }
     return URL(string: "https://\(trimmed)")
 }
+

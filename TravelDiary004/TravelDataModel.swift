@@ -243,6 +243,10 @@ struct TravelCard: Identifiable, Hashable, Codable {
     var showDate: Bool = false
     var showTime: Bool = false
     var time: Date = Date()
+    var showStartTime: Bool = false
+    var startTime: Date = Date()
+    var showEndTime: Bool = false
+    var endTime: Date = Date()
     var printLocation: Bool = true
     var printWebPage: Bool = true
     var printPhoto: Bool = true
@@ -318,6 +322,24 @@ struct TravelCard: Identifiable, Hashable, Codable {
         formatter.timeStyle = .short
         return formatter.string(from: time)
     }
+    
+    var displayTimeRangeString: String {
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "ja_JP")
+            formatter.dateStyle = .none
+            formatter.timeStyle = .short
+
+            var times: [String] = []
+
+            if showStartTime {
+                times.append("開始 \(formatter.string(from: startTime))")
+            }
+            if showEndTime {
+                times.append("終了 \(formatter.string(from: endTime))")
+            }
+
+            return times.joined(separator: " 〜 ")
+        }
 
     var textColor: Color {
         Color(hex: textColorHex)
@@ -442,6 +464,10 @@ struct TravelCard: Identifiable, Hashable, Codable {
         case showDate
         case showTime
         case time
+        case showStartTime
+        case startTime
+        case showEndTime
+        case endTime
         case printLocation
         case printWebPage
         case printPhoto
@@ -477,6 +503,10 @@ struct TravelCard: Identifiable, Hashable, Codable {
         showDate: Bool = false,
         showTime: Bool = false,
         time: Date = Date(),
+        showStartTime: Bool = false,
+        startTime: Date = Date(),
+        showEndTime: Bool = false,
+        endTime: Date = Date(),
         printLocation: Bool = true,
         printWebPage: Bool = true,
         printPhoto: Bool = true,
@@ -510,6 +540,10 @@ struct TravelCard: Identifiable, Hashable, Codable {
         self.showDate = showDate
         self.showTime = showTime
         self.time = time
+        self.showStartTime = showStartTime
+        self.startTime = startTime
+        self.showEndTime = showEndTime
+        self.endTime = endTime
         self.printLocation = printLocation
         self.printWebPage = printWebPage
         self.printPhoto = printPhoto
@@ -543,9 +577,16 @@ struct TravelCard: Identifiable, Hashable, Codable {
         mapZoomDelta = try container.decodeIfPresent(Double.self, forKey: .mapZoomDelta) ?? 0.08
         url = try container.decodeIfPresent(String.self, forKey: .url) ?? ""
         category = try container.decodeIfPresent(String.self, forKey: .category) ?? "該当なし"
-        showDate = try container.decodeIfPresent(Bool.self, forKey: .showDate) ?? false
+                showDate = try container.decodeIfPresent(Bool.self, forKey: .showDate) ?? false
+                showTime = try container.decodeIfPresent(Bool.self, forKey: .showTime) ?? false
+                time = try container.decodeIfPresent(Date.self, forKey: .time) ?? date
         showTime = try container.decodeIfPresent(Bool.self, forKey: .showTime) ?? false
         time = try container.decodeIfPresent(Date.self, forKey: .time) ?? date
+
+        showStartTime = try container.decodeIfPresent(Bool.self, forKey: .showStartTime) ?? showTime
+        startTime = try container.decodeIfPresent(Date.self, forKey: .startTime) ?? time
+        showEndTime = try container.decodeIfPresent(Bool.self, forKey: .showEndTime) ?? false
+        endTime = try container.decodeIfPresent(Date.self, forKey: .endTime) ?? time
         printLocation = try container.decodeIfPresent(Bool.self, forKey: .printLocation) ?? true
         printWebPage = try container.decodeIfPresent(Bool.self, forKey: .printWebPage) ?? true
         printPhoto = try container.decodeIfPresent(Bool.self, forKey: .printPhoto) ?? true
@@ -582,6 +623,10 @@ struct TravelCard: Identifiable, Hashable, Codable {
         try container.encode(showDate, forKey: .showDate)
         try container.encode(showTime, forKey: .showTime)
         try container.encode(time, forKey: .time)
+        try container.encode(showStartTime, forKey: .showStartTime)
+        try container.encode(startTime, forKey: .startTime)
+        try container.encode(showEndTime, forKey: .showEndTime)
+        try container.encode(endTime, forKey: .endTime)
         try container.encode(printLocation, forKey: .printLocation)
         try container.encode(printWebPage, forKey: .printWebPage)
         try container.encode(printPhoto, forKey: .printPhoto)

@@ -102,9 +102,10 @@ private struct CardStyleEditorSheet: View {
                                     .foregroundColor(card.textColor)
                             }
                         }
-                        if card.showTime {
+
+                        if card.showStartTime || card.showEndTime {
                             VStack(alignment: .leading, spacing: 2) {
-                                Text(card.displayTimeString)
+                                Text(card.displayTimeRangeString)
                                     .font(.system(size: CGFloat(max(card.textSize - 4, 8))))
                                     .foregroundColor(card.textColor.opacity(0.8))
                             }
@@ -130,39 +131,68 @@ private struct CardStyleEditorSheet: View {
                     .background(
                         ZStack {
                             card.backgroundColor
-                            PatternOverlay(pattern: card.patternEffect, gradient: card.gradientEffect, baseColor: card.backgroundColor, patternColor: card.patternColor, opacity: card.patternOpacity)
+                            PatternOverlay(
+                                pattern: card.patternEffect,
+                                gradient: card.gradientEffect,
+                                baseColor: card.backgroundColor,
+                                patternColor: card.patternColor,
+                                opacity: card.patternOpacity
+                            )
                         }
                     )
                     .cornerRadius(12)
-                    .modifier(CardBorderModifier(style: card.borderStyle, color: card.borderColor, lineWidth: CGFloat(card.borderWidth), radius: 12))
+                    .modifier(
+                        CardBorderModifier(
+                            style: card.borderStyle,
+                            color: card.borderColor,
+                            lineWidth: CGFloat(card.borderWidth),
+                            radius: 12
+                        )
+                    )
                 }
 
                 Section("カードスタイル") {
                     ColorPicker("背景色", selection: backgroundColorBinding, supportsOpacity: false)
                     ColorPicker("文字色", selection: textColorBinding, supportsOpacity: false)
+
                     VStack(alignment: .leading, spacing: 8) {
                         Text("文字サイズ")
                             .font(.subheadline)
                             .foregroundColor(.secondary)
                         HStack(spacing: 12) {
-                            Slider(value: Binding(get: { card.textSize }, set: { card.textSize = min(max($0, 10.0), 36.0) }), in: 10.0...36.0, step: 1.0)
+                            Slider(
+                                value: Binding(
+                                    get: { card.textSize },
+                                    set: { card.textSize = min(max($0, 10.0), 36.0) }
+                                ),
+                                in: 10.0...36.0,
+                                step: 1.0
+                            )
                             Text("\(Int(card.textSize.rounded())) pt")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                                 .frame(width: 54, alignment: .trailing)
                         }
                     }
+
                     VStack(alignment: .leading, spacing: 8) {
                         Text("背景効果（パターン）")
                             .font(.subheadline)
                             .foregroundColor(.secondary)
-                        Picker("背景効果（パターン）", selection: Binding(get: { card.patternEffect }, set: { card.patternEffect = $0 })) {
+                        Picker(
+                            "背景効果（パターン）",
+                            selection: Binding(
+                                get: { card.patternEffect },
+                                set: { card.patternEffect = $0 }
+                            )
+                        ) {
                             ForEach(PatternEffect.allCases) { effect in
                                 Text(effect.displayName).tag(effect)
                             }
                         }
                         .pickerStyle(.segmented)
                     }
+
                     VStack(alignment: .leading, spacing: 8) {
                         Text("柄の色")
                             .font(.subheadline)
@@ -174,6 +204,7 @@ private struct CardStyleEditorSheet: View {
                                 .foregroundColor(.red)
                         }
                     }
+
                     VStack(alignment: .leading, spacing: 8) {
                         Text("柄の透明度")
                             .font(.subheadline)
@@ -186,11 +217,18 @@ private struct CardStyleEditorSheet: View {
                                 .frame(width: 48, alignment: .trailing)
                         }
                     }
+
                     VStack(alignment: .leading, spacing: 8) {
                         Text("グラデーション")
                             .font(.subheadline)
                             .foregroundColor(.secondary)
-                        Picker("グラデーション", selection: Binding(get: { card.gradientEffect }, set: { card.gradientEffect = $0 })) {
+                        Picker(
+                            "グラデーション",
+                            selection: Binding(
+                                get: { card.gradientEffect },
+                                set: { card.gradientEffect = $0 }
+                            )
+                        ) {
                             Text("なし").tag(GradientEffect.none)
                             Text("左右").tag(GradientEffect.horizontal)
                             Text("上下").tag(GradientEffect.vertical)
@@ -201,6 +239,7 @@ private struct CardStyleEditorSheet: View {
 
                 Section("効果/影") {
                     Toggle("カードにシャドウを付ける", isOn: $card.showShadow)
+
                     VStack(alignment: .leading, spacing: 8) {
                         Text("枠線")
                             .font(.subheadline)
@@ -360,25 +399,39 @@ struct CardEditView: View {
                 }
                 .pickerStyle(.menu)
             }
+
             Section("タイトル") {
                 TextField("カードタイトルを入力", text: $card.title)
             }
+
             Section("日時") {
                 Toggle("日付を表示", isOn: $card.showDate)
                     .toggleStyle(.switch)
-                Toggle("時刻を表示", isOn: $card.showTime)
-                    .toggleStyle(.switch)
+
                 if card.showDate {
                     DatePicker("日付", selection: $card.date, displayedComponents: [.date])
                 }
-                if card.showTime {
-                    DatePicker("時刻", selection: $card.time, displayedComponents: [.hourAndMinute])
+
+                Toggle("時刻（開始）を表示", isOn: $card.showStartTime)
+                    .toggleStyle(.switch)
+
+                if card.showStartTime {
+                    DatePicker("時刻（開始）", selection: $card.startTime, displayedComponents: [.hourAndMinute])
+                }
+
+                Toggle("時刻（終了）を表示", isOn: $card.showEndTime)
+                    .toggleStyle(.switch)
+
+                if card.showEndTime {
+                    DatePicker("時刻（終了）", selection: $card.endTime, displayedComponents: [.hourAndMinute])
                 }
             }
+
             Section("メモ") {
                 TextEditor(text: $card.memo)
                     .frame(minHeight: 120)
             }
+
             Section("Map") {
                 Toggle("Mapジャンプボタンを表示", isOn: $card.showMapJumpButton)
                 Toggle("Mapを印刷する", isOn: $card.printLocation)
@@ -386,60 +439,69 @@ struct CardEditView: View {
                 TextField("地名・施設名", text: $card.locationName)
                 TextField("住所", text: $card.address)
 
-                    if card.hasLocation {
-                        Map(position: $editMapPosition) {
-                            Marker(card.locationName.isEmpty ? "位置" : card.locationName,
-                               coordinate: card.coordinate)
-                            .tint(.red)
-                        }
-                        .frame(height: 180)
-                        .cornerRadius(12)
-                        .onAppear {
-                            updateEditMapPosition()
-                        }
-                        .onChange(of: card.latitude) { _, _ in
-                            updateEditMapPosition()
-                        }
-                        .onChange(of: card.longitude) { _, _ in
-                            updateEditMapPosition()
+                if card.hasLocation {
+                    Map(position: $editMapPosition) {
+                        Marker(
+                            card.locationName.isEmpty ? "位置" : card.locationName,
+                            coordinate: card.coordinate
+                        )
+                        .tint(.red)
+                    }
+                    .frame(height: 180)
+                    .cornerRadius(12)
+                    .onAppear {
+                        updateEditMapPosition()
+                    }
+                    .onChange(of: card.latitude) { _, _ in
+                        updateEditMapPosition()
+                    }
+                    .onChange(of: card.longitude) { _, _ in
+                        updateEditMapPosition()
+                    }
+
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "arrow.up.left.and.arrow.down.right")
+                                .foregroundColor(.secondary)
+                            Text("マップの縮尺")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            Spacer()
+                            Text(String(format: "~ %.2f°", mapZoomDelta))
+                                .font(.caption)
+                                .foregroundColor(.secondary)
                         }
 
-                        VStack(alignment: .leading, spacing: 8) {
-                            HStack(spacing: 8) {
-                                Image(systemName: "arrow.up.left.and.arrow.down.right")
-                                    .foregroundColor(.secondary)
-                                Text("マップの縮尺")
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)
-                                Spacer()
-                                Text(String(format: "~ %.2f°", mapZoomDelta))
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-                            Slider(value: Binding(
+                        Slider(
+                            value: Binding(
                                 get: { mapZoomDelta },
                                 set: { newValue in
                                     mapZoomDelta = newValue
                                     updateEditMapPosition()
                                 }
-                            ), in: 0.005...0.3, step: 0.005)
-                        }
+                            ),
+                            in: 0.005...0.3,
+                            step: 0.005
+                        )
+                    }
 
-                        HStack {
-                            Image(systemName: "mappin.circle.fill")
-                                .foregroundColor(.red)
-                            Text(card.coordinate.formattedString)
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                        }
-                        Button(action: { showMapSelection = true }) {
-                            Label("地点の選択表示", systemImage: "map")
-                        }
-                        Button(role: .destructive) {
-                            resetLocation()
-                        } label: {
-                            Label("位置情報を削除", systemImage: "trash")
-                        }
+                    HStack {
+                        Image(systemName: "mappin.circle.fill")
+                            .foregroundColor(.red)
+                        Text(card.coordinate.formattedString)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+
+                    Button(action: { showMapSelection = true }) {
+                        Label("地点の選択表示", systemImage: "map")
+                    }
+
+                    Button(role: .destructive) {
+                        resetLocation()
+                    } label: {
+                        Label("位置情報を削除", systemImage: "trash")
+                    }
                 } else {
                     VStack(alignment: .leading, spacing: 8) {
                         HStack(spacing: 8) {
@@ -449,15 +511,18 @@ struct CardEditView: View {
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                         }
+
                         Button(action: { showMapSelection = true }) {
                             Label("地図で位置を設定", systemImage: "map")
                         }
                     }
                 }
             }
+
             Section("Webページ") {
                 Toggle("Safariジャンプボタンを表示", isOn: $card.showSafariJumpButton)
                 Toggle("Webページを印刷する", isOn: $card.printWebPage)
+
                 TextField("URLを入力", text: $card.url)
                     .keyboardType(.URL)
                     .autocapitalization(.none)
@@ -501,6 +566,7 @@ struct CardEditView: View {
                 TextField("検索ワードを入力", text: $webSearchQuery)
                     .autocapitalization(.none)
                     .textInputAutocapitalization(.never)
+
                 Button(action: {
                     let query = webSearchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
                     guard !query.isEmpty,
@@ -522,8 +588,10 @@ struct CardEditView: View {
                     }
                 }
             }
+
             Section("写真") {
                 Toggle("写真を印刷する", isOn: $card.printPhoto)
+
                 if let imageData = card.imageData,
                    let uiImage = UIImage(data: imageData) {
                     Image(uiImage: uiImage)
@@ -538,21 +606,23 @@ struct CardEditView: View {
                         .frame(height: 120)
                         .foregroundStyle(.secondary)
                 }
-                
+
                 PhotosPicker(
                     selection: $selectedItem,
                     matching: .images,
-                    photoLibrary: .shared()) {
-                        Text("写真を選択")
-                    }
-                    .onChange(of: selectedItem) { _, newItem in
-                        Task {
-                            if let item = newItem, let data = try? await item.loadTransferable(type: Data.self) {
-                                card.imageData = data
-                            }
+                    photoLibrary: .shared()
+                ) {
+                    Text("写真を選択")
+                }
+                .onChange(of: selectedItem) { _, newItem in
+                    Task {
+                        if let item = newItem,
+                           let data = try? await item.loadTransferable(type: Data.self) {
+                            card.imageData = data
                         }
                     }
-                
+                }
+
                 if card.imageData != nil {
                     Button(role: .destructive) {
                         resetPhoto()
@@ -561,6 +631,7 @@ struct CardEditView: View {
                     }
                 }
             }
+
             Section("カードスタイル") {
                 Button {
                     showStyleEditor = true
@@ -593,9 +664,10 @@ struct CardEditView: View {
                                     .foregroundColor(card.textColor)
                             }
                         }
-                        if card.showTime {
+
+                        if card.showStartTime || card.showEndTime {
                             VStack(alignment: .leading, spacing: 2) {
-                                Text(card.displayTimeString)
+                                Text(card.displayTimeRangeString)
                                     .font(.system(size: CGFloat(max(card.textSize - 4, 8))))
                                     .foregroundColor(card.textColor.opacity(0.8))
                             }
@@ -621,11 +693,24 @@ struct CardEditView: View {
                     .background(
                         ZStack {
                             card.backgroundColor
-                            PatternOverlay(pattern: card.patternEffect, gradient: card.gradientEffect, baseColor: card.backgroundColor, patternColor: card.patternColor, opacity: card.patternOpacity)
+                            PatternOverlay(
+                                pattern: card.patternEffect,
+                                gradient: card.gradientEffect,
+                                baseColor: card.backgroundColor,
+                                patternColor: card.patternColor,
+                                opacity: card.patternOpacity
+                            )
                         }
                     )
                     .cornerRadius(12)
-                    .modifier(CardBorderModifier(style: card.borderStyle, color: card.borderColor, lineWidth: CGFloat(card.borderWidth), radius: 12))
+                    .modifier(
+                        CardBorderModifier(
+                            style: card.borderStyle,
+                            color: card.borderColor,
+                            lineWidth: CGFloat(card.borderWidth),
+                            radius: 12
+                        )
+                    )
                 }
                 .buttonStyle(.plain)
             }
@@ -701,7 +786,12 @@ struct CardEditView: View {
 
     private func updateEditMapPosition() {
         guard card.hasLocation else { return }
-        editMapPosition = .region(card.mapRegion(latitudeDelta: mapZoomDelta, longitudeDelta: mapZoomDelta))
+        editMapPosition = .region(
+            card.mapRegion(
+                latitudeDelta: mapZoomDelta,
+                longitudeDelta: mapZoomDelta
+            )
+        )
     }
 
     private func saveAndDismiss() {
@@ -711,25 +801,6 @@ struct CardEditView: View {
 }
 
 #Preview {
-    // 以下のような new card の生成箇所に書き換え例
-    // ここはpreview用なので簡単に生成しています。
-    // 実際のコードの中で初期化している箇所に書き換える場合の例：
-
-    // let defaultCardColorHex: String = {
-    //     let hex = sheet.backgroundColorHex.uppercased()
-    //     return (hex == "#FFFFFF" || hex == "#F5F5DC") ? "#EBC299" : sheet.backgroundColorHex
-    // }()
-    // CardEditView(
-    //     card: TravelCard(
-    //         backgroundColorHex: defaultCardColorHex,
-    //         textColorHex: "#000000"
-    //     ),
-    //     sheet: sheet
-    // ) { updatedCard in
-    //     model.addCard(updatedCard, to: sheet)
-    //     showingNewCard = false
-    // }
-
     CardEditView(card: TravelCard(), sheet: TravelSheet(title: "サンプル")) { _ in }
         .environmentObject(TravelDataModel())
 }
