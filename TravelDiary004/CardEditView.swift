@@ -390,20 +390,6 @@ struct CardEditView: View {
 
     var body: some View {
         Form {
-            Section {
-                Picker("カテゴリ", selection: $card.category) {
-                    ForEach(TravelCard.categoryOptions, id: \.0) { option in
-                        Label(option.1, systemImage: option.2)
-                            .tag(option.0)
-                    }
-                }
-                .pickerStyle(.menu)
-            }
-
-            Section("タイトル") {
-                TextField("カードタイトルを入力", text: $card.title)
-            }
-
             Section("日時") {
                 Toggle("日付を表示", isOn: $card.showDate)
                     .toggleStyle(.switch)
@@ -426,7 +412,21 @@ struct CardEditView: View {
                     DatePicker("時刻（終了）", selection: $card.endTime, displayedComponents: [.hourAndMinute])
                 }
             }
+            
+            Section("カテゴリー") {
+                Picker("カテゴリ選択", selection: $card.category) {
+                    ForEach(TravelCard.categoryOptions, id: \.0) { option in
+                        Label(option.1, systemImage: option.2)
+                            .tag(option.0)
+                    }
+                }
+                .pickerStyle(.menu)
+            }
 
+            Section("タイトル") {
+                TextField("カードタイトルを入力", text: $card.title)
+            }
+            
             Section("メモ") {
                 TextEditor(text: $card.memo)
                     .frame(minHeight: 120)

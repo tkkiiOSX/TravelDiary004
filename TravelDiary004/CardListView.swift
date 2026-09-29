@@ -282,26 +282,6 @@ private struct CardDisplayView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            VStack(alignment: .leading, spacing: 4) {
-                HStack(alignment: .center, spacing: 8) {
-                    if let icon = card.iconName(), !icon.isEmpty {
-                        Image(systemName: icon)
-                            .font(.system(size: CGFloat(card.textSize), weight: .bold))
-                            .foregroundColor(card.textColor)
-                    }
-                    if !card.title.isEmpty {
-                        Text(card.title)
-                            .font(.system(size: CGFloat(card.textSize), weight: .bold))
-                            .foregroundColor(card.textColor)
-                    } else {
-                        Text("無題のカード")
-                            .font(.system(size: CGFloat(card.textSize)))
-                            .foregroundColor(card.textColor.opacity(0.6))
-                    }
-                    Spacer()
-                }
-            }
-
             if card.showDate {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(card.displayDateString)
@@ -315,6 +295,30 @@ private struct CardDisplayView: View {
                     Text(card.displayTimeRangeString)
                         .font(.system(size: CGFloat(max(card.textSize - 4, 8))))
                         .foregroundColor(card.textColor.opacity(0.8))
+                }
+            }
+
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(alignment: .center, spacing: 8) {
+                    if !card.title.isEmpty {
+                        Text(card.title)
+                            .font(.system(size: CGFloat(card.textSize), weight: .bold))
+                            .foregroundColor(card.textColor)
+                    } else {
+                        Text("無題のカード")
+                            .font(.system(size: CGFloat(card.textSize)))
+                            .foregroundColor(card.textColor.opacity(0.6))
+                    }
+                    Spacer()
+                }
+            }
+
+            if let icon = card.iconName(), !icon.isEmpty {
+                HStack(alignment: .center, spacing: 8) {
+                    Image(systemName: icon)
+                        .font(.system(size: CGFloat(card.textSize), weight: .bold))
+                        .foregroundColor(card.textColor)
+                    Spacer()
                 }
             }
 
