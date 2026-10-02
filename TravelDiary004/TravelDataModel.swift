@@ -75,6 +75,30 @@ enum CardBorderStyle: String, CaseIterable, Identifiable {
     }
 }
 
+enum CardDateFormat: String, CaseIterable, Identifiable {
+    case slash
+    case dot
+    case japanese
+
+    var id: String { rawValue }
+
+    var displayName: String {
+        switch self {
+        case .slash: return "yyyy/MM/dd"
+        case .dot: return "yyyy.MM.dd"
+        case .japanese: return "yyyy年MM月dd日"
+        }
+    }
+
+    var dateFormatString: String {
+        switch self {
+        case .slash: return "yyyy/MM/dd"
+        case .dot: return "yyyy.MM.dd"
+        case .japanese: return "yyyy年MM月dd日"
+        }
+    }
+}
+
 struct ImportFeedback: Identifiable, Equatable {
     let id = UUID()
     let message: String
@@ -120,11 +144,11 @@ struct TravelSheet: Identifiable, Hashable, Codable {
     var travelDateTextColor: Color {
         Color(hex: travelDateTextColorHex)
     }
-    
+
     var titleTextColor: Color {
         Color(hex: titleTextColorHex)
     }
-    
+
     var titleBackgroundColor: Color {
         Color(hex: titleBackgroundColorHex)
     }
@@ -267,6 +291,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
 
     var showSafariJumpButton: Bool = false
     var showMapJumpButton: Bool = false
+    var dateFormatRaw: String = CardDateFormat.slash.rawValue
 
     var backgroundEffect: BackgroundEffect {
         get { BackgroundEffect(rawValue: backgroundEffectRaw) ?? .none }
@@ -281,6 +306,11 @@ struct TravelCard: Identifiable, Hashable, Codable {
     var gradientEffect: GradientEffect {
         get { GradientEffect(rawValue: gradientEffectRaw) ?? .none }
         set { gradientEffectRaw = newValue.rawValue }
+    }
+
+    var dateFormat: CardDateFormat {
+        get { CardDateFormat(rawValue: dateFormatRaw) ?? .slash }
+        set { dateFormatRaw = newValue.rawValue }
     }
 
     var effectivePattern: PatternEffect {
@@ -310,8 +340,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
     var displayDateString: String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ja_JP")
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
+        formatter.dateFormat = dateFormat.dateFormatString
         return formatter.string(from: date)
     }
 
@@ -322,24 +351,24 @@ struct TravelCard: Identifiable, Hashable, Codable {
         formatter.timeStyle = .short
         return formatter.string(from: time)
     }
-    
+
     var displayTimeRangeString: String {
-            let formatter = DateFormatter()
-            formatter.locale = Locale(identifier: "ja_JP")
-            formatter.dateStyle = .none
-            formatter.timeStyle = .short
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ja_JP")
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
 
-            var times: [String] = []
+        var times: [String] = []
 
-            if showStartTime {
-                times.append("開始 \(formatter.string(from: startTime))")
-            }
-            if showEndTime {
-                times.append("終了 \(formatter.string(from: endTime))")
-            }
-
-            return times.joined(separator: " 〜 ")
+        if showStartTime {
+            times.append("開始 \(formatter.string(from: startTime))")
         }
+        if showEndTime {
+            times.append("終了 \(formatter.string(from: endTime))")
+        }
+
+        return times.joined(separator: " 〜 ")
+    }
 
     var textColor: Color {
         Color(hex: textColorHex)
@@ -392,7 +421,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         }
         return Image(systemName: "photo")
     }
-    
+
     var hasLocation: Bool {
         latitude != 0.0 && longitude != 0.0
     }
@@ -421,7 +450,13 @@ struct TravelCard: Identifiable, Hashable, Codable {
         ("博物館", "博物館", "building.columns"),
         ("歴史資料館", "歴史資料館", "book"),
         ("記念館", "記念館", "rosette"),
-        ("遊園地", "遊園地", "popcorn"),
+        //("遊園地", "遊園地", "sparkles"),
+        ("遊園地", "遊園地", "balloon.2"),
+        //("観覧車", "観覧車", "sun.max"),
+        //("ジェットコースター", "ジェットコースター", "figure.rollerblading"),
+        ("チケット", "チケット", "ticket"),
+        ("ポップコーン", "ポップコーン", "popcorn"),
+        //("風船", "風船", "balloon.2"),
         ("水族館", "水族館", "fish"),
         ("動物園", "動物園", "pawprint"),
         ("映画館", "映画館", "film"),
@@ -489,6 +524,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         case textSize
         case showSafariJumpButton
         case showMapJumpButton
+        case dateFormatRaw
     }
 
     init(
@@ -527,7 +563,8 @@ struct TravelCard: Identifiable, Hashable, Codable {
         gradientEffectRaw: String = GradientEffect.none.rawValue,
         textSize: Double = 14.0,
         showSafariJumpButton: Bool = false,
-        showMapJumpButton: Bool = false
+        showMapJumpButton: Bool = false,
+        dateFormatRaw: String = CardDateFormat.slash.rawValue
     ) {
         self.id = id
         self.date = date
@@ -565,6 +602,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         self.textSize = textSize
         self.showSafariJumpButton = showSafariJumpButton
         self.showMapJumpButton = showMapJumpButton
+        self.dateFormatRaw = dateFormatRaw
     }
 
     init(from decoder: Decoder) throws {
@@ -581,12 +619,9 @@ struct TravelCard: Identifiable, Hashable, Codable {
         mapZoomDelta = try container.decodeIfPresent(Double.self, forKey: .mapZoomDelta) ?? 0.08
         url = try container.decodeIfPresent(String.self, forKey: .url) ?? ""
         category = try container.decodeIfPresent(String.self, forKey: .category) ?? "該当なし"
-                showDate = try container.decodeIfPresent(Bool.self, forKey: .showDate) ?? false
-                showTime = try container.decodeIfPresent(Bool.self, forKey: .showTime) ?? false
-                time = try container.decodeIfPresent(Date.self, forKey: .time) ?? date
+        showDate = try container.decodeIfPresent(Bool.self, forKey: .showDate) ?? false
         showTime = try container.decodeIfPresent(Bool.self, forKey: .showTime) ?? false
         time = try container.decodeIfPresent(Date.self, forKey: .time) ?? date
-
         showStartTime = try container.decodeIfPresent(Bool.self, forKey: .showStartTime) ?? showTime
         startTime = try container.decodeIfPresent(Date.self, forKey: .startTime) ?? time
         showEndTime = try container.decodeIfPresent(Bool.self, forKey: .showEndTime) ?? false
@@ -608,6 +643,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         textSize = try container.decodeIfPresent(Double.self, forKey: .textSize) ?? 14.0
         showSafariJumpButton = try container.decodeIfPresent(Bool.self, forKey: .showSafariJumpButton) ?? false
         showMapJumpButton = try container.decodeIfPresent(Bool.self, forKey: .showMapJumpButton) ?? false
+        dateFormatRaw = try container.decodeIfPresent(String.self, forKey: .dateFormatRaw) ?? CardDateFormat.slash.rawValue
     }
 
     func encode(to encoder: Encoder) throws {
@@ -648,6 +684,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         try container.encode(textSize, forKey: .textSize)
         try container.encode(showSafariJumpButton, forKey: .showSafariJumpButton)
         try container.encode(showMapJumpButton, forKey: .showMapJumpButton)
+        try container.encode(dateFormatRaw, forKey: .dateFormatRaw)
     }
 }
 
@@ -818,12 +855,12 @@ final class TravelDataModel: ObservableObject {
             }
 
             var imported = try JSONDecoder().decode(TravelSheet.self, from: data)
-            
+
             // Ensure printTitleOnAllPages is true if nil
             if imported.printTitleOnAllPages == nil {
                 imported.printTitleOnAllPages = true
             }
-            
+
             // --- Ensure imported sheet and all cards get new IDs ---
             let oldToNewCardID = Dictionary(uniqueKeysWithValues: imported.cards.map { ($0.id, UUID()) })
             imported.id = UUID()
@@ -845,7 +882,7 @@ final class TravelDataModel: ObservableObject {
                 return (newID, raw)
             })
             // --- End of ID refresh ---
-            
+
             let fileName = url.deletingPathExtension().lastPathComponent
             imported.title = fileName
             sheets.insert(imported, at: 0)
@@ -878,7 +915,7 @@ final class TravelDataModel: ObservableObject {
         let titleBgHex = UIColor(titleBackgroundColor).toHexString() ?? "#FFFFFF"
         sheets.insert(TravelSheet(title: trimmed, titleTextColorHex: titleTextHex, titleBackgroundColorHex: titleBgHex, backgroundColorHex: hex, travelDateTextColorHex: textHex, defaultCardBackgroundColorHex: defaultCardHex, startDate: startDate, endDate: endDate, printTitleOnAllPages: printTitleOnAllPages), at: 0)
     }
-    
+
     func deleteSheet(_ sheet: TravelSheet) {
         if let idx = sheets.firstIndex(where: { $0.id == sheet.id }) {
             sheets.remove(at: idx)
@@ -902,12 +939,12 @@ final class TravelDataModel: ObservableObject {
             sheets[sheetIndex].cards.remove(at: cardIndex)
         }
     }
-    
+
     func moveCards(in sheet: TravelSheet, from source: IndexSet, to destination: Int) {
         guard let sheetIndex = sheets.firstIndex(where: { $0.id == sheet.id }) else { return }
         sheets[sheetIndex].cards.move(fromOffsets: source, toOffset: destination)
     }
-    
+
     func updateSheetColor(sheetID: UUID, color: Color) {
         guard let idx = sheets.firstIndex(where: { $0.id == sheetID }) else { return }
         let hex = UIColor(color).toHexString() ?? "#FFFFFF"
@@ -931,14 +968,14 @@ final class TravelDataModel: ObservableObject {
         sheets[idx].startDate = startDate
         sheets[idx].endDate = endDate
     }
-    
+
     func updateSheetTitle(sheetID: UUID, newTitle: String) {
         let trimmed = newTitle.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
         guard let idx = sheets.firstIndex(where: { $0.id == sheetID }) else { return }
         sheets[idx].title = trimmed
     }
-    
+
     func updateManualSettings(for sheetID: UUID, manualPageBreaks: Set<UUID>, cardScales: [UUID: Double], cardAlignments: [UUID: CardHorizontalAlignment]) {
         guard let idx = sheets.firstIndex(where: { $0.id == sheetID }) else { return }
         sheets[idx].manualPageBreaks = manualPageBreaks
@@ -955,7 +992,7 @@ final class TravelDataModel: ObservableObject {
         sheets[idx].cardScales = [:]
         sheets[idx].cardAlignmentsRaw = [:]
     }
-    
+
     func updateSheetTitleTextColor(sheetID: UUID, color: Color) {
         guard let idx = sheets.firstIndex(where: { $0.id == sheetID }) else { return }
         let hex = UIColor(color).toHexString() ?? "#000000"
@@ -967,7 +1004,7 @@ final class TravelDataModel: ObservableObject {
         let hex = UIColor(color).toHexString() ?? "#FFFFFF"
         sheets[idx].titleBackgroundColorHex = hex
     }
-    
+
     func updateSheetPrintTitleOnAllPages(sheetID: UUID, value: Bool) {
         guard let idx = sheets.firstIndex(where: { $0.id == sheetID }) else { return }
         sheets[idx].printTitleOnAllPages = value
@@ -985,7 +1022,7 @@ final class TravelDataModel: ObservableObject {
         let patternEffectRaw = PatternEffect.ichimatsu.rawValue
         let gradientEffectRaw = GradientEffect.horizontal.rawValue
         let textColorHex = "#263238"
-        
+
         // Cards
         let day1MapCard = TravelCard(
             date: startDate,
@@ -1276,3 +1313,4 @@ final class TravelDataModel: ObservableObject {
         )
     }
 }
+

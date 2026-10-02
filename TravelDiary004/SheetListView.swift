@@ -192,24 +192,6 @@ extension SheetListView {
         newSheetPrintTitleOnAllPages = true
     }
 
-    /*private func startEditingSheet(_ sheet: TravelSheet) {
-        print("startEditingSheetA=\(editingSheetStartDate)")
-        print("startEditingSheetB=\(sheet.startDate)")
-        editingSheetSettings = sheet
-        editingSheetTitle = sheet.title
-        editingSheetColor = sheet.backgroundColor
-        editingSheetDefaultCardBackgroundColor = Color(hex: sheet.effectiveDefaultCardBackgroundColorHex)
-        editingSheetTravelDateTextColor = sheet.travelDateTextColor
-        editingSheetTitleTextColor = sheet.titleTextColor
-        editingSheetTitleBackgroundColor = sheet.titleBackgroundColor
-        editingSheetStartDate = sheet.startDate
-        editingSheetEndDate = sheet.endDate
-        editingSheetDateSelection = nil
-        editingSheetDraftSelectedDate = Date()
-        editingSheetPrintTitleOnAllPages = sheet.printTitleOnAllPages ?? true
-        print("startEditingSheetA2=\(editingSheetStartDate)")
-        print("startEditingSheetB2=\(sheet.startDate)")
-    }*/
     private func startEditingSheet(_ sheet: TravelSheet) {
         // 先に全ての編集用 State をセット
         editingSheetTitle = sheet.title

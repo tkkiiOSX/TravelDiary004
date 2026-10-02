@@ -396,6 +396,21 @@ struct CardEditView: View {
 
                 if card.showDate {
                     DatePicker("日付", selection: $card.date, displayedComponents: [.date])
+
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("日付の書式")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        Picker("日付の書式", selection: Binding(
+                            get: { card.dateFormat },
+                            set: { card.dateFormat = $0 }
+                        )) {
+                            ForEach(CardDateFormat.allCases) { option in
+                                Text(option.displayName).tag(option)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                    }
                 }
 
                 Toggle("時刻（開始）を表示", isOn: $card.showStartTime)
@@ -804,3 +819,4 @@ struct CardEditView: View {
     CardEditView(card: TravelCard(), sheet: TravelSheet(title: "サンプル")) { _ in }
         .environmentObject(TravelDataModel())
 }
+
