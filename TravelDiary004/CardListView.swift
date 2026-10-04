@@ -126,6 +126,7 @@ struct CardListView: View {
                                             Text("旅行日程: \(formattedDate(startDate)) 〜 \(formattedDate(endDate))")
                                                 .font(.callout)
                                                 .foregroundColor(sheet.travelDateTextColor)
+                                                .padding()
                                         } else if let startDate = sheet.startDate {
                                             Text("旅行開始予定日: \(formattedDate(startDate))")
                                                 .font(.callout)
