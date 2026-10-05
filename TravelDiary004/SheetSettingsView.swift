@@ -5,6 +5,7 @@ struct SheetSettingsView: View {
     @Binding var editingSheetTitle: String
     @Binding var editingSheetColor: Color
     @Binding var editingSheetDefaultCardBackgroundColor: Color
+    @Binding var editingSheetDefaultCardTextColor: Color
     @Binding var editingSheetTravelDateTextColor: Color
     @Binding var editingSheetTitleTextColor: Color
     @Binding var editingSheetTitleBackgroundColor: Color
@@ -101,6 +102,7 @@ struct SheetSettingsView: View {
                 
                 Section {
                     ColorPicker("デフォルトのカード背景色", selection: $editingSheetDefaultCardBackgroundColor)
+                    ColorPicker("カード文字色（デフォルト）", selection: $editingSheetDefaultCardTextColor)
                 } header: {
                     Text("カードのデフォルト設定")
                 }

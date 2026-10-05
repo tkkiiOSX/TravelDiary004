@@ -208,7 +208,7 @@ struct CardListView: View {
                     CardEditView(
                         card: TravelCard(
                             backgroundColorHex: sheet.effectiveDefaultCardBackgroundColorHex,
-                            textColorHex: TravelCard.defaultTextColorHex
+                            textColorHex: sheet.effectiveDefaultCardTextColorHex
                         ),
                         sheet: sheet
                     ) { updatedCard in
@@ -469,4 +469,3 @@ private struct CardListViewPreviewProvider {
 #Preview("カードリスト プレビュー") {
     CardListView(initialSheet: CardListViewPreviewProvider.model.sheets.first!).environmentObject(CardListViewPreviewProvider.model)
 }
-

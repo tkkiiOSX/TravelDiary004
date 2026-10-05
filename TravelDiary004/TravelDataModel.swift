@@ -117,6 +117,7 @@ struct TravelSheet: Identifiable, Hashable, Codable {
     var backgroundColorHex: String = "#FFFFFF"
     var travelDateTextColorHex: String = "#666666"
     var defaultCardBackgroundColorHex: String? = nil
+    var defaultCardTextColorHex: String? = nil
     var startDate: Date? = nil
     var endDate: Date? = nil
 
@@ -157,6 +158,10 @@ struct TravelSheet: Identifiable, Hashable, Codable {
         defaultCardBackgroundColorHex ?? TravelCard.defaultCardBackgroundColorHex(for: backgroundColorHex)
     }
 
+    var effectiveDefaultCardTextColorHex: String {
+        defaultCardTextColorHex ?? TravelCard.defaultTextColorHex
+    }
+
     enum CodingKeys: String, CodingKey {
         case id
         case title
@@ -169,6 +174,7 @@ struct TravelSheet: Identifiable, Hashable, Codable {
         case backgroundColorHex
         case travelDateTextColorHex
         case defaultCardBackgroundColorHex
+        case defaultCardTextColorHex
         case startDate
         case endDate
         case printTitleOnAllPages
@@ -186,6 +192,7 @@ struct TravelSheet: Identifiable, Hashable, Codable {
         backgroundColorHex: String = "#FFFFFF",
         travelDateTextColorHex: String = "#666666",
         defaultCardBackgroundColorHex: String? = nil,
+        defaultCardTextColorHex: String? = nil,
         startDate: Date? = nil,
         endDate: Date? = nil,
         printTitleOnAllPages: Bool? = true
@@ -201,6 +208,7 @@ struct TravelSheet: Identifiable, Hashable, Codable {
         self.backgroundColorHex = backgroundColorHex
         self.travelDateTextColorHex = travelDateTextColorHex
         self.defaultCardBackgroundColorHex = defaultCardBackgroundColorHex
+        self.defaultCardTextColorHex = defaultCardTextColorHex
         self.startDate = startDate
         self.endDate = endDate
         self.printTitleOnAllPages = printTitleOnAllPages
@@ -221,6 +229,7 @@ struct TravelSheet: Identifiable, Hashable, Codable {
         backgroundColorHex = try container.decodeIfPresent(String.self, forKey: .backgroundColorHex) ?? "#FFFFFF"
         travelDateTextColorHex = try container.decodeIfPresent(String.self, forKey: .travelDateTextColorHex) ?? "#666666"
         defaultCardBackgroundColorHex = try container.decodeIfPresent(String.self, forKey: .defaultCardBackgroundColorHex)
+        defaultCardTextColorHex = try container.decodeIfPresent(String.self, forKey: .defaultCardTextColorHex)
         startDate = try container.decodeIfPresent(Date.self, forKey: .startDate)
         endDate = try container.decodeIfPresent(Date.self, forKey: .endDate)
         printTitleOnAllPages = try container.decodeIfPresent(Bool.self, forKey: .printTitleOnAllPages) ?? true
@@ -239,6 +248,7 @@ struct TravelSheet: Identifiable, Hashable, Codable {
         try container.encode(backgroundColorHex, forKey: .backgroundColorHex)
         try container.encode(travelDateTextColorHex, forKey: .travelDateTextColorHex)
         try container.encodeIfPresent(defaultCardBackgroundColorHex, forKey: .defaultCardBackgroundColorHex)
+        try container.encodeIfPresent(defaultCardTextColorHex, forKey: .defaultCardTextColorHex)
         try container.encodeIfPresent(startDate, forKey: .startDate)
         try container.encodeIfPresent(endDate, forKey: .endDate)
         try container.encode(printTitleOnAllPages ?? true, forKey: .printTitleOnAllPages)
@@ -269,8 +279,10 @@ struct TravelCard: Identifiable, Hashable, Codable {
     var time: Date = Date()
     var showStartTime: Bool = false
     var startTime: Date = Date()
+    var showStartTimeApproximation: Bool = false
     var showEndTime: Bool = false
     var endTime: Date = Date()
+    var showEndTimeApproximation: Bool = false
     var printLocation: Bool = true
     var printWebPage: Bool = true
     var printPhoto: Bool = true
@@ -361,13 +373,15 @@ struct TravelCard: Identifiable, Hashable, Codable {
         var times: [String] = []
 
         if showStartTime {
-            times.append("開始 \(formatter.string(from: startTime))")
+            let approximation = showStartTimeApproximation ? "ごろ" : ""
+            times.append("開始\(formatter.string(from: startTime))\(approximation)")
         }
         if showEndTime {
-            times.append("終了 \(formatter.string(from: endTime))")
+            let approximation = showEndTimeApproximation ? "ごろ" : ""
+            times.append("終了\(formatter.string(from: endTime))\(approximation)")
         }
 
-        return times.joined(separator: " 〜 ")
+        return times.joined(separator: "〜")
     }
 
     var textColor: Color {
@@ -505,8 +519,10 @@ struct TravelCard: Identifiable, Hashable, Codable {
         case time
         case showStartTime
         case startTime
+        case showStartTimeApproximation
         case showEndTime
         case endTime
+        case showEndTimeApproximation
         case printLocation
         case printWebPage
         case printPhoto
@@ -545,8 +561,10 @@ struct TravelCard: Identifiable, Hashable, Codable {
         time: Date = Date(),
         showStartTime: Bool = false,
         startTime: Date = Date(),
+        showStartTimeApproximation: Bool = false,
         showEndTime: Bool = false,
         endTime: Date = Date(),
+        showEndTimeApproximation: Bool = false,
         printLocation: Bool = true,
         printWebPage: Bool = true,
         printPhoto: Bool = true,
@@ -583,8 +601,10 @@ struct TravelCard: Identifiable, Hashable, Codable {
         self.time = time
         self.showStartTime = showStartTime
         self.startTime = startTime
+        self.showStartTimeApproximation = showStartTimeApproximation
         self.showEndTime = showEndTime
         self.endTime = endTime
+        self.showEndTimeApproximation = showEndTimeApproximation
         self.printLocation = printLocation
         self.printWebPage = printWebPage
         self.printPhoto = printPhoto
@@ -624,8 +644,10 @@ struct TravelCard: Identifiable, Hashable, Codable {
         time = try container.decodeIfPresent(Date.self, forKey: .time) ?? date
         showStartTime = try container.decodeIfPresent(Bool.self, forKey: .showStartTime) ?? showTime
         startTime = try container.decodeIfPresent(Date.self, forKey: .startTime) ?? time
+        showStartTimeApproximation = try container.decodeIfPresent(Bool.self, forKey: .showStartTimeApproximation) ?? false
         showEndTime = try container.decodeIfPresent(Bool.self, forKey: .showEndTime) ?? false
         endTime = try container.decodeIfPresent(Date.self, forKey: .endTime) ?? time
+        showEndTimeApproximation = try container.decodeIfPresent(Bool.self, forKey: .showEndTimeApproximation) ?? false
         printLocation = try container.decodeIfPresent(Bool.self, forKey: .printLocation) ?? true
         printWebPage = try container.decodeIfPresent(Bool.self, forKey: .printWebPage) ?? true
         printPhoto = try container.decodeIfPresent(Bool.self, forKey: .printPhoto) ?? true
@@ -665,8 +687,10 @@ struct TravelCard: Identifiable, Hashable, Codable {
         try container.encode(time, forKey: .time)
         try container.encode(showStartTime, forKey: .showStartTime)
         try container.encode(startTime, forKey: .startTime)
+        try container.encode(showStartTimeApproximation, forKey: .showStartTimeApproximation)
         try container.encode(showEndTime, forKey: .showEndTime)
         try container.encode(endTime, forKey: .endTime)
+        try container.encode(showEndTimeApproximation, forKey: .showEndTimeApproximation)
         try container.encode(printLocation, forKey: .printLocation)
         try container.encode(printWebPage, forKey: .printWebPage)
         try container.encode(printPhoto, forKey: .printPhoto)
@@ -905,15 +929,16 @@ final class TravelDataModel: ObservableObject {
         importFeedback = nil
     }
 
-    func addSheet(title: String, backgroundColor: Color = .white, startDate: Date? = nil, endDate: Date? = nil, travelDateTextColor: Color = .secondary, defaultCardBackgroundColor: Color? = nil, titleTextColor: Color = .primary, titleBackgroundColor: Color = .white, printTitleOnAllPages: Bool = true) {
+    func addSheet(title: String, backgroundColor: Color = .white, startDate: Date? = nil, endDate: Date? = nil, travelDateTextColor: Color = .secondary, defaultCardBackgroundColor: Color? = nil, defaultCardTextColor: Color = .black, titleTextColor: Color = .primary, titleBackgroundColor: Color = .white, printTitleOnAllPages: Bool = true) {
         let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
         let hex = UIColor(backgroundColor).toHexString() ?? "#FFFFFF"
         let textHex = UIColor(travelDateTextColor).toHexString() ?? "#666666"
         let defaultCardHex = defaultCardBackgroundColor.map { UIColor($0).toHexString() ?? "#FFFFFF" }
+        let defaultCardTextHex = UIColor(defaultCardTextColor).toHexString() ?? TravelCard.defaultTextColorHex
         let titleTextHex = UIColor(titleTextColor).toHexString() ?? "#000000"
         let titleBgHex = UIColor(titleBackgroundColor).toHexString() ?? "#FFFFFF"
-        sheets.insert(TravelSheet(title: trimmed, titleTextColorHex: titleTextHex, titleBackgroundColorHex: titleBgHex, backgroundColorHex: hex, travelDateTextColorHex: textHex, defaultCardBackgroundColorHex: defaultCardHex, startDate: startDate, endDate: endDate, printTitleOnAllPages: printTitleOnAllPages), at: 0)
+        sheets.insert(TravelSheet(title: trimmed, titleTextColorHex: titleTextHex, titleBackgroundColorHex: titleBgHex, backgroundColorHex: hex, travelDateTextColorHex: textHex, defaultCardBackgroundColorHex: defaultCardHex, defaultCardTextColorHex: defaultCardTextHex, startDate: startDate, endDate: endDate, printTitleOnAllPages: printTitleOnAllPages), at: 0)
     }
 
     func deleteSheet(_ sheet: TravelSheet) {
@@ -961,6 +986,12 @@ final class TravelDataModel: ObservableObject {
         guard let idx = sheets.firstIndex(where: { $0.id == sheetID }) else { return }
         let hex = UIColor(color).toHexString() ?? "#FFFFFF"
         sheets[idx].defaultCardBackgroundColorHex = hex
+    }
+
+    func updateSheetDefaultCardTextColor(sheetID: UUID, color: Color) {
+        guard let idx = sheets.firstIndex(where: { $0.id == sheetID }) else { return }
+        let hex = UIColor(color).toHexString() ?? TravelCard.defaultTextColorHex
+        sheets[idx].defaultCardTextColorHex = hex
     }
 
     func updateSheetTravelDates(sheetID: UUID, startDate: Date?, endDate: Date?) {
@@ -1313,4 +1344,3 @@ final class TravelDataModel: ObservableObject {
         )
     }
 }
-

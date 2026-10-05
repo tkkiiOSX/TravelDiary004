@@ -50,6 +50,7 @@ struct SheetNewSettingsView: View {
                 Section("背景色") {
                     ColorPicker("旅行プランシートの背景色", selection: $newSheetColor, supportsOpacity: false)
                     ColorPicker("カードの背景色（デフォルト）", selection: $newSheetDefaultCardBackgroundColor, supportsOpacity: false)
+                    ColorPicker("カード文字色（デフォルト）", selection: $newSheetDefaultCardTextColor, supportsOpacity: false)
                 }
                 Section("旅行期間") {
                     HStack {
@@ -186,6 +187,7 @@ struct SheetNewSettingsView: View {
                             endDate: newSheetEndDate,
                             travelDateTextColor: newSheetTravelDateTextColor,
                             defaultCardBackgroundColor: newSheetDefaultCardBackgroundColor,
+                            defaultCardTextColor: newSheetDefaultCardTextColor,
                             titleTextColor: newSheetTitleTextColor,
                             titleBackgroundColor: newSheetTitleBackgroundColor,
                             printTitleOnAllPages: newSheetPrintTitleOnAllPages
@@ -211,6 +213,7 @@ struct SheetNewSettingsView: View {
         newSheetTitle = ""
         newSheetColor = .white
         newSheetDefaultCardBackgroundColor = .white
+        newSheetDefaultCardTextColor = .black
         newSheetTravelDateTextColor = .secondary
         newSheetTitleTextColor = .primary
         newSheetTitleBackgroundColor = .white

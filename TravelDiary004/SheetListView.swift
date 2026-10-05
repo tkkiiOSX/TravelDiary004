@@ -18,6 +18,7 @@ struct SheetListView: View {
     @State private var editingSheetTitle = ""
     @State private var editingSheetColor: Color = .white
     @State private var editingSheetDefaultCardBackgroundColor: Color = .white
+    @State private var editingSheetDefaultCardTextColor: Color = .black
     @State private var editingSheetTravelDateTextColor: Color = .secondary
     @State private var editingSheetTitleTextColor: Color = .primary
     @State private var editingSheetTitleBackgroundColor: Color = .white
@@ -93,6 +94,7 @@ struct SheetListView: View {
                         editingSheetTitle: $editingSheetTitle,
                         editingSheetColor: $editingSheetColor,
                         editingSheetDefaultCardBackgroundColor: $editingSheetDefaultCardBackgroundColor,
+                        editingSheetDefaultCardTextColor: $editingSheetDefaultCardTextColor,
                         editingSheetTravelDateTextColor: $editingSheetTravelDateTextColor,
                         editingSheetTitleTextColor: $editingSheetTitleTextColor,
                         editingSheetTitleBackgroundColor: $editingSheetTitleBackgroundColor,
@@ -106,6 +108,7 @@ struct SheetListView: View {
                             model.updateSheetTitle(sheetID: sheet.id, newTitle: editingSheetTitle)
                             model.updateSheetColor(sheetID: sheet.id, color: editingSheetColor)
                             model.updateSheetDefaultCardBackgroundColor(sheetID: sheet.id, color: editingSheetDefaultCardBackgroundColor)
+                            model.updateSheetDefaultCardTextColor(sheetID: sheet.id, color: editingSheetDefaultCardTextColor)
                             model.updateSheetTravelDateTextColor(sheetID: sheet.id, color: editingSheetTravelDateTextColor)
                             model.updateSheetTravelDates(sheetID: sheet.id, startDate: editingSheetStartDate, endDate: editingSheetEndDate)
                             model.updateSheetTitleTextColor(sheetID: sheet.id, color: editingSheetTitleTextColor)
@@ -197,6 +200,7 @@ extension SheetListView {
         editingSheetTitle = sheet.title
         editingSheetColor = sheet.backgroundColor
         editingSheetDefaultCardBackgroundColor = Color(hex: sheet.effectiveDefaultCardBackgroundColorHex)
+        editingSheetDefaultCardTextColor = Color(hex: sheet.effectiveDefaultCardTextColorHex)
         editingSheetTravelDateTextColor = sheet.travelDateTextColor
         editingSheetTitleTextColor = sheet.titleTextColor
         editingSheetTitleBackgroundColor = sheet.titleBackgroundColor
@@ -401,4 +405,3 @@ private struct SheetRowView: View {
         isTitleFocused = false
     }
 }
-

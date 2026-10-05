@@ -418,6 +418,8 @@ struct CardEditView: View {
 
                 if card.showStartTime {
                     DatePicker("時刻（開始）", selection: $card.startTime, displayedComponents: [.hourAndMinute])
+                    Toggle("開始時刻に「ごろ」を表示", isOn: $card.showStartTimeApproximation)
+                        .toggleStyle(.switch)
                 }
 
                 Toggle("時刻（終了）を表示", isOn: $card.showEndTime)
@@ -425,6 +427,8 @@ struct CardEditView: View {
 
                 if card.showEndTime {
                     DatePicker("時刻（終了）", selection: $card.endTime, displayedComponents: [.hourAndMinute])
+                    Toggle("終了時刻に「ごろ」を表示", isOn: $card.showEndTimeApproximation)
+                        .toggleStyle(.switch)
                 }
             }
             
@@ -819,4 +823,3 @@ struct CardEditView: View {
     CardEditView(card: TravelCard(), sheet: TravelSheet(title: "サンプル")) { _ in }
         .environmentObject(TravelDataModel())
 }
-
