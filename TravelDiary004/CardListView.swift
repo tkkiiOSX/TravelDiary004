@@ -140,12 +140,14 @@ struct CardListView: View {
                                     .padding(.bottom, 4)
                                 }
                                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                .padding(.bottom, 4)
+                                .padding(.bottom, 0)
                                 .background(
                                     RoundedRectangle(cornerRadius: 8, style: .continuous)
                                         .fill(sheet.titleBackgroundColor.opacity(0.95))
                                 )
                             }
+                            .padding(.top, 5) // ← この数値をお好みで調整（例: 12, 16, 20 など）
+                            .padding(.horizontal, 3) // ← ここを追加（左右の隙間を作る数値）
                             .listRowBackground(sheet.backgroundColor.opacity(0.08))
 
                             // Cards section with reordering support
@@ -158,8 +160,8 @@ struct CardListView: View {
                                         NavigationLink(value: card) {
                                             CardDisplayView(card: card)
                                                 .padding(.vertical, 0) // keep as 0
-                                                .listRowInsets(EdgeInsets(top: 0, leading: 1, bottom: 0, trailing: 1)) // changed leading/trailing from 2 to 1
                                         }
+                                        .listRowInsets(EdgeInsets(top: 0, leading: 1, bottom: 0, trailing: 1))
                                         .listRowBackground(sheet.backgroundColor)
                                     }
                                     .onDelete { indexSet in
@@ -175,6 +177,8 @@ struct CardListView: View {
                                 }
                             }
                         }
+                        .listStyle(.plain)
+                        .listSectionSpacing(2)
                         .scrollContentBackground(.hidden)
                         .background(sheet.backgroundColor)
                         .tag(sheet.id)
@@ -421,7 +425,8 @@ private struct CardDisplayView: View {
 
         }
         // 内側の余白（PDFプレビューに合わせる）
-        .padding(12)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 16)
         .background(
             ZStack {
                 card.backgroundColor
@@ -433,8 +438,8 @@ private struct CardDisplayView: View {
         .modifier(CardBorderModifier(style: card.borderStyle, color: card.borderColor, lineWidth: CGFloat(card.borderWidth), radius: 18))
         .modifier(CardShadowModifier(enabled: card.showShadow))
         // 外側の余白（セル間の間隔調整）
-        .padding(.vertical, 4)
-        .padding(.horizontal, 6)
+        .padding(.vertical, 2)
+        .padding(.horizontal, 2)
     }
 
     private var displayURL: URL? {
