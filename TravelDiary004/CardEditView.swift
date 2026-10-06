@@ -397,6 +397,32 @@ struct CardEditView: View {
                 if card.showDate {
                     DatePicker("日付", selection: $card.date, displayedComponents: [.date])
 
+                    HStack(spacing: 8) {
+                        Button {
+                            if let startDate = sheet.startDate {
+                                card.date = startDate
+                            }
+                        } label: {
+                            Text("旅行開始日より読み込み")
+                                .font(.caption)
+                                .frame(maxWidth: .infinity)
+                        }
+                        .buttonStyle(.bordered)
+                        .disabled(sheet.startDate == nil)
+
+                        Button {
+                            if let endDate = sheet.endDate {
+                                card.date = endDate
+                            }
+                        } label: {
+                            Text("旅行終了日より読み込み")
+                                .font(.caption)
+                                .frame(maxWidth: .infinity)
+                        }
+                        .buttonStyle(.bordered)
+                        .disabled(sheet.endDate == nil)
+                    }
+
                     VStack(alignment: .leading, spacing: 8) {
                         Text("日付の書式")
                             .font(.subheadline)
