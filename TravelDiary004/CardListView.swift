@@ -361,20 +361,27 @@ private struct CardDisplayView: View {
                     .aspectRatio(1, contentMode: .fit)
 
                     if card.showMapJumpButton {
-                        let url = URL(string: "maps://?ll=\(card.latitude),\(card.longitude)")
-                        if let url = url {
-                            Button(action: { openURL(url) }) {
-                                Image(systemName: "map")
-                                    .font(.title2)
-                                    .foregroundColor(.white)
-                                    .padding(10)
-                                    .background(Circle().fill(Color.accentColor))
-                                    .shadow(radius: 3)
-                            }
-                            .buttonStyle(.plain)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading, 8)
+                        let coordinate = CLLocationCoordinate2D(latitude: card.latitude, longitude: card.longitude)
+                        Button(action: {
+                            let placemark = MKPlacemark(coordinate: coordinate)
+                            let mapItem = MKMapItem(placemark: placemark)
+                            mapItem.name = card.locationName.isEmpty ? "選択地点" : card.locationName
+                            let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                            mapItem.openInMaps(launchOptions: [
+                                MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: coordinate),
+                                MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: span)
+                            ])
+                        }) {
+                            Image(systemName: "map")
+                                .font(.title2)
+                                .foregroundColor(.white)
+                                .padding(10)
+                                .background(Circle().fill(Color.accentColor))
+                                .shadow(radius: 3)
                         }
+                        .buttonStyle(.plain)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 8)
                     }
                 }
             }
