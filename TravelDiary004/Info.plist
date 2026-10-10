@@ -15,11 +15,11 @@
 			</array>
 		</dict>
 	</array>
-	<key>Localization native development region</key>
-	<string>ja</string>
 	<key>CFBundleLocalizations</key>
 	<array>
 		<string>ja</string>
 	</array>
+	<key>Localization native development region</key>
+	<string>ja</string>
 </dict>
 </plist>

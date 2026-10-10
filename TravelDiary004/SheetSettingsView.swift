@@ -172,3 +172,40 @@ struct DateSelectionView: View {
         }
     }
 }
+#Preview("シート設定ビュー") {
+    @State var title = "サンプルプラン"
+    @State var color = Color.blue
+    @State var cardBgColor = Color(.systemGray6)
+    @State var cardTextColor = Color.primary
+    @State var travelDateTextColor = Color.secondary
+    @State var titleTextColor = Color.primary
+    @State var titleBgColor = Color(.systemTeal)
+    @State var startDate: Date? = Date()
+    @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+    @State var dateSelection: DateSelectionTarget? = nil
+    @State var draftSelectedDate: Date = Date()
+    @State var printTitleOnAllPages: Bool = true
+    SheetSettingsView(
+        sheet: TravelSheet(title: "サンプルプラン"),
+        editingSheetTitle: $title,
+        editingSheetColor: $color,
+        editingSheetDefaultCardBackgroundColor: $cardBgColor,
+        editingSheetDefaultCardTextColor: $cardTextColor,
+        editingSheetTravelDateTextColor: $travelDateTextColor,
+        editingSheetTitleTextColor: $titleTextColor,
+        editingSheetTitleBackgroundColor: $titleBgColor,
+        editingSheetStartDate: $startDate,
+        editingSheetEndDate: $endDate,
+        editingSheetDateSelection: $dateSelection,
+        editingSheetDraftSelectedDate: $draftSelectedDate,
+        editingSheetPrintTitleOnAllPages: $printTitleOnAllPages,
+        onCancel: {},
+        onSave: {}
+    )
+}
+
+#Preview("日付選択ビュー") {
+    @State var date = Date()
+    DateSelectionView(selectedDate: $date, title: "日付設定", onCancel: {}, onDone: {})
+}
+

@@ -420,26 +420,21 @@ struct PrintableCardView: View {
             }
 
             HStack(alignment: .center, spacing: 8) {
+                if let icon = card.iconName(), !icon.isEmpty {
+                    Image(systemName: icon)
+                        .font(.system(size: CGFloat(card.textSize), weight: .bold))
+                        .foregroundColor(card.textColor)
+                }
                 if !card.title.isEmpty {
                     Text(card.title)
                         .font(.system(size: CGFloat(card.textSize), weight: .bold))
                         .foregroundColor(card.textColor)
-                        .bold()
                 } else {
                     Text("無題のカード")
                         .font(.system(size: CGFloat(card.textSize)))
                         .foregroundColor(card.textColor.opacity(0.6))
                 }
                 Spacer()
-            }
-
-            if let icon = card.iconName(), !icon.isEmpty {
-                HStack(alignment: .center, spacing: 8) {
-                    Image(systemName: icon)
-                        .font(.system(size: CGFloat(card.textSize), weight: .bold))
-                        .foregroundColor(card.textColor)
-                    Spacer()
-                }
             }
 
             if !card.memo.isEmpty {

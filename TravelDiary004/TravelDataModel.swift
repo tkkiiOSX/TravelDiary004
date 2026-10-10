@@ -374,11 +374,11 @@ struct TravelCard: Identifiable, Hashable, Codable {
 
         if showStartTime {
             let approximation = showStartTimeApproximation ? "ごろ" : ""
-            times.append("開始\(formatter.string(from: startTime))\(approximation)")
+            times.append("\(formatter.string(from: startTime))\(approximation)")
         }
         if showEndTime {
             let approximation = showEndTimeApproximation ? "ごろ" : ""
-            times.append("終了\(formatter.string(from: endTime))\(approximation)")
+            times.append("\(formatter.string(from: endTime))\(approximation)")
         }
 
         return times.joined(separator: "〜")

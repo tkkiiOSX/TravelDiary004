@@ -100,91 +100,111 @@ struct CardListView: View {
                 Text("先にシートを追加してください。")
                     .foregroundColor(.secondary)
             } else {
-                TabView(selection: $selectedSheetID) {
-                    ForEach(model.sheets) { sheet in
-                        List {
-                            Section {
-                                VStack(alignment: .leading, spacing: 6) {
-                                    // Title row
-                                    HStack {
-                                        Text(sheet.title.isEmpty ? "無題のシート" : sheet.title)
-                                            .font(.title2.weight(.semibold))
-                                            .foregroundColor(sheet.titleTextColor)
-                                            .multilineTextAlignment(.leading)
-                                            .lineLimit(2)
-                                            .minimumScaleFactor(0.6)
-                                            .truncationMode(.middle)
-                                            .allowsTightening(true)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .padding(.horizontal, 6)
-                                            .padding(.top, 2)
-                                        Spacer()
-                                    }
-                                    // Period row (travel dates)
-                                    VStack(alignment: .leading, spacing: 2) {
-                                        if let startDate = sheet.startDate, let endDate = sheet.endDate {
-                                            Text("旅行日程: \(formattedDate(startDate)) 〜 \(formattedDate(endDate))")
-                                                .font(.callout)
-                                                .foregroundColor(sheet.travelDateTextColor)
-                                                .padding()
-                                        } else if let startDate = sheet.startDate {
-                                            Text("旅行開始予定日: \(formattedDate(startDate))")
-                                                .font(.callout)
-                                                .foregroundColor(sheet.travelDateTextColor)
-                                        } else if let endDate = sheet.endDate {
-                                            Text("旅行終了予定日: \(formattedDate(endDate))")
-                                                .font(.callout)
-                                                .foregroundColor(sheet.travelDateTextColor)
+                if let sheet = selectedSheet {
+                    List {
+                        Section {
+                            VStack(alignment: .leading, spacing: 6) {
+                                // Title row with navigation buttons
+                                HStack {
+                                    Button(action: {
+                                        if let idx = model.sheets.firstIndex(where: { $0.id == sheet.id }) {
+                                            let prev = (idx - 1 + model.sheets.count) % model.sheets.count
+                                            selectedSheetID = model.sheets[prev].id
                                         }
+                                    }) {
+                                        Image(systemName: "chevron.left")
                                     }
-                                    .padding(.bottom, 4)
+                                    Text(sheet.title.isEmpty ? "無題のシート" : sheet.title)
+                                        .font(.title2.weight(.semibold))
+                                        .foregroundColor(sheet.titleTextColor)
+                                        .multilineTextAlignment(.leading)
+                                        .lineLimit(2)
+                                        .minimumScaleFactor(0.6)
+                                        .truncationMode(.middle)
+                                        .allowsTightening(true)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .padding(.horizontal, 6)
+                                        .padding(.top, 2)
+                                    Spacer()
+                                    Button(action: {
+                                        if let idx = model.sheets.firstIndex(where: { $0.id == sheet.id }) {
+                                            let next = (idx + 1) % model.sheets.count
+                                            selectedSheetID = model.sheets[next].id
+                                        }
+                                    }) {
+                                        Image(systemName: "chevron.right")
+                                    }
                                 }
-                                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                .padding(.bottom, 0)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                        .fill(sheet.titleBackgroundColor.opacity(0.95))
-                                )
+                                // Period row (travel dates)
+                                VStack(alignment: .leading, spacing: 2) {
+                                    if let startDate = sheet.startDate, let endDate = sheet.endDate {
+                                        Text("旅行日程: \(formattedDate(startDate)) 〜 \(formattedDate(endDate))")
+                                            .font(.callout)
+                                            .foregroundColor(sheet.travelDateTextColor)
+                                            .padding()
+                                    } else if let startDate = sheet.startDate {
+                                        Text("旅行開始予定日: \(formattedDate(startDate))")
+                                            .font(.callout)
+                                            .foregroundColor(sheet.travelDateTextColor)
+                                    } else if let endDate = sheet.endDate {
+                                        Text("旅行終了予定日: \(formattedDate(endDate))")
+                                            .font(.callout)
+                                            .foregroundColor(sheet.travelDateTextColor)
+                                    }
+                                }
+                                .padding(.bottom, 4)
                             }
-                            .padding(.top, 5) // ← この数値をお好みで調整（例: 12, 16, 20 など）
-                            .padding(.horizontal, 3) // ← ここを追加（左右の隙間を作る数値）
-                            .listRowBackground(sheet.backgroundColor.opacity(0.08))
+                            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                            .padding(.bottom, 0)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                    .fill(sheet.titleBackgroundColor.opacity(0.95))
+                            )
+                        }
+                        .padding(.top, 5) // ← この数値をお好みで調整（例: 12, 16, 20 など）
+                        .padding(.horizontal, 3) // ← ここを追加（左右の隙間を作る数値）
+                        .listRowBackground(sheet.backgroundColor.opacity(0.08))
 
-                            // Cards section with reordering support
-                            Section {
-                                if sheet.cards.isEmpty {
-                                    Text("カードがありません。新規作成してください。")
-                                        .foregroundColor(.secondary)
-                                } else {
-                                    ForEach(sheet.cards) { card in
-                                        NavigationLink(value: card) {
-                                            CardDisplayView(card: card)
-                                                .padding(.vertical, 0) // keep as 0
-                                        }
-                                        .listRowInsets(EdgeInsets(top: 0, leading: 1, bottom: 0, trailing: 1))
-                                        .listRowBackground(sheet.backgroundColor)
+                        // Cards section with reordering support
+                        Section {
+                            if sheet.cards.isEmpty {
+                                Text("カードがありません。新規作成してください。")
+                                    .foregroundColor(.secondary)
+                            } else {
+                                ForEach(sheet.cards) { card in
+                                    NavigationLink(value: card) {
+                                        CardDisplayView(card: card)
+                                            .padding(.vertical, 0) // keep as 0
                                     }
-                                    .onDelete { indexSet in
-                                        if let index = indexSet.first {
-                                            let pending = sheet.cards[index]
-                                            cardPendingDeletion = pending
+                                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                        Button(role: .destructive) {
+                                            cardPendingDeletion = card
                                             showDeleteAlert = true
+                                        } label: {
+                                            Label("削除", systemImage: "trash")
                                         }
                                     }
-                                    .onMove { indices, newOffset in
-                                        model.moveCards(in: sheet, from: indices, to: newOffset)
+                                    .listRowInsets(EdgeInsets(top: 0, leading: 1, bottom: 0, trailing: 1))
+                                    .listRowBackground(sheet.backgroundColor)
+                                }
+                                .onDelete { indexSet in
+                                    if let index = indexSet.first {
+                                        let pending = sheet.cards[index]
+                                        cardPendingDeletion = pending
+                                        showDeleteAlert = true
                                     }
+                                }
+                                .onMove { indices, newOffset in
+                                    model.moveCards(in: sheet, from: indices, to: newOffset)
                                 }
                             }
                         }
-                        .listStyle(.plain)
-                        .listSectionSpacing(2)
-                        .scrollContentBackground(.hidden)
-                        .background(sheet.backgroundColor)
-                        .tag(sheet.id)
                     }
+                    .listStyle(.plain)
+                    .listSectionSpacing(2)
+                    .scrollContentBackground(.hidden)
+                    .background(sheet.backgroundColor)
                 }
-                .tabViewStyle(.page(indexDisplayMode: .automatic))
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -303,29 +323,26 @@ private struct CardDisplayView: View {
                 }
             }
 
-            VStack(alignment: .leading, spacing: 4) {
-                HStack(alignment: .center, spacing: 8) {
-                    if !card.title.isEmpty {
-                        Text(card.title)
-                            .font(.system(size: CGFloat(card.textSize), weight: .bold))
-                            .foregroundColor(card.textColor)
-                    } else {
-                        Text("無題のカード")
-                            .font(.system(size: CGFloat(card.textSize)))
-                            .foregroundColor(card.textColor.opacity(0.6))
-                    }
-                    Spacer()
-                }
-            }
-
-            if let icon = card.iconName(), !icon.isEmpty {
-                HStack(alignment: .center, spacing: 8) {
+            // Replaced VStack with HStack to show the category icon and title side-by-side
+            HStack(alignment: .center, spacing: 8) {
+                if let icon = card.iconName(), !icon.isEmpty {
                     Image(systemName: icon)
                         .font(.system(size: CGFloat(card.textSize), weight: .bold))
                         .foregroundColor(card.textColor)
-                    Spacer()
                 }
+                if !card.title.isEmpty {
+                    Text(card.title)
+                        .font(.system(size: CGFloat(card.textSize), weight: .bold))
+                        .foregroundColor(card.textColor)
+                } else {
+                    Text("無題のカード")
+                        .font(.system(size: CGFloat(card.textSize)))
+                        .foregroundColor(card.textColor.opacity(0.6))
+                }
+                Spacer()
             }
+
+            // Removed the separate icon row block here
 
             if !card.memo.isEmpty {
                 VStack(alignment: .leading, spacing: 6) {
@@ -445,8 +462,8 @@ private struct CardDisplayView: View {
         .modifier(CardBorderModifier(style: card.borderStyle, color: card.borderColor, lineWidth: CGFloat(card.borderWidth), radius: 18))
         .modifier(CardShadowModifier(enabled: card.showShadow))
         // 外側の余白（セル間の間隔調整）
-        .padding(.vertical, 2)
-        .padding(.horizontal, 2)
+        .padding(.vertical, 4)
+        .padding(.horizontal, 4)
     }
 
     private var displayURL: URL? {
@@ -481,3 +498,4 @@ private struct CardListViewPreviewProvider {
 #Preview("カードリスト プレビュー") {
     CardListView(initialSheet: CardListViewPreviewProvider.model.sheets.first!).environmentObject(CardListViewPreviewProvider.model)
 }
+
