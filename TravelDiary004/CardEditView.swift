@@ -506,6 +506,36 @@ struct CardEditView: View {
 
                     VStack(alignment: .leading, spacing: 8) {
                         HStack(spacing: 8) {
+                            Image(systemName: "rectangle.expand.vertical")
+                                .foregroundColor(.secondary)
+                            Text("表示サイズ")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            Spacer()
+                            Text(String(format: "%d%%", Int((card.mapDisplayScale * 100).rounded())))
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                        HStack(spacing: 8) {
+                            Button {
+                                card.mapDisplayScale = 1.0
+                            } label: { Text("大 100%") }
+                            .buttonStyle(.bordered)
+
+                            Button {
+                                card.mapDisplayScale = 0.75
+                            } label: { Text("中 75%") }
+                            .buttonStyle(.bordered)
+
+                            Button {
+                                card.mapDisplayScale = 0.5
+                            } label: { Text("小 50%") }
+                            .buttonStyle(.bordered)
+                        }
+                    }
+
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack(spacing: 8) {
                             Image(systemName: "arrow.up.left.and.arrow.down.right")
                                 .foregroundColor(.secondary)
                             Text("マップの縮尺")
@@ -528,6 +558,33 @@ struct CardEditView: View {
                             in: 0.005...0.3,
                             step: 0.005
                         )
+                        HStack(spacing: 8) {
+                            Button {
+                                // 75% view: increase delta by 1.33x (clamped)
+                                let newDelta = min(0.3, max(0.005, mapZoomDelta * 1.3333))
+                                mapZoomDelta = newDelta
+                                updateEditMapPosition()
+                            } label: {
+                                Text("75%")
+                                    .font(.caption)
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 6)
+                            }
+                            .buttonStyle(.bordered)
+
+                            Button {
+                                // 50% view: increase delta by 2x (clamped)
+                                let newDelta = min(0.3, max(0.005, mapZoomDelta * 2.0))
+                                mapZoomDelta = newDelta
+                                updateEditMapPosition()
+                            } label: {
+                                Text("50%")
+                                    .font(.caption)
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 6)
+                            }
+                            .buttonStyle(.bordered)
+                        }
                     }
 
                     HStack {

@@ -1,0 +1,990 @@
+
+Showing Recent Errors Only
+
+Prepare build
+
+ComputePackagePrebuildTargetDependencyGraph
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+
+note: Building targets in dependency order
+note: Target dependency graph (1 target)
+    Target '旅行予定日記' in project 'TravelDiary004' (no dependencies)
+
+Building targets in dependency order
+
+Target dependency graph (1 target)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+Build description signature: ff68393927276a08a15655ad9fdaa15f
+Build description path: /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/XCBuildData/ff68393927276a08a15655ad9fdaa15f.xcbuilddata
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+CreateBuildDirectory /Users/xcode2021/Library/Developer/Xcode/DerivedData/SDKExplicitPrecompiledModules
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004.xcodeproj
+    builtin-create-build-directory /Users/xcode2021/Library/Developer/Xcode/DerivedData/SDKExplicitPrecompiledModules
+
+CreateBuildDirectory /Users/xcode2021/Library/Developer/Xcode/DerivedData/ModuleCache.noindex
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004.xcodeproj
+    builtin-create-build-directory /Users/xcode2021/Library/Developer/Xcode/DerivedData/ModuleCache.noindex
+
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk /Users/xcode2021/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -o /Users/xcode2021/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache
+
+CreateBuildDirectory /Users/xcode2021/Library/Developer/Xcode/DerivedData/CompilationCache.noindex
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004.xcodeproj
+    builtin-create-build-directory /Users/xcode2021/Library/Developer/Xcode/DerivedData/CompilationCache.noindex
+
+CreateBuildDirectory /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004.xcodeproj
+    builtin-create-build-directory /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products
+
+CreateBuildDirectory /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004.xcodeproj
+    builtin-create-build-directory /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex
+
+CreateBuildDirectory /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004.xcodeproj
+    builtin-create-build-directory /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+CreateBuildDirectory /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/PrecompiledHeaders
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004.xcodeproj
+    builtin-create-build-directory /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/PrecompiledHeaders
+
+CreateBuildDirectory /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/ExplicitPrecompiledModules
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004.xcodeproj
+    builtin-create-build-directory /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+WriteAuxiliaryFile /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/TravelDiary004-ffd0918567d620b6b3f845c10bcb6bbd-VFS-iphonesimulator/all-product-headers.yaml
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004.xcodeproj
+    write-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/TravelDiary004-ffd0918567d620b6b3f845c10bcb6bbd-VFS-iphonesimulator/all-product-headers.yaml
+
+CreateBuildDirectory /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004.xcodeproj
+    builtin-create-build-directory /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator
+
+CreateBuildDirectory /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004.xcodeproj
+    builtin-create-build-directory /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator
+
+PruneExplicitPrecompiledModules /Users/xcode2021/Library/Developer/Xcode/DerivedData/SDKExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+
+Prepare packages
+
+
+Build target 旅行予定日記 of project TravelDiary004 with configuration Debug
+note: Disabling hardened runtime with ad-hoc codesigning. (in target '旅行予定日記' from project 'TravelDiary004')
+
+
+Disabling hardened runtime with ad-hoc codesigning.
+
+WriteAuxiliaryFile /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-own-target-headers.hmap (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    write-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-own-target-headers.hmap
+
+WriteAuxiliaryFile /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記.hmap (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    write-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記.hmap
+
+WriteAuxiliaryFile /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記.DependencyStaticMetadataFileList (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    write-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-project-headers.hmap (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    write-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-project-headers.hmap
+
+WriteAuxiliaryFile /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-generated-files.hmap (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    write-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-generated-files.hmap
+
+WriteAuxiliaryFile /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-all-target-headers.hmap (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    write-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-all-target-headers.hmap
+
+WriteAuxiliaryFile /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記.DependencyMetadataFileList (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    write-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-all-non-framework-target-headers.hmap (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    write-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-all-non-framework-target-headers.hmap
+
+WriteAuxiliaryFile /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-DebugDylibPath-normal-arm64.txt (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    write-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-DebugDylibPath-normal-arm64.txt
+
+WriteAuxiliaryFile /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-DebugDylibInstallName-normal-arm64.txt (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    write-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-DebugDylibInstallName-normal-arm64.txt
+
+WriteAuxiliaryFile /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記_const_extract_protocols.json (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    write-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記.LinkFileList (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    write-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記.LinkFileList
+
+WriteAuxiliaryFile /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記.SwiftFileList (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    write-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記.SwiftFileList
+
+WriteAuxiliaryFile /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記.SwiftConstValuesFileList (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    write-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記-OutputFileMap.json (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    write-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記-OutputFileMap.json
+
+MkDir /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/旅行予定日記.app (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    /bin/mkdir -p /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/旅行予定日記.app
+
+WriteAuxiliaryFile /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources/Entitlements-Simulated.plist (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    write-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources/Entitlements-Simulated.plist
+
+ProcessProductPackaging "" /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記.app-Simulated.xcent (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    
+    Entitlements:
+    
+    {
+    "application-identifier" = "EYSYK49KTW.jp.goemon.Block-test.TravelDiary004";
+}
+    
+    builtin-productPackagingUtility -entitlements -format xml -o /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記.app-Simulated.xcent
+
+ProcessProductPackagingDER /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記.app-Simulated.xcent /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記.app-Simulated.xcent.der (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    /usr/bin/derq query -f xml -i /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記.app-Simulated.xcent -o /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記.app-Simulated.xcent.der --raw
+
+Ld /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/旅行予定日記.app/__preview.dylib normal (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios18.6-simulator -dynamiclib -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator -F/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator -install_name @rpath/旅行予定日記.debug.dylib -Xlinker -dead_strip -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -debug_variant -Xlinker -dependency_info -Xlinker /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記_dependency_info.dat -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __entitlements -Xlinker /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記.app-Simulated.xcent -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __ents_der -Xlinker /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記.app-Simulated.xcent.der -Xlinker -no_adhoc_codesign -o /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/旅行予定日記.app/__preview.dylib
+
+MkDir /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_output/thinned (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    /bin/mkdir -p /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_output/thinned
+
+MkDir /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_output/unthinned (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    /bin/mkdir -p /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_output/unthinned
+
+CpResource /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/旅行予定日記.app/サンフランシスコとApple\ Parkの3泊.json /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/サンフランシスコとApple\ Parkの3泊.json (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/サンフランシスコとApple\ Parkの3泊.json /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/旅行予定日記.app
+
+GenerateAssetSymbols /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/Assets.xcassets (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    /Applications/Xcode.app/Contents/Developer/usr/bin/actool /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/Assets.xcassets --compile /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/旅行予定日記.app --output-format human-readable-text --notices --warnings --export-dependency-info /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_dependencies --output-partial-info-plist /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_generated_info.plist --app-icon AppIcon --accent-color AccentColor --compress-pngs --enable-on-demand-resources YES --development-region en --target-device iphone --target-device ipad --minimum-deployment-target 18.6 --platform iphonesimulator --bundle-identifier jp.goemon.Block-test.TravelDiary004 --generate-swift-asset-symbols /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources/GeneratedAssetSymbols.swift --generate-objc-asset-symbols /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources/GeneratedAssetSymbols.h --generate-asset-symbol-index /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources/GeneratedAssetSymbols-Index.plist
+
+/* com.apple.actool.compilation-results */
+/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources/GeneratedAssetSymbols-Index.plist
+/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources/GeneratedAssetSymbols.h
+/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources/GeneratedAssetSymbols.swift
+
+
+CpResource /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/旅行予定日記.app/ブックマーク　気候.json /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/ブックマーク　気候.json (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/ブックマーク　気候.json /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/旅行予定日記.app
+
+CompileAssetCatalogVariant thinned /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/旅行予定日記.app /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/Assets.xcassets (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    /Applications/Xcode.app/Contents/Developer/usr/bin/actool /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/Assets.xcassets --compile /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_output/thinned --output-format human-readable-text --notices --warnings --export-dependency-info /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_dependencies_thinned --output-partial-info-plist /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_generated_info.plist_thinned --app-icon AppIcon --accent-color AccentColor --compress-pngs --enable-on-demand-resources YES --filter-for-thinning-device-configuration iPhone19,2 --filter-for-device-os-version 27.0 --development-region en --target-device iphone --target-device ipad --minimum-deployment-target 18.6 --platform iphonesimulator
+
+/* com.apple.actool.compilation-results */
+/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_generated_info.plist_thinned
+/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_output/thinned/AppIcon60x60@2x.png
+/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_output/thinned/AppIcon76x76@2x~ipad.png
+/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_output/thinned/Assets.car
+
+
+SwiftDriver 旅行予定日記 normal arm64 com.apple.xcode.tools.swift.compiler (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name 旅行予定日記 -Onone @/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記.SwiftFileList -DDEBUG -default-isolation\=MainActor -enable-bare-slash-regex -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios18.6-simulator -g -module-cache-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator -F /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/xcode2021/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記_const_extract_protocols.json -Xcc -iquote -Xcc /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-generated-files.hmap -Xcc -I/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-own-target-headers.hmap -Xcc -I/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-all-target-headers.hmap -Xcc -iquote -Xcc /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-project-headers.hmap -Xcc -I/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources-normal/arm64 -Xcc -I/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources/arm64 -Xcc -I/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記-Swift.h -working-directory /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004 -experimental-emit-module-separately -disable-cmo
+
+SwiftCompile normal arm64 Compiling\ CardEditView.swift,\ CardListView.swift,\ CommonTypes.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CardEditView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CardListView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CommonTypes.swift (in target '旅行予定日記' from project 'TravelDiary004')
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:177:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+175 | #Preview("シート設定ビュー") { @Previewable
+176 |     @State var title = "サンプルプラン"
+177 |     @State var color = Color.blue
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:178:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+176 |     @State var title = "サンプルプラン"
+177 |     @State var color = Color.blue
+178 |     @State var cardBgColor = Color(.systemGray6)
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:179:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+177 |     @State var color = Color.blue
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:180:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:181:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:182:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:183:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:184:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+186 |     @State var draftSelectedDate: Date = Date()
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:185:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+186 |     @State var draftSelectedDate: Date = Date()
+187 |     @State var printTitleOnAllPages: Bool = true
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:186:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+186 |     @State var draftSelectedDate: Date = Date()
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+187 |     @State var printTitleOnAllPages: Bool = true
+188 |     SheetSettingsView(
+
+
+SwiftCompile normal arm64 /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CardEditView.swift (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-SwiftPerFileCompile CardEditView.swift
+
+SwiftCompile normal arm64 /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CardListView.swift (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-SwiftPerFileCompile CardListView.swift
+
+SwiftCompile normal arm64 /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CommonTypes.swift (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-SwiftPerFileCompile CommonTypes.swift
+
+SwiftCompile normal arm64 Compiling\ WebPreviewView.swift,\ GeneratedAssetSymbols.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/WebPreviewView.swift /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources/GeneratedAssetSymbols.swift (in target '旅行予定日記' from project 'TravelDiary004')
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:177:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+175 | #Preview("シート設定ビュー") { @Previewable
+176 |     @State var title = "サンプルプラン"
+177 |     @State var color = Color.blue
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:178:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+176 |     @State var title = "サンプルプラン"
+177 |     @State var color = Color.blue
+178 |     @State var cardBgColor = Color(.systemGray6)
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:179:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+177 |     @State var color = Color.blue
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:180:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:181:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:182:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:183:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:184:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+186 |     @State var draftSelectedDate: Date = Date()
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:185:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+186 |     @State var draftSelectedDate: Date = Date()
+187 |     @State var printTitleOnAllPages: Bool = true
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:186:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+186 |     @State var draftSelectedDate: Date = Date()
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+187 |     @State var printTitleOnAllPages: Bool = true
+188 |     SheetSettingsView(
+
+
+SwiftCompile normal arm64 /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/WebPreviewView.swift (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-SwiftPerFileCompile WebPreviewView.swift
+
+SwiftCompile normal arm64 /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources/GeneratedAssetSymbols.swift (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-SwiftPerFileCompile GeneratedAssetSymbols.swift
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ 旅行予定日記 (in target '旅行予定日記' from project 'TravelDiary004')
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:177:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+175 | #Preview("シート設定ビュー") { @Previewable
+176 |     @State var title = "サンプルプラン"
+177 |     @State var color = Color.blue
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:178:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+176 |     @State var title = "サンプルプラン"
+177 |     @State var color = Color.blue
+178 |     @State var cardBgColor = Color(.systemGray6)
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:179:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+177 |     @State var color = Color.blue
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:180:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:181:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:182:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:183:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:184:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+186 |     @State var draftSelectedDate: Date = Date()
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:185:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+186 |     @State var draftSelectedDate: Date = Date()
+187 |     @State var printTitleOnAllPages: Bool = true
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:186:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+186 |     @State var draftSelectedDate: Date = Date()
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+187 |     @State var printTitleOnAllPages: Bool = true
+188 |     SheetSettingsView(
+
+
+SwiftCompile normal arm64 (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    
+
+SwiftCompile normal arm64 Compiling\ TextureSupport.swift,\ CardDetailMapView.swift,\ CardDisplayView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TextureSupport.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CardDetailMapView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CardDisplayView.swift (in target '旅行予定日記' from project 'TravelDiary004')
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:177:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+175 | #Preview("シート設定ビュー") { @Previewable
+176 |     @State var title = "サンプルプラン"
+177 |     @State var color = Color.blue
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:178:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+176 |     @State var title = "サンプルプラン"
+177 |     @State var color = Color.blue
+178 |     @State var cardBgColor = Color(.systemGray6)
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:179:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+177 |     @State var color = Color.blue
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:180:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:181:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:182:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:183:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:184:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+186 |     @State var draftSelectedDate: Date = Date()
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:185:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+186 |     @State var draftSelectedDate: Date = Date()
+187 |     @State var printTitleOnAllPages: Bool = true
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:186:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+186 |     @State var draftSelectedDate: Date = Date()
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+187 |     @State var printTitleOnAllPages: Bool = true
+188 |     SheetSettingsView(
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:187:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+186 |     @State var draftSelectedDate: Date = Date()
+187 |     @State var printTitleOnAllPages: Bool = true
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+188 |     SheetSettingsView(
+189 |         sheet: TravelSheet(title: "サンプルプラン"),
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/CardDisplayView.swift:71:59: error: value of type 'TravelCard' has no member 'mapDisplayScale'
+ 69 |                         GeometryReader { geo in
+ 70 |                             let side = min(geo.size.width, geo.size.height)
+ 71 |                             let scale = max(0.5, min(card.mapDisplayScale, 1.0))
+    |                                                           `- error: value of type 'TravelCard' has no member 'mapDisplayScale'
+ 72 |                             let scaled = side * CGFloat(scale)
+ 73 |                             Map(position: $position) {
+Failed frontend command:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -frontend -c -primary-file /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TextureSupport.swift -primary-file /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CardDetailMapView.swift -primary-file /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CardDisplayView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CardEditView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CardListView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CommonTypes.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/ContentView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/MapSelectionView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/PatternOverlay.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/PrintLayoutSupport.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/PrintLayoutView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/SheetListView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/SheetNewSettingsView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/TravelDiary004App.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/WebPreviewView.swift /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources/GeneratedAssetSymbols.swift -supplementary-output-file-map /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/supplementaryOutputs-1 -emit-localized-strings -emit-localized-strings-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64 -target arm64-apple-ios18.6-simulator -module-can-import-version DeveloperToolsSupport 24.0.24 24.0.24 -module-can-import-version SwiftUI 8.0.84.1 8.0.84 -module-can-import-version UIKit 9127.0.84.1 9127.0.84 -disable-cross-import-overlay-search -swift-module-cross-import MapKit /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/MapKit.framework/Modules/MapKit.swiftcrossimport/SwiftUI.swiftoverlay -swift-module-cross-import MapKit /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MapKit.framework/Modules/MapKit.swiftcrossimport/SwiftUI.swiftoverlay -swift-module-cross-import PhotosUI /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/PhotosUI.framework/Modules/PhotosUI.swiftcrossimport/SwiftUI.swiftoverlay -swift-module-cross-import PhotosUI /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/PhotosUI.framework/Modules/PhotosUI.swiftcrossimport/WidgetKit.swiftoverlay -swift-module-cross-import PhotosUI /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/PhotosUI.framework/Modules/PhotosUI.swiftcrossimport/SwiftUI.swiftoverlay -swift-module-cross-import PhotosUI /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/PhotosUI.framework/Modules/PhotosUI.swiftcrossimport/WidgetKit.swiftoverlay -swift-module-cross-import WebKit /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Cryptexes/OS/System/Library/Frameworks/WebKit.framework/Modules/WebKit.swiftcrossimport/SwiftUI.swiftoverlay -swift-module-cross-import WebKit /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/WebKit.framework/Modules/WebKit.swiftcrossimport/SwiftUI.swiftoverlay -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libFoundationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#FoundationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libObservationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#ObservationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libPreviewsMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#PreviewsMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libSwiftMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#SwiftMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libSwiftUIMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#SwiftUIMacros -disable-implicit-swift-modules -Xcc -fno-implicit-modules -Xcc -fno-implicit-module-maps -explicit-swift-module-map-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記-dependencies-4.json -Xllvm -aarch64-use-tbi -enable-objc-interop -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -I /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator -F /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator -module-cache-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -no-color-diagnostics -Xcc -fno-color-diagnostics -enable-testing -g -debug-info-format\=dwarf -dwarf-version\=5 -profile-generate -profile-coverage-mapping -swift-version 5 -Onone -D DEBUG -serialize-debugging-options -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -default-isolation\=MainActor -empty-abi-descriptor -validate-clang-modules-once -clang-build-session-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -working-directory -Xcc /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004 -enable-anonymous-context-mangled-names -file-compilation-dir /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004 -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -Xcc -ivfsstatcache -Xcc /Users/xcode2021/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -Xcc -iquote -Xcc /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-generated-files.hmap -Xcc -I/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-own-target-headers.hmap -Xcc -I/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-all-target-headers.hmap -Xcc -iquote -Xcc /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/旅行予定日記-project-headers.hmap -Xcc -I/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources-normal/arm64 -Xcc -I/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources/arm64 -Xcc -I/Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/DerivedSources -Xcc -DDEBUG\=1 -no-auto-bridging-header-chaining -module-name 旅行予定日記 -const-gather-protocols-file /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記_const_extract_protocols.json -disable-clang-spi -clang-target arm64-apple-ios27.0-simulator -target-sdk-version 27.0 -target-sdk-name iphonesimulator27.0 -in-process-plugin-server-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/libSwiftInProcPluginServer.dylib -o /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/TextureSupport.o -o /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/CardDetailMapView.o -o /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/CardDisplayView.o -debug-module-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/旅行予定日記.swiftmodule -index-unit-output-path /TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/TextureSupport.o -index-unit-output-path /TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/CardDetailMapView.o -index-unit-output-path /TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/Objects-normal/arm64/CardDisplayView.o -index-store-path /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Index.noindex/DataStore -index-system-modules
+
+SwiftCompile normal arm64 /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TextureSupport.swift (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-SwiftPerFileCompile TextureSupport.swift
+
+SwiftCompile normal arm64 /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CardDetailMapView.swift (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-SwiftPerFileCompile CardDetailMapView.swift
+
+SwiftCompile normal arm64 /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/CardDisplayView.swift (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-SwiftPerFileCompile CardDisplayView.swift
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/CardDisplayView.swift:71:59: Value of type 'TravelCard' has no member 'mapDisplayScale'
+
+SwiftCompile normal arm64 Compiling\ ContentView.swift,\ MapSelectionView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/ContentView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/MapSelectionView.swift (in target '旅行予定日記' from project 'TravelDiary004')
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:177:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+175 | #Preview("シート設定ビュー") { @Previewable
+176 |     @State var title = "サンプルプラン"
+177 |     @State var color = Color.blue
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:178:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+176 |     @State var title = "サンプルプラン"
+177 |     @State var color = Color.blue
+178 |     @State var cardBgColor = Color(.systemGray6)
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:179:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+177 |     @State var color = Color.blue
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:180:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:181:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:182:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:183:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:184:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+186 |     @State var draftSelectedDate: Date = Date()
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:185:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+186 |     @State var draftSelectedDate: Date = Date()
+187 |     @State var printTitleOnAllPages: Bool = true
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:186:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+186 |     @State var draftSelectedDate: Date = Date()
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+187 |     @State var printTitleOnAllPages: Bool = true
+188 |     SheetSettingsView(
+
+
+SwiftCompile normal arm64 /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/ContentView.swift (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-SwiftPerFileCompile ContentView.swift
+
+SwiftCompile normal arm64 /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/MapSelectionView.swift (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-SwiftPerFileCompile MapSelectionView.swift
+
+SwiftCompile normal arm64 Compiling\ PrintLayoutView.swift,\ SheetListView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/PrintLayoutView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/SheetListView.swift (in target '旅行予定日記' from project 'TravelDiary004')
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:177:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+175 | #Preview("シート設定ビュー") { @Previewable
+176 |     @State var title = "サンプルプラン"
+177 |     @State var color = Color.blue
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:178:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+176 |     @State var title = "サンプルプラン"
+177 |     @State var color = Color.blue
+178 |     @State var cardBgColor = Color(.systemGray6)
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:179:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+177 |     @State var color = Color.blue
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:180:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:181:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:182:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:183:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:184:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+186 |     @State var draftSelectedDate: Date = Date()
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:185:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+186 |     @State var draftSelectedDate: Date = Date()
+187 |     @State var printTitleOnAllPages: Bool = true
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:186:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+186 |     @State var draftSelectedDate: Date = Date()
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+187 |     @State var printTitleOnAllPages: Bool = true
+188 |     SheetSettingsView(
+
+
+SwiftCompile normal arm64 /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/PrintLayoutView.swift (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-SwiftPerFileCompile PrintLayoutView.swift
+
+SwiftCompile normal arm64 /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/SheetListView.swift (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-SwiftPerFileCompile SheetListView.swift
+
+SwiftCompile normal arm64 Compiling\ SheetNewSettingsView.swift,\ SheetSettingsView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/SheetNewSettingsView.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift (in target '旅行予定日記' from project 'TravelDiary004')
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:177:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+175 | #Preview("シート設定ビュー") { @Previewable
+176 |     @State var title = "サンプルプラン"
+177 |     @State var color = Color.blue
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:178:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+176 |     @State var title = "サンプルプラン"
+177 |     @State var color = Color.blue
+178 |     @State var cardBgColor = Color(.systemGray6)
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:179:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+177 |     @State var color = Color.blue
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:180:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+178 |     @State var cardBgColor = Color(.systemGray6)
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:181:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+179 |     @State var cardTextColor = Color.primary
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:182:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+180 |     @State var travelDateTextColor = Color.secondary
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:183:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+181 |     @State var titleTextColor = Color.primary
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:184:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+182 |     @State var titleBgColor = Color(.systemTeal)
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+186 |     @State var draftSelectedDate: Date = Date()
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:185:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+183 |     @State var startDate: Date? = Date()
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+186 |     @State var draftSelectedDate: Date = Date()
+187 |     @State var printTitleOnAllPages: Bool = true
+
+/Users/xcode2021/Xcode書類/Xcode File 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift:186:5: warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+184 |     @State var endDate: Date? = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+185 |     @State var dateSelection: DateSelectionTarget? = nil
+186 |     @State var draftSelectedDate: Date = Date()
+    |     |- warning: '@State' used inline will not work unless tagged with '@Previewable' (from macro 'Preview')
+    |     `- note: Add '@Previewable'
+187 |     @State var printTitleOnAllPages: Bool = true
+188 |     SheetSettingsView(
+
+
+SwiftCompile normal arm64 /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/SheetNewSettingsView.swift (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-SwiftPerFileCompile SheetNewSettingsView.swift
+
+SwiftCompile normal arm64 /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/SheetSettingsView.swift (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-SwiftPerFileCompile SheetSettingsView.swift
+
+SwiftCompile normal arm64 Compiling\ TravelDataModel.swift,\ TravelDiary004App.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/TravelDiary004App.swift (in target '旅行予定日記' from project 'TravelDiary004')
+
+SwiftCompile normal arm64 /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/TravelDataModel.swift (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-SwiftPerFileCompile TravelDataModel.swift
+
+SwiftCompile normal arm64 /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/TravelDiary004App.swift (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-SwiftPerFileCompile TravelDiary004App.swift
+
+LinkAssetCatalog /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004/TravelDiary004/Assets.xcassets (in target '旅行予定日記' from project 'TravelDiary004')
+    cd /Users/xcode2021/Xcode書類/Xcode\ File\ 2026/TravelDiary004
+    builtin-linkAssetCatalog --thinned /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_output/thinned --thinned-dependencies /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_dependencies_thinned --thinned-info-plist-content /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_generated_info.plist_thinned --unthinned /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_output/unthinned --unthinned-dependencies /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_dependencies_unthinned --unthinned-info-plist-content /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_generated_info.plist_unthinned --output /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/旅行予定日記.app --plist-output /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Intermediates.noindex/TravelDiary004.build/Debug-iphonesimulator/旅行予定日記.build/assetcatalog_generated_info.plist
+
+note: Emplaced /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/旅行予定日記.app/Assets.car (in target '旅行予定日記' from project 'TravelDiary004')
+note: Emplaced /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/旅行予定日記.app/AppIcon76x76@2x~ipad.png (in target '旅行予定日記' from project 'TravelDiary004')
+note: Emplaced /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/旅行予定日記.app/AppIcon60x60@2x.png (in target '旅行予定日記' from project 'TravelDiary004')
+
+Emplaced /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/旅行予定日記.app/Assets.car
+
+Emplaced /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/旅行予定日記.app/AppIcon76x76@2x~ipad.png
+
+Emplaced /Users/xcode2021/Library/Developer/Xcode/DerivedData/TravelDiary004-ahdbixslrfuijacfvidhxrhqapmf/Build/Products/Debug-iphonesimulator/旅行予定日記.app/AppIcon60x60@2x.png
+
+
+
+Build failed    2026/10/14, 22:27    3.0 seconds

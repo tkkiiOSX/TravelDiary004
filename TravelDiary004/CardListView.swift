@@ -79,6 +79,8 @@ struct CardListView: View {
     @State private var showPDFPreview = false
     @State private var showManualEditor = false
     @State private var lastHandledImportFeedbackID: UUID? = nil
+    @State private var selectedCard: TravelCard? = nil
+    @State private var showingCardDetail = false
 
     @State private var cardPendingDeletion: TravelCard? = nil
     @State private var showDeleteAlert = false
@@ -172,10 +174,15 @@ struct CardListView: View {
                                     .foregroundColor(.secondary)
                             } else {
                                 ForEach(sheet.cards) { card in
-                                    NavigationLink(value: card) {
+                                    Button {
+                                        selectedCard = card
+                                        showingCardDetail = true
+                                    } label: {
                                         CardDisplayView(card: card)
                                             .padding(.vertical, 0) // keep as 0
+                                            .contentShape(Rectangle())
                                     }
+                                    .buttonStyle(.plain)
                                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                         Button(role: .destructive) {
                                             cardPendingDeletion = card
@@ -261,13 +268,13 @@ struct CardListView: View {
                 }
             }
         }
-        .navigationDestination(for: TravelCard.self) { card in
-            if let sheet = selectedSheet {
+        .navigationDestination(isPresented: $showingCardDetail) {
+            if let card = selectedCard, let sheet = selectedSheet {
                 CardEditView(card: card, sheet: sheet) { updatedCard in
                     model.updateCard(updatedCard, in: sheet)
                 }
             } else {
-                Text("シートが見つかりません。")
+                Text("カードが見つかりません。")
                     .foregroundColor(.secondary)
             }
         }
@@ -300,183 +307,9 @@ private func formattedDate(_ date: Date?) -> String {
     return formatter.string(from: date)
 }
 
-private struct CardDisplayView: View {
-    let card: TravelCard
-    @State private var position: MapCameraPosition = .automatic
-    @Environment(\.openURL) private var openURL
 
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            if card.showDate {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(card.displayDateString)
-                        .font(.system(size: CGFloat(max(card.textSize - 2, 8)), weight: .bold))
-                        .foregroundColor(card.textColor)
-                }
-            }
 
-            if card.showStartTime || card.showEndTime {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(card.displayTimeRangeString)
-                        .font(.system(size: CGFloat(max(card.textSize - 4, 8))))
-                        .foregroundColor(card.textColor.opacity(0.8))
-                }
-            }
-
-            // Replaced VStack with HStack to show the category icon and title side-by-side
-            HStack(alignment: .center, spacing: 8) {
-                if let icon = card.iconName(), !icon.isEmpty {
-                    Image(systemName: icon)
-                        .font(.system(size: CGFloat(card.textSize), weight: .bold))
-                        .foregroundColor(card.textColor)
-                }
-                if !card.title.isEmpty {
-                    Text(card.title)
-                        .font(.system(size: CGFloat(card.textSize), weight: .bold))
-                        .foregroundColor(card.textColor)
-                } else {
-                    Text("無題のカード")
-                        .font(.system(size: CGFloat(card.textSize)))
-                        .foregroundColor(card.textColor.opacity(0.6))
-                }
-                Spacer()
-            }
-
-            // Removed the separate icon row block here
-
-            if !card.memo.isEmpty {
-                VStack(alignment: .leading, spacing: 6) {
-                    /*Text("めも")
-                        .font(.system(size: CGFloat(max(card.textSize - 4, 8)), weight: .bold))
-                        .foregroundColor(card.textColor.opacity(0.7))*/
-                    Text(card.memo)
-                        .font(.system(size: CGFloat(max(card.textSize - 4, 8))))
-                        .foregroundColor(card.textColor.opacity(0.5))
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-            }
-
-            if card.hasLocation {
-                VStack(alignment: .leading, spacing: 6) {
-                    ZStack {
-                        GeometryReader { geo in
-                            let side = min(geo.size.width, geo.size.height)
-                            Map(position: $position) {
-                                Marker(card.locationName.isEmpty ? "選択地点" : card.locationName,
-                                       coordinate: card.coordinate)
-                                    .tint(.red)
-                            }
-                            .mapStyle(.standard)
-                            .allowsHitTesting(false)
-                            .frame(width: side, height: side)
-                            .cornerRadius(14)
-                            .onAppear {
-                                position = .region(card.mapRegion(latitudeDelta: card.mapZoomDelta, longitudeDelta: card.mapZoomDelta))
-                            }
-                        }
-                    }
-                    .aspectRatio(1, contentMode: .fit)
-
-                    if card.showMapJumpButton {
-                        let coordinate = CLLocationCoordinate2D(latitude: card.latitude, longitude: card.longitude)
-                        Button(action: {
-                            let placemark = MKPlacemark(coordinate: coordinate)
-                            let mapItem = MKMapItem(placemark: placemark)
-                            mapItem.name = card.locationName.isEmpty ? "選択地点" : card.locationName
-                            let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-                            mapItem.openInMaps(launchOptions: [
-                                MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: coordinate),
-                                MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: span)
-                            ])
-                        }) {
-                            Image(systemName: "map")
-                                .font(.title2)
-                                .foregroundColor(.white)
-                                .padding(10)
-                                .background(Circle().fill(Color.accentColor))
-                                .shadow(radius: 3)
-                        }
-                        .buttonStyle(.plain)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading, 8)
-                    }
-                }
-            }
-
-            if let url = displayURL {
-                VStack(alignment: .leading, spacing: 6) {
-                    ZStack {
-                        GeometryReader { geo in
-                            let side = min(geo.size.width, geo.size.height)
-                            WebView(url: url, allowNavigation: false)
-                                .frame(width: side, height: side)
-                                .cornerRadius(14)
-                        }
-                    }
-                    .aspectRatio(1, contentMode: .fit)
-                }
-            }
-
-            if card.showSafariJumpButton, let url = displayURL {
-                Button(action: { openURL(url) }) {
-                    Image(systemName: "safari")
-                        .font(.title2)
-                        .foregroundColor(.white)
-                        .padding(10)
-                        .background(Circle().fill(Color.accentColor))
-                        .shadow(radius: 3)
-                }
-                .buttonStyle(.plain)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 8)
-            }
-
-            if let imageData = card.imageData,
-               let uiImage = UIImage(data: imageData) {
-                ZStack {
-                    GeometryReader { geo in
-                        let side = min(geo.size.width, geo.size.height)
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: side, height: side)
-                            .clipped()
-                            .cornerRadius(14)
-                    }
-                }
-                .aspectRatio(1, contentMode: .fit)
-            }
-
-        }
-        // 内側の余白（PDFプレビューに合わせる）
-        .padding(.horizontal, 12)
-        .padding(.vertical, 16)
-        .background(
-            ZStack {
-                card.backgroundColor
-                PatternOverlay(pattern: card.patternEffect, gradient: card.gradientEffect, baseColor: card.backgroundColor, patternColor: card.patternColor, opacity: card.patternOpacity)
-            }
-        )
-        .foregroundColor(card.textColor)
-        .cornerRadius(18)
-        .modifier(CardBorderModifier(style: card.borderStyle, color: card.borderColor, lineWidth: CGFloat(card.borderWidth), radius: 18))
-        .modifier(CardShadowModifier(enabled: card.showShadow))
-        // 外側の余白（セル間の間隔調整）
-        .padding(.vertical, 4)
-        .padding(.horizontal, 4)
-    }
-
-    private var displayURL: URL? {
-        let trimmed = card.url.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return nil }
-        if let url = URL(string: trimmed), url.scheme != nil {
-            return url
-        }
-        return URL(string: "https://\(trimmed)")
-    }
-}
-
-private struct CardShadowModifier: ViewModifier {
+struct CardShadowModifier: ViewModifier {
     let enabled: Bool
     func body(content: Content) -> some View {
         if enabled {
@@ -498,4 +331,3 @@ private struct CardListViewPreviewProvider {
 #Preview("カードリスト プレビュー") {
     CardListView(initialSheet: CardListViewPreviewProvider.model.sheets.first!).environmentObject(CardListViewPreviewProvider.model)
 }
-

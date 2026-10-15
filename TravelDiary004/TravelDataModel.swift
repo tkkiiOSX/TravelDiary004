@@ -272,6 +272,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
     var latitude: Double = 0.0
     var longitude: Double = 0.0
     var mapZoomDelta: Double = 0.08
+    var mapDisplayScale: Double = 1.0
     var url: String = ""
     var category: String = "該当なし"
     var showDate: Bool = false
@@ -512,6 +513,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         case latitude
         case longitude
         case mapZoomDelta
+        case mapDisplayScale
         case url
         case category
         case showDate
@@ -554,6 +556,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         latitude: Double = 0.0,
         longitude: Double = 0.0,
         mapZoomDelta: Double = 0.08,
+        mapDisplayScale: Double = 1.0,
         url: String = "",
         category: String = "該当なし",
         showDate: Bool = false,
@@ -594,6 +597,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         self.latitude = latitude
         self.longitude = longitude
         self.mapZoomDelta = mapZoomDelta
+        self.mapDisplayScale = mapDisplayScale
         self.url = url
         self.category = category
         self.showDate = showDate
@@ -637,6 +641,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         latitude = try container.decodeIfPresent(Double.self, forKey: .latitude) ?? 0.0
         longitude = try container.decodeIfPresent(Double.self, forKey: .longitude) ?? 0.0
         mapZoomDelta = try container.decodeIfPresent(Double.self, forKey: .mapZoomDelta) ?? 0.08
+        mapDisplayScale = try container.decodeIfPresent(Double.self, forKey: .mapDisplayScale) ?? 1.0
         url = try container.decodeIfPresent(String.self, forKey: .url) ?? ""
         category = try container.decodeIfPresent(String.self, forKey: .category) ?? "該当なし"
         showDate = try container.decodeIfPresent(Bool.self, forKey: .showDate) ?? false
@@ -680,6 +685,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         try container.encode(latitude, forKey: .latitude)
         try container.encode(longitude, forKey: .longitude)
         try container.encode(mapZoomDelta, forKey: .mapZoomDelta)
+        try container.encode(mapDisplayScale, forKey: .mapDisplayScale)
         try container.encode(url, forKey: .url)
         try container.encode(category, forKey: .category)
         try container.encode(showDate, forKey: .showDate)

@@ -102,7 +102,7 @@ struct PDFPreviewContainer: View {
         _cardScalesState = State(initialValue: cardScales)
         _printTitleOnAllPages = State(initialValue: sheet.printTitleOnAllPages ?? true)
     }
-    
+
     var travelDateString: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
@@ -170,10 +170,8 @@ struct PDFPreviewContainer: View {
                                     .background(Color(.systemBackground))
                                     .cornerRadius(20)
                                     .padding()
-                                    
                                 }
                                 .background(Color(white: 0.9))
-                                
                                 .navigationTitle("ページ設定")
                                 .toolbar {
                                     ToolbarItem(placement: .cancellationAction) {
@@ -226,6 +224,7 @@ struct PDFPreviewContainer: View {
         var webDict: [UUID: UIImage] = [:]
         let mapSize = CGSize(width: 560, height: 560)
         let webSize = CGSize(width: 560, height: 560)
+
         for card in currentSheet.cards {
             if card.hasLocation {
                 if let img = await makeMapSnapshot(for: card, size: mapSize) {
@@ -238,6 +237,7 @@ struct PDFPreviewContainer: View {
                 }
             }
         }
+
         mapSnapshots = mapDict
         webSnapshots = webDict
     }
@@ -305,17 +305,15 @@ struct PDFPreviewContainer: View {
                 currentY = margins.top
 
                 if printHeader {
-                    // Draw sheet title and travel date header together inside a single rounded box
                     let headerTotalHeight = titleHeight + 8 + travelDateHeight + 10
                     let headerRect = CGRect(x: margins.left, y: currentY, width: contentWidth, height: headerTotalHeight)
                     let roundedPath = UIBezierPath(roundedRect: headerRect, cornerRadius: 10)
                     UIColor(sheet.titleBackgroundColor).setFill()
                     roundedPath.fill()
 
-                    // Draw the title
                     let titleTextRect = CGRect(x: margins.left + 12, y: currentY + 9, width: contentWidth - 24, height: titleRect.height)
                     NSString(string: titleText).draw(with: titleTextRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: titleAttributes, context: nil)
-                    // Draw the travel date below with 8pt spacing under the title
+
                     let travelDateTextRect = CGRect(x: margins.left + 12, y: titleTextRect.maxY + 8, width: contentWidth - 24, height: travelDateRect.height)
                     NSString(string: travelDateString).draw(with: travelDateTextRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: travelDateAttributes, context: nil)
 
@@ -353,6 +351,7 @@ struct PDFPreviewContainer: View {
                     let drawScale = min(safeScale, remainingHeight / originalHeight)
                     let drawWidth = originalWidth * drawScale
                     let drawHeight = originalHeight * drawScale
+
                     switch alignment {
                     case .center:
                         drawX = margins.left + (contentWidth - drawWidth) / 2
@@ -361,6 +360,7 @@ struct PDFPreviewContainer: View {
                     case .leading:
                         drawX = margins.left
                     }
+
                     image.draw(in: CGRect(x: drawX, y: currentY, width: drawWidth, height: drawHeight))
                     currentY += drawHeight
                     remainingHeight -= drawHeight
@@ -372,6 +372,7 @@ struct PDFPreviewContainer: View {
                     let drawScale = min(safeScale, remainingHeight / originalHeight)
                     let drawWidth = originalWidth * drawScale
                     let drawHeight = originalHeight * drawScale
+
                     switch alignment {
                     case .center:
                         drawX = margins.left + (contentWidth - drawWidth) / 2
@@ -380,6 +381,7 @@ struct PDFPreviewContainer: View {
                     case .leading:
                         drawX = margins.left
                     }
+
                     image.draw(in: CGRect(x: drawX, y: currentY, width: drawWidth, height: drawHeight))
                     currentY += drawHeight
                     remainingHeight -= drawHeight
@@ -439,9 +441,6 @@ struct PrintableCardView: View {
 
             if !card.memo.isEmpty {
                 VStack(alignment: .leading, spacing: 6) {
-                    /*Text("めも")
-                        .font(.system(size: CGFloat(max(card.textSize - 4, 8)), weight: .bold))
-                        .foregroundColor(card.textColor.opacity(0.7))*/
                     Text(card.memo)
                         .font(.system(size: CGFloat(max(card.textSize - 4, 8))))
                         .foregroundColor(card.textColor)
@@ -458,7 +457,10 @@ struct PrintableCardView: View {
             if card.hasLocation && card.printLocation {
                 VStack(alignment: .leading, spacing: 6) {
                     if let snapshot = mapSnapshot {
-                        SquareContainer(size: maxWidth - 32) {
+                        let scale = max(0.5, min(card.mapDisplayScale, 1.0))
+
+                        // Mapだけを縮小。VStackがleadingなので縮小後も左寄せになります。
+                        SquareContainer(size: (maxWidth - 32) * scale) {
                             Image(uiImage: snapshot)
                                 .resizable()
                                 .scaledToFill()
@@ -472,6 +474,7 @@ struct PrintableCardView: View {
             if card.hasURL && card.printWebPage {
                 VStack(alignment: .leading, spacing: 6) {
                     if let webImage = webSnapshot {
+                        // WebページにはmapDisplayScaleを適用せず、正方形のまま表示します。
                         SquareContainer(size: maxWidth - 32) {
                             Image(uiImage: webImage)
                                 .resizable()
@@ -511,7 +514,7 @@ struct PrintableCardView: View {
         })
         .cornerRadius(18)
         .modifier(CardBorderModifier(style: card.borderStyle, color: card.borderColor, lineWidth: CGFloat(card.borderWidth), radius: 18))
-        .modifier(CardShadowModifier(enabled: card.showShadow))
+        .modifier(PrintableCardShadowModifier(enabled: card.showShadow))
     }
 }
 
@@ -598,14 +601,21 @@ struct PrintLayoutManualPageBreaksEditor: View {
                             Toggle("改ページ", isOn: Binding(
                                 get: { manualPageBreaks.contains(card.id) },
                                 set: { newValue in
-                                    if newValue { manualPageBreaks.insert(card.id) } else { manualPageBreaks.remove(card.id) }
+                                    if newValue {
+                                        manualPageBreaks.insert(card.id)
+                                    } else {
+                                        manualPageBreaks.remove(card.id)
+                                    }
                                 }
                             ))
                             .labelsHidden()
                         }
 
                         HStack(alignment: .center, spacing: 12) {
-                            Picker("配置", selection: Binding(get: { cardAlignments[card.id] ?? .center }, set: { cardAlignments[card.id] = $0 })) {
+                            Picker("配置", selection: Binding(
+                                get: { cardAlignments[card.id] ?? .center },
+                                set: { cardAlignments[card.id] = $0 }
+                            )) {
                                 ForEach(CardHorizontalAlignment.allCases, id: \.self) { option in
                                     Text(option.title).tag(option)
                                 }
@@ -618,15 +628,26 @@ struct PrintLayoutManualPageBreaksEditor: View {
                             Text("縮小")
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
-                            Slider(value: Binding(get: { cardScales[card.id] ?? 1.0 }, set: { cardScales[card.id] = $0 }), in: 0.25...1.0, step: 0.05)
+                            Slider(
+                                value: Binding(
+                                    get: { cardScales[card.id] ?? 1.0 },
+                                    set: { cardScales[card.id] = $0 }
+                                ),
+                                in: 0.25...1.0,
+                                step: 0.05
+                            )
                             Text("\(Int(((cardScales[card.id] ?? 1.0) * 100).rounded()))%")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                                 .frame(minWidth: 44, alignment: .trailing)
                         }
                         .onAppear {
-                            if cardAlignments[card.id] == nil { cardAlignments[card.id] = .center }
-                            if cardScales[card.id] == nil { cardScales[card.id] = 1.0 }
+                            if cardAlignments[card.id] == nil {
+                                cardAlignments[card.id] = .center
+                            }
+                            if cardScales[card.id] == nil {
+                                cardScales[card.id] = 1.0
+                            }
                         }
                     }
                     .padding(.vertical, 4)
@@ -652,7 +673,7 @@ struct PrintLayoutManualPageBreaksEditor: View {
     }
 }
 
-private struct CardShadowModifier: ViewModifier {
+private struct PrintableCardShadowModifier: ViewModifier {
     let enabled: Bool
     let radius: CGFloat = 18
 
@@ -764,16 +785,30 @@ func makeWebSnapshot(for card: TravelCard, size: CGSize) async -> UIImage? {
             static var associationKey: UInt8 = 0
             let continuation: CheckedContinuation<Void, Never>
             private var didResume = false
-            init(_ continuation: CheckedContinuation<Void, Never>) { self.continuation = continuation }
+
+            init(_ continuation: CheckedContinuation<Void, Never>) {
+                self.continuation = continuation
+            }
+
             private func finish() {
                 guard !didResume else { return }
                 didResume = true
                 continuation.resume(returning: ())
             }
-            func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) { finish() }
-            func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) { finish() }
-            func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) { finish() }
+
+            func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+                finish()
+            }
+
+            func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+                finish()
+            }
+
+            func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+                finish()
+            }
         }
+
         let delegate = NavigationDelegate(continuation)
         objc_setAssociatedObject(webView, &NavigationDelegate.associationKey, delegate, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         webView.navigationDelegate = delegate

@@ -172,7 +172,7 @@ struct DateSelectionView: View {
         }
     }
 }
-#Preview("シート設定ビュー") {
+#Preview("シート設定ビュー") { @Previewable
     @State var title = "サンプルプラン"
     @State var color = Color.blue
     @State var cardBgColor = Color(.systemGray6)
@@ -204,8 +204,7 @@ struct DateSelectionView: View {
     )
 }
 
-#Preview("日付選択ビュー") {
+#Preview("日付選択ビュー") { @Previewable
     @State var date = Date()
     DateSelectionView(selectedDate: $date, title: "日付設定", onCancel: {}, onDone: {})
 }
-
