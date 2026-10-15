@@ -516,22 +516,49 @@ struct CardEditView: View {
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
-                        HStack(spacing: 8) {
-                            Button {
-                                card.mapDisplayScale = 1.0
-                            } label: { Text("大 100%") }
-                            .buttonStyle(.bordered)
+                        VStack {
+                            HStack(spacing: 8) {
+                                Button {
+                                    card.mapDisplayScale = 1.0
+                                } label: { Text("大 100%") }
+                                .buttonStyle(.bordered)
 
-                            Button {
-                                card.mapDisplayScale = 0.75
-                            } label: { Text("中 75%") }
-                            .buttonStyle(.bordered)
+                                Button {
+                                    card.mapDisplayScale = 0.75
+                                } label: { Text("中 75%") }
+                                .buttonStyle(.bordered)
 
-                            Button {
-                                card.mapDisplayScale = 0.5
-                            } label: { Text("小 50%") }
-                            .buttonStyle(.bordered)
+                                Button {
+                                    card.mapDisplayScale = 0.5
+                                } label: { Text("小 50%") }
+                                .buttonStyle(.bordered)
+                            }
+                            HStack {
+                                if abs(card.mapDisplayScale - 0.5) < 0.001 {
+                                    Picker(
+                                        "Mapの説明",
+                                        selection: $card.showMapDescription
+                                    ) {
+                                        Text("Mapの説明を追加する").tag(true)
+                                        Text("追加しない").tag(false)
+                                    }
+                                    .pickerStyle(.segmented)
+
+                                    if card.showMapDescription {
+                                        VStack(alignment: .leading, spacing: 6) {
+                                            Text("Mapの説明")
+                                                .font(.subheadline)
+                                                .foregroundColor(.secondary)
+
+                                            TextEditor(text: $card.mapDescription)
+                                                .frame(minHeight: 100)
+                                        }
+                                    }
+                                }
+                            }
+                            
                         }
+                        
                     }
 
                     VStack(alignment: .leading, spacing: 8) {

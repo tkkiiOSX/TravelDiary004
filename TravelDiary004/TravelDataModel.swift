@@ -273,6 +273,8 @@ struct TravelCard: Identifiable, Hashable, Codable {
     var longitude: Double = 0.0
     var mapZoomDelta: Double = 0.08
     var mapDisplayScale: Double = 1.0
+    var showMapDescription: Bool = false
+    var mapDescription: String = ""
     var url: String = ""
     var category: String = "該当なし"
     var showDate: Bool = false
@@ -514,6 +516,8 @@ struct TravelCard: Identifiable, Hashable, Codable {
         case longitude
         case mapZoomDelta
         case mapDisplayScale
+        case showMapDescription
+        case mapDescription
         case url
         case category
         case showDate
@@ -543,6 +547,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
         case showSafariJumpButton
         case showMapJumpButton
         case dateFormatRaw
+        
     }
 
     init(
@@ -557,6 +562,8 @@ struct TravelCard: Identifiable, Hashable, Codable {
         longitude: Double = 0.0,
         mapZoomDelta: Double = 0.08,
         mapDisplayScale: Double = 1.0,
+        showMapDescription: Bool = false,
+        mapDescription: String = "",
         url: String = "",
         category: String = "該当なし",
         showDate: Bool = false,
@@ -627,6 +634,8 @@ struct TravelCard: Identifiable, Hashable, Codable {
         self.showSafariJumpButton = showSafariJumpButton
         self.showMapJumpButton = showMapJumpButton
         self.dateFormatRaw = dateFormatRaw
+        self.showMapDescription = showMapDescription
+        self.mapDescription = mapDescription
     }
 
     init(from decoder: Decoder) throws {
@@ -671,6 +680,8 @@ struct TravelCard: Identifiable, Hashable, Codable {
         showSafariJumpButton = try container.decodeIfPresent(Bool.self, forKey: .showSafariJumpButton) ?? false
         showMapJumpButton = try container.decodeIfPresent(Bool.self, forKey: .showMapJumpButton) ?? false
         dateFormatRaw = try container.decodeIfPresent(String.self, forKey: .dateFormatRaw) ?? CardDateFormat.slash.rawValue
+        showMapDescription = try container.decodeIfPresent(Bool.self, forKey: .showMapDescription) ?? false
+        mapDescription = try container.decodeIfPresent(String.self, forKey: .mapDescription) ?? ""
     }
 
     func encode(to encoder: Encoder) throws {
@@ -715,6 +726,8 @@ struct TravelCard: Identifiable, Hashable, Codable {
         try container.encode(showSafariJumpButton, forKey: .showSafariJumpButton)
         try container.encode(showMapJumpButton, forKey: .showMapJumpButton)
         try container.encode(dateFormatRaw, forKey: .dateFormatRaw)
+        try container.encode(showMapDescription, forKey: .showMapDescription)
+        try container.encode(mapDescription, forKey: .mapDescription)
     }
 }
 

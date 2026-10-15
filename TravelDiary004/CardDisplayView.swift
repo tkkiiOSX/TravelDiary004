@@ -58,6 +58,53 @@ private struct ScaledSquareMapView: View {
     }
 }
 
+private struct MapWithDescriptionView: View {
+    let card: TravelCard
+    @Binding var position: MapCameraPosition
+
+    var body: some View {
+        GeometryReader { geometry in
+            let mapSide = geometry.size.width * 0.5
+
+            HStack(alignment: .top, spacing: 8) {
+                Map(position: $position) {
+                    Marker(
+                        card.locationName.isEmpty ? "選択地点" : card.locationName,
+                        coordinate: card.coordinate
+                    )
+                    .tint(.red)
+                }
+                .mapStyle(.standard)
+                .allowsHitTesting(false)
+                .frame(width: mapSide, height: mapSide)
+                .cornerRadius(14)
+
+                Text(card.mapDescription)
+                    .font(.system(size: CGFloat(max(card.textSize - 4, 8))))
+                    .foregroundColor(card.textColor)
+                    .lineLimit(nil)
+                    .minimumScaleFactor(0.5)
+                    .frame(
+                        width: max(1, geometry.size.width - mapSide - 8),
+                        height: mapSide,
+                        alignment: .topLeading
+                    )
+                    .clipped()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+        }
+        .aspectRatio(2, contentMode: .fit)
+        .onAppear {
+            position = .region(
+                card.mapRegion(
+                    latitudeDelta: card.mapZoomDelta,
+                    longitudeDelta: card.mapZoomDelta
+                )
+            )
+        }
+    }
+}
+
 struct CardDisplayView: View {
     let card: TravelCard
 
@@ -111,7 +158,12 @@ struct CardDisplayView: View {
 
             if card.hasLocation {
                 VStack(alignment: .leading, spacing: 6) {
-                    ScaledSquareMapView(card: card, position: $position)
+                    //ScaledSquareMapView(card: card, position: $position)
+                    if abs(card.mapDisplayScale - 0.5) < 0.001 && card.showMapDescription {
+                        MapWithDescriptionView(card: card, position: $position)
+                    } else {
+                        ScaledSquareMapView(card: card, position: $position)
+                    }
 
                     if card.showMapJumpButton {
                         let coordinate = CLLocationCoordinate2D(

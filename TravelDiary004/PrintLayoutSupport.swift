@@ -458,15 +458,37 @@ struct PrintableCardView: View {
                 VStack(alignment: .leading, spacing: 6) {
                     if let snapshot = mapSnapshot {
                         let scale = max(0.5, min(card.mapDisplayScale, 1.0))
+                        let mapSize = (maxWidth - 32) * scale
 
-                        // Mapだけを縮小。VStackがleadingなので縮小後も左寄せになります。
-                        SquareContainer(size: (maxWidth - 32) * scale) {
-                            Image(uiImage: snapshot)
-                                .resizable()
-                                .scaledToFill()
-                                .clipped()
+                        if abs(card.mapDisplayScale - 0.5) < 0.001 && card.showMapDescription {
+                            HStack(alignment: .top, spacing: 8) {
+                                SquareContainer(size: mapSize) {
+                                    Image(uiImage: snapshot)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .clipped()
+                                }
+                                .cornerRadius(14)
+
+                                Text(card.mapDescription)
+                                    .font(.system(size: CGFloat(max(card.textSize - 4, 8))))
+                                    .foregroundColor(card.textColor)
+                                    .lineLimit(nil)
+                                    .minimumScaleFactor(0.5)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                                    .clipped()
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .frame(height: mapSize)
+                        } else {
+                            SquareContainer(size: mapSize) {
+                                Image(uiImage: snapshot)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .clipped()
+                            }
+                            .cornerRadius(14)
                         }
-                        .cornerRadius(14)
                     }
                 }
             }
