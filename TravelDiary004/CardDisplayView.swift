@@ -1,5 +1,3 @@
-
-
 //
 //  CardDisplayView.swift
 //  TravelDiary004
@@ -213,6 +211,22 @@ struct CardDisplayView: View {
                 }
             }
 
+            if card.showSafariJumpButton, let url = displayURL {
+                Button {
+                    openURL(url)
+                } label: {
+                    Image(systemName: "safari")
+                        .font(.title2)
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .background(Circle().fill(Color.accentColor))
+                        .shadow(radius: 3)
+                }
+                .buttonStyle(.plain)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading, 8)
+            }
+
             if let imageData = card.imageData,
                let uiImage = UIImage(data: imageData) {
                 ZStack {
@@ -296,4 +310,3 @@ struct CardDisplayView: View {
 
     return CardDisplayView(card: card)
 }
-
