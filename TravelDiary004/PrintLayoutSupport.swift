@@ -801,7 +801,13 @@ func makeWebSnapshot(for card: TravelCard, size: CGSize) async -> UIImage? {
     guard let url = makeURL(from: card.url) else { return nil }
 
     let webView = WKWebView(frame: CGRect(origin: .zero, size: size))
+    webView.isOpaque = false
+    webView.backgroundColor = .clear
+    webView.scrollView.backgroundColor = .clear
+
     let request = URLRequest(url: url)
+
+    // 1) Load and wait for navigation callbacks
     await withCheckedContinuation { continuation in
         class NavigationDelegate: NSObject, WKNavigationDelegate {
             static var associationKey: UInt8 = 0
@@ -837,7 +843,18 @@ func makeWebSnapshot(for card: TravelCard, size: CGSize) async -> UIImage? {
         webView.load(request)
     }
 
-    await waitForWebViewToStabilize(webView)
+    // 2) Wait for stability (readyState complete, not loading, progress 1.0)
+    await waitForWebViewToStabilize(webView, timeout: 20, settleDelay: 1.0)
+
+    // 3) Additionally wait until the document has non-zero content height
+    let contentReady = await waitForNonZeroContentHeight(in: webView, timeout: 10, settleDelay: 0.5)
+    if !contentReady {
+        // If content height is still zero, bail out (avoid white page snapshot)
+        return nil
+    }
+
+    // 4) Small extra delay to let final paints finish
+    try? await Task.sleep(nanoseconds: 200_000_000)
 
     let configuration = WKSnapshotConfiguration()
     configuration.rect = CGRect(origin: .zero, size: size)
@@ -871,6 +888,40 @@ func waitForWebViewToStabilize(_ webView: WKWebView, timeout: TimeInterval = 15,
         }
 
         try? await Task.sleep(nanoseconds: 250_000_000)
+    }
+}
+
+@MainActor
+func waitForNonZeroContentHeight(in webView: WKWebView, timeout: TimeInterval = 10, settleDelay: TimeInterval = 0.5) async -> Bool {
+    let deadline = Date().addingTimeInterval(timeout)
+    var stableSince: Date?
+
+    while Date() < deadline {
+        let height = await webViewContentHeight(webView)
+        let isReady = height > 0.0 && !webView.isLoading && webView.estimatedProgress >= 1.0
+
+        if isReady {
+            if stableSince == nil { stableSince = Date() }
+            if let stableSince, Date().timeIntervalSince(stableSince) >= settleDelay {
+                return true
+            }
+        } else {
+            stableSince = nil
+        }
+
+        try? await Task.sleep(nanoseconds: 200_000_000)
+    }
+    return false
+}
+
+@MainActor
+private func webViewContentHeight(_ webView: WKWebView) async -> Double {
+    await withCheckedContinuation { continuation in
+        let js = "(function(){ var b=document.body, e=document.documentElement; var h=Math.max(b?b.scrollHeight:0, b?b.offsetHeight:0, e?e.clientHeight:0, e?e.scrollHeight:0, e?e.offsetHeight:0); return h; })();"
+        webView.evaluateJavaScript(js) { value, _ in
+            if let num = value as? NSNumber { continuation.resume(returning: num.doubleValue) }
+            else { continuation.resume(returning: 0.0) }
+        }
     }
 }
 
