@@ -400,8 +400,8 @@ struct PrintLayoutView: View {
         let hostingController = UIHostingController(rootView: PrintCardPage(card: card, mapSnapshot: mapSnapshot, webSnapshot: webSnapshot)
             .frame(width: size.width, height: size.height)
             .background(ZStack {
-                card.backgroundColor
-                PatternOverlay(pattern: card.patternEffect, gradient: card.gradientEffect, baseColor: card.backgroundColor, patternColor: card.patternColor, opacity: card.patternOpacity)
+                Color.white
+                Color.clear
             }))
 
         hostingController.view.bounds = CGRect(origin: .zero, size: size)
@@ -453,8 +453,8 @@ struct PrintCardPage: View {
     var body: some View {
         ZStack {
             ZStack {
-                card.backgroundColor
-                PatternOverlay(pattern: card.patternEffect, gradient: card.gradientEffect, baseColor: card.backgroundColor, patternColor: card.patternColor, opacity: card.patternOpacity)
+                Color.white
+                Color.clear
             }
             GeometryReader { proxy in
                 // Define sample page area with margins similar to PDF, but adaptive to preview size
@@ -472,8 +472,8 @@ struct PrintCardPage: View {
                     maxWidth: contentWidth
                 )
                 .background(ZStack {
-                    card.backgroundColor
-                    PatternOverlay(pattern: card.patternEffect, gradient: card.gradientEffect, baseColor: card.backgroundColor, patternColor: card.patternColor, opacity: card.patternOpacity)
+                    Color.white
+                    Color.clear
                 })
                 .cornerRadius(20)
                 // no shadow here per instructions

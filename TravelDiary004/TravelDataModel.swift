@@ -111,11 +111,6 @@ struct TravelSheet: Identifiable, Hashable, Codable {
 }
 
 struct TravelCard: Identifiable, Hashable, Codable {
-    static let defaultBackgroundColorHex = "#FFFFFF"
-    static let defaultTextColorHex = "#000000"
-    static let defaultPatternColorHex = "#D0D0D0"
-    static let defaultBorderColorHex = "#000000"
-    static let highlightedDefaultBackgroundColorHex = "#EBC299"
 
     var id: UUID = UUID()
     var date: Date = Date()
@@ -132,102 +127,7 @@ struct TravelCard: Identifiable, Hashable, Codable {
     var printLocation: Bool = true
     var printWebPage: Bool = true
     var printPhoto: Bool = true
-    var showShadow: Bool = true
-    var backgroundColorHex: String = defaultBackgroundColorHex
-    var textColorHex: String = defaultTextColorHex
-    var patternColorHex: String = defaultPatternColorHex
-    var borderColorHex: String = defaultBorderColorHex
-    var borderWidth: Double = 2.0
-    var borderStyleRaw: String = CardBorderStyle.none.rawValue
-    var patternOpacity: Double = 0.45
 
-    var backgroundEffectRaw: String = BackgroundEffect.none.rawValue
-    var patternEffectRaw: String = PatternEffect.none.rawValue
-    var gradientEffectRaw: String = GradientEffect.none.rawValue
-
-    var backgroundEffect: BackgroundEffect {
-        get { BackgroundEffect(rawValue: backgroundEffectRaw) ?? .none }
-        set { backgroundEffectRaw = newValue.rawValue }
-    }
-
-    var patternEffect: PatternEffect {
-        get { PatternEffect(rawValue: patternEffectRaw) ?? .none }
-        set { patternEffectRaw = newValue.rawValue }
-    }
-
-    var gradientEffect: GradientEffect {
-        get { GradientEffect(rawValue: gradientEffectRaw) ?? .none }
-        set { gradientEffectRaw = newValue.rawValue }
-    }
-
-    var effectivePattern: PatternEffect {
-        if patternEffect != .none { return patternEffect }
-        // Map legacy backgroundEffect to pattern if available
-        switch backgroundEffect {
-        case .dots: return .dots
-        case .checkered: return .checkered
-        case .ichimatsu: return .ichimatsu
-        default: return .none
-        }
-    }
-
-    var effectiveGradient: GradientEffect {
-        if gradientEffect != .none { return gradientEffect }
-        // Map legacy backgroundEffect .gradient to horizontal by default
-        switch backgroundEffect {
-        case .gradient: return .horizontal
-        default: return .none
-        }
-    }
-
-    var backgroundColor: Color {
-        Color(hex: backgroundColorHex)
-    }
-
-    var textColor: Color {
-        Color(hex: textColorHex)
-    }
-
-    var patternColor: Color {
-        Color(hex: patternColorHex)
-    }
-
-    var borderColor: Color {
-        Color(hex: borderColorHex)
-    }
-
-    var borderStyle: CardBorderStyle {
-        get { CardBorderStyle(rawValue: borderStyleRaw) ?? .none }
-        set { borderStyleRaw = newValue.rawValue }
-    }
-
-    var patternUIColor: UIColor {
-        UIColor(hex: patternColorHex) ?? .lightGray
-    }
-
-    var hasLowColorContrast: Bool {
-        backgroundUIColor.contrastRatio(with: textUIColor) < 3.0
-    }
-
-    var hasPatternColorConflict: Bool {
-        normalizedHex(backgroundColorHex) == normalizedHex(patternColorHex)
-    }
-
-    private var backgroundUIColor: UIColor {
-        UIColor(hex: backgroundColorHex) ?? .white
-    }
-
-    private var textUIColor: UIColor {
-        UIColor(hex: textColorHex) ?? .black
-    }
-
-    private func normalizedHex(_ value: String) -> String {
-        let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        if trimmed.hasPrefix("#") {
-            return String(trimmed.dropFirst())
-        }
-        return trimmed
-    }
 
     var image: Image {
         if let data = imageData, let uiImage = UIImage(data: data) {
@@ -274,23 +174,6 @@ struct TravelCard: Identifiable, Hashable, Codable {
         TravelCard.categoryOptions.first(where: { $0.0 == category })?.2
     }
 
-    static func defaultCardBackgroundColorHex(for sheetBackgroundColorHex: String) -> String {
-        let normalizedHex = normalizedHexString(sheetBackgroundColorHex)
-        if normalizedHex == defaultBackgroundColorHex.replacingOccurrences(of: "#", with: "") ||
-            normalizedHex == "F5F5DC" {
-            return highlightedDefaultBackgroundColorHex
-        }
-        return sheetBackgroundColorHex
-    }
-
-    static func normalizedHexString(_ value: String) -> String {
-        let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        if trimmed.hasPrefix("#") {
-            return String(trimmed.dropFirst())
-        }
-        return trimmed
-    }
-
     enum CodingKeys: String, CodingKey {
         case id
         case date
@@ -307,17 +190,6 @@ struct TravelCard: Identifiable, Hashable, Codable {
         case printLocation
         case printWebPage
         case printPhoto
-        case showShadow
-        case backgroundColorHex
-        case textColorHex
-        case patternColorHex
-        case borderColorHex
-        case borderWidth
-        case borderStyleRaw
-        case patternOpacity
-        case backgroundEffectRaw
-        case patternEffectRaw
-        case gradientEffectRaw
     }
 
     init(
@@ -336,17 +208,6 @@ struct TravelCard: Identifiable, Hashable, Codable {
         printLocation: Bool = true,
         printWebPage: Bool = true,
         printPhoto: Bool = true,
-        showShadow: Bool = true,
-        backgroundColorHex: String = defaultBackgroundColorHex,
-        textColorHex: String = defaultTextColorHex,
-        patternColorHex: String = defaultPatternColorHex,
-        borderColorHex: String = defaultBorderColorHex,
-        borderWidth: Double = 2.0,
-        borderStyleRaw: String = CardBorderStyle.none.rawValue,
-        patternOpacity: Double = 0.45,
-        backgroundEffectRaw: String = BackgroundEffect.none.rawValue,
-        patternEffectRaw: String = PatternEffect.none.rawValue,
-        gradientEffectRaw: String = GradientEffect.none.rawValue
     ) {
         self.id = id
         self.date = date
@@ -363,17 +224,6 @@ struct TravelCard: Identifiable, Hashable, Codable {
         self.printLocation = printLocation
         self.printWebPage = printWebPage
         self.printPhoto = printPhoto
-        self.showShadow = showShadow
-        self.backgroundColorHex = backgroundColorHex
-        self.textColorHex = textColorHex
-        self.patternColorHex = patternColorHex
-        self.borderColorHex = borderColorHex
-        self.borderWidth = borderWidth
-        self.borderStyleRaw = borderStyleRaw
-        self.patternOpacity = patternOpacity
-        self.backgroundEffectRaw = backgroundEffectRaw
-        self.patternEffectRaw = patternEffectRaw
-        self.gradientEffectRaw = gradientEffectRaw
     }
 
     init(from decoder: Decoder) throws {
@@ -393,17 +243,6 @@ struct TravelCard: Identifiable, Hashable, Codable {
         printLocation = try container.decodeIfPresent(Bool.self, forKey: .printLocation) ?? true
         printWebPage = try container.decodeIfPresent(Bool.self, forKey: .printWebPage) ?? true
         printPhoto = try container.decodeIfPresent(Bool.self, forKey: .printPhoto) ?? true
-        showShadow = try container.decodeIfPresent(Bool.self, forKey: .showShadow) ?? true
-        backgroundColorHex = try container.decodeIfPresent(String.self, forKey: .backgroundColorHex) ?? Self.defaultBackgroundColorHex
-        textColorHex = try container.decodeIfPresent(String.self, forKey: .textColorHex) ?? Self.defaultTextColorHex
-        patternColorHex = try container.decodeIfPresent(String.self, forKey: .patternColorHex) ?? Self.defaultPatternColorHex
-        borderColorHex = try container.decodeIfPresent(String.self, forKey: .borderColorHex) ?? Self.defaultBorderColorHex
-        borderWidth = try container.decodeIfPresent(Double.self, forKey: .borderWidth) ?? 2.0
-        borderStyleRaw = try container.decodeIfPresent(String.self, forKey: .borderStyleRaw) ?? CardBorderStyle.none.rawValue
-        patternOpacity = try container.decodeIfPresent(Double.self, forKey: .patternOpacity) ?? 0.45
-        backgroundEffectRaw = try container.decodeIfPresent(String.self, forKey: .backgroundEffectRaw) ?? BackgroundEffect.none.rawValue
-        patternEffectRaw = try container.decodeIfPresent(String.self, forKey: .patternEffectRaw) ?? PatternEffect.none.rawValue
-        gradientEffectRaw = try container.decodeIfPresent(String.self, forKey: .gradientEffectRaw) ?? GradientEffect.none.rawValue
     }
 
     func encode(to encoder: Encoder) throws {
@@ -423,17 +262,6 @@ struct TravelCard: Identifiable, Hashable, Codable {
         try container.encode(printLocation, forKey: .printLocation)
         try container.encode(printWebPage, forKey: .printWebPage)
         try container.encode(printPhoto, forKey: .printPhoto)
-        try container.encode(showShadow, forKey: .showShadow)
-        try container.encode(backgroundColorHex, forKey: .backgroundColorHex)
-        try container.encode(textColorHex, forKey: .textColorHex)
-        try container.encode(patternColorHex, forKey: .patternColorHex)
-        try container.encode(borderColorHex, forKey: .borderColorHex)
-        try container.encode(borderWidth, forKey: .borderWidth)
-        try container.encode(borderStyleRaw, forKey: .borderStyleRaw)
-        try container.encode(patternOpacity, forKey: .patternOpacity)
-        try container.encode(backgroundEffectRaw, forKey: .backgroundEffectRaw)
-        try container.encode(patternEffectRaw, forKey: .patternEffectRaw)
-        try container.encode(gradientEffectRaw, forKey: .gradientEffectRaw)
     }
 }
 

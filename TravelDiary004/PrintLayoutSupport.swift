@@ -281,12 +281,12 @@ struct PrintableCardView: View {
                 if let icon = card.iconName(), !icon.isEmpty {
                     Image(systemName: icon)
                         .font(.title)
-                        .foregroundColor(card.textColor)
+                        .foregroundColor(.primary)
                 }
                 if !card.title.isEmpty {
                     Text(card.title)
                         .font(.subheadline)
-                        .foregroundColor(card.textColor)
+                        .foregroundColor(.primary)
                         .bold()
                 }
                 Spacer()
@@ -296,10 +296,10 @@ struct PrintableCardView: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(card.date, style: .date)
                         .font(.headline)
-                        .foregroundColor(card.textColor)
+                        .foregroundColor(.primary)
                     Text(card.date, style: .time)
                         .font(.subheadline)
-                        .foregroundColor(card.textColor.opacity(0.8))
+                        .foregroundColor(.primary.opacity(0.8))
                 }
             }
 
@@ -307,11 +307,11 @@ struct PrintableCardView: View {
                 VStack(alignment: .leading, spacing: 6) {
                     Text("メモ")
                         .font(.subheadline)
-                        .foregroundColor(card.textColor.opacity(0.7))
+                        .foregroundColor(.primary.opacity(0.7))
                         .bold()
                     Text(card.memo)
                         .font(.body)
-                        .foregroundColor(card.textColor)
+                        .foregroundColor(.primary)
                         .fixedSize(horizontal: false, vertical: true)
                 }
             }
@@ -320,7 +320,7 @@ struct PrintableCardView: View {
                 VStack(alignment: .leading, spacing: 6) {
                     Text("MAP")
                         .font(.subheadline)
-                        .foregroundColor(card.textColor.opacity(0.7))
+                        .foregroundColor(.primary.opacity(0.7))
                         .bold()
                     if let snapshot = mapSnapshot {
                         SquareContainer(size: maxWidth - 32) {
@@ -338,7 +338,7 @@ struct PrintableCardView: View {
                 VStack(alignment: .leading, spacing: 6) {
                     Text("Web表示")
                         .font(.subheadline)
-                        .foregroundColor(card.textColor.opacity(0.7))
+                        .foregroundColor(.primary.opacity(0.7))
                         .bold()
                     if let webImage = webSnapshot {
                         SquareContainer(size: maxWidth - 32) {
@@ -356,7 +356,7 @@ struct PrintableCardView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("写真")
                         .font(.headline)
-                        .foregroundColor(card.textColor.opacity(0.7))
+                        .foregroundColor(.primary.opacity(0.7))
                         .bold()
                     SquareContainer(size: maxWidth - 32) {
                         let isLandscape = uiImage.size.width >= uiImage.size.height
@@ -379,12 +379,12 @@ struct PrintableCardView: View {
         }
         .padding()
         .background(ZStack {
-            card.backgroundColor
-            PatternOverlay(pattern: card.patternEffect, gradient: card.gradientEffect, baseColor: card.backgroundColor, patternColor: card.patternColor, opacity: card.patternOpacity)
+            Color.white
+            Color.clear
         })
         .cornerRadius(18)
-        .modifier(CardBorderModifier(style: card.borderStyle, color: card.borderColor, lineWidth: CGFloat(card.borderWidth), radius: 18))
-        .modifier(CardShadowModifier(enabled: card.showShadow))
+        .modifier(CardBorderModifier(style: .none, color: .black, lineWidth: 0, radius: 18))
+        .modifier(CardShadowModifier(enabled: true))
     }
 }
 

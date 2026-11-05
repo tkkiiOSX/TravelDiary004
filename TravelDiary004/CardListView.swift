@@ -185,10 +185,7 @@ struct CardListView: View {
             if let sheet = selectedSheet {
                 NavigationStack {
                     CardEditView(
-                        card: TravelCard(
-                            backgroundColorHex: TravelCard.defaultCardBackgroundColorHex(for: sheet.backgroundColorHex),
-                            textColorHex: TravelCard.defaultTextColorHex
-                        ),
+                        card: TravelCard(),
                         sheet: sheet
                     ) { updatedCard in
                         model.addCard(updatedCard, to: sheet)
@@ -258,12 +255,12 @@ private struct CardDisplayView: View {
                     if let icon = card.iconName(), !icon.isEmpty {
                         Image(systemName: icon)
                             .font(.title)
-                            .foregroundColor(card.textColor)
+                            .foregroundColor(.primary)
                     }
                     if !card.title.isEmpty {
                         Text(card.title)
                             .font(.subheadline)
-                            .foregroundColor(card.textColor)
+                            .foregroundColor(.primary)
                             .bold()
                     }
                     Spacer()
@@ -274,10 +271,10 @@ private struct CardDisplayView: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(card.date, style: .date)
                         .font(.headline)
-                        .foregroundColor(card.textColor)
+                        .foregroundColor(.primary)
                     Text(card.date, style: .time)
                         .font(.subheadline)
-                        .foregroundColor(card.textColor.opacity(0.8))
+                        .foregroundColor(.primary.opacity(0.8))
                 }
             }
 
@@ -285,11 +282,11 @@ private struct CardDisplayView: View {
                 VStack(alignment: .leading, spacing: 6) {
                     Text("メモ")
                         .font(.subheadline)
-                        .foregroundColor(card.textColor.opacity(0.7))
+                        .foregroundColor(.primary.opacity(0.7))
                         .bold()
                     Text(card.memo)
                         .font(.body)
-                        .foregroundColor(card.textColor)
+                        .foregroundColor(.primary)
                         .fixedSize(horizontal: false, vertical: true)
                 }
             }
@@ -298,7 +295,7 @@ private struct CardDisplayView: View {
                 VStack(alignment: .leading, spacing: 6) {
                     Text("MAP")
                         .font(.subheadline)
-                        .foregroundColor(card.textColor.opacity(0.7))
+                        .foregroundColor(.primary.opacity(0.7))
                         .bold()
                     ZStack {
                         GeometryReader { geo in
@@ -329,7 +326,7 @@ private struct CardDisplayView: View {
                 VStack(alignment: .leading, spacing: 6) {
                     Text("Web表示")
                         .font(.subheadline)
-                        .foregroundColor(card.textColor.opacity(0.7))
+                        .foregroundColor(.primary.opacity(0.7))
                         .bold()
                     ZStack {
                         GeometryReader { geo in
@@ -363,14 +360,14 @@ private struct CardDisplayView: View {
         .padding()
         .background(
             ZStack {
-                card.backgroundColor
-                PatternOverlay(pattern: card.patternEffect, gradient: card.gradientEffect, baseColor: card.backgroundColor, patternColor: card.patternColor, opacity: card.patternOpacity)
+                Color.white
+                Color.clear
             }
         )
-        .foregroundColor(card.textColor)
+        .foregroundColor(.primary)
         .cornerRadius(18)
-        .modifier(CardBorderModifier(style: card.borderStyle, color: card.borderColor, lineWidth: CGFloat(card.borderWidth), radius: 18))
-        .modifier(CardShadowModifier(enabled: card.showShadow))
+        .modifier(CardBorderModifier(style: .none, color: .black, lineWidth: 0, radius: 18))
+        .modifier(CardShadowModifier(enabled: true))
     }
 
     private var displayURL: URL? {
